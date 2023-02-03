@@ -1,18 +1,16 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Button, MenuItem, Link } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
+import { Route, useLocation, BrowserRouter as Router } from "react-router-dom";
 
 import GoogleAuth from './GoogleAuth';
 
-const pages = ['Browse Recipes', 'My Fridge', 'Shopping list', 'Saved Recipies'];
+const pages = [
+  { name: "Browse Recipes", path: "/browse-recipes" },
+  { name: "My Fridge", path: "/my-fridge" },
+  { name: "Shopping List", path: "/shopping-list" },
+  { name: "Saved Recipes", path: "/saved-recipes" },
+];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -32,9 +30,10 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const location = useLocation();
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{px: {md: '96px'}}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -46,7 +45,7 @@ function ResponsiveAppBar() {
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontWeight: 800,
-              fontSize: '16px',
+              fontSize: '32px',
               textDecoration: 'none',
               color: 'white',
             }}
@@ -84,19 +83,20 @@ function ResponsiveAppBar() {
               //
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                   <Typography 
                     textAlign="center"
                     fontWeight="500"
                     textTransform="none"             
                   >
-                    {page}
+                    <Link href={page.path} underline="none" color="black">
+                      {page.name}
+                    </Link>
                   </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-
           <Typography
             variant="h5"
             noWrap
@@ -119,17 +119,21 @@ function ResponsiveAppBar() {
           >
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.name}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block', textTransform: 'none', margin: '0 32px' }}
               >
-                {page}
+                <Link
+                  href={page.path}
+                  underline="none" 
+                  color="white"
+                >
+                  {page.name}
+                </Link>
               </Button>
             ))}
           </Box>
-          <Box>
           <GoogleAuth />
-          </Box>
         </Toolbar>
       </Container>
     </AppBar>
