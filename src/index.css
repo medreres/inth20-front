@@ -2,3 +2,8 @@
   box-sizing: border-box;
   margin: 0;
 }
+
+body {
+  /* TODO temproray, delete */
+  padding: 5em;
+}
