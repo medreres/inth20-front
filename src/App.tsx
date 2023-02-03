@@ -1,6 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
-import { Typography } from "@mui/material";
-import * as React from "react";
+import React from "react";
 import Footer from "./components/Footer";
 import theme from "./theme";
 

@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/system";
+import { createTheme } from "@mui/material";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -13,11 +13,11 @@ declare module "@mui/material/styles" {
   }
 }
 
-declare module "@mui/material/Button" {
-  interface ButtonPropsColorOverrides {
-    neutral: true;
-  }
-}
+// declare module "@mui/material/Button" {
+//   interface ButtonPropsColorOverrides {
+//     neutral: true;
+//   }
+// }
 const theme = createTheme({
   palette: {
     primary: { main: "#fff" },
@@ -27,7 +27,7 @@ const theme = createTheme({
   },
   typography: {
     h1: { fontSize: 48, color: "#5E5C5C", fontFamily: "Manrope" },
-    h2: { fontSize: 32, color: "#5E5C5C", fontFamily: "Manrope" },
+    h2: { fontSize: 32, color: "#5E5C5C", fontFamily: "Manrope", fontWeight: "900" },
     caption: { fontSize: 24, color: "#5E5C5C", fontFamily: "Manrope" },
     body1: { fontSize: 20, color: "#5E5C5C", fontFamily: "Manrope" },
   },
