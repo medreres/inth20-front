@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from "@emotion/react";
+import { Box } from "@mui/system";
+import React, { useEffect, useState } from "react";
+import ContactBanner from "./components/ContactBanner";
+import DishCard from "./components/DishCard";
+import Footer from "./components/Footer";
+import theme from "./theme";
+import "./App.css";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import Navbar from "./components/Navbar";
+import Header from "./components/Header";
+import BestRecipes from "./components/BestRecipes";
 
-function App() {
+export default function App() {
+  const [isSSR, setIsSSR] = useState(true);
+
+  useEffect(() => {
+    setIsSSR(false);
+  }, []);
+
+  if (isSSR) return null;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      {/* <GoogleOAuthProvider clientId={`${process.env.PUBLIC_GOOGLE_API_TOKEN}`}> */}
+      <GoogleOAuthProvider clientId="917756343353-s67bgmnpv97ijhfahvmjhu0iegr2t6pn.apps.googleusercontent.com">
+        <Navbar />
+        <Header />
+        <BestRecipes />
+        <ContactBanner />
+        <Footer />
+      </GoogleOAuthProvider>
+    </ThemeProvider>
   );
 }
-
-export default App;
