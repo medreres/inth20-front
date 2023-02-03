@@ -69,10 +69,13 @@ const Header = () => {
         item
         xs={12}
         sm={6}>
-        <Image
-          src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Ffree-vector%2Fno-image-available&psig=AOvVaw2Ex4qO7AQkT5T95ejQxWWW&ust=1675515171068000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCPDZ6siy-fwCFQAAAAAdAAAAABAD"
-          alt="image"
-          height="100%"
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWE2cA4gMLSElnMWVnB25lMSOzGt8TeIwgiA&usqp=CAU"
+          alt="dish"
+          style={{
+            borderRadius: "10px",
+          }}
+          height="350"
         />
       </Grid>
     </Grid>

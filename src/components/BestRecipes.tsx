@@ -13,8 +13,9 @@ const BestRecipes = () => {
       <Box
         display="flex"
         justifyContent="space-between"
-        gap={3}
+        // gap={3}
         my={5}
+        flexWrap="wrap"
         // m={3}
       >
         {arr.map((i) => (
