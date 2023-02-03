@@ -7,7 +7,7 @@ export default function Footer() {
     <Stack
       direction="column"
       py="3em"
-      px='5em'
+      px='6em'
       >
       <Box
         display="flex"

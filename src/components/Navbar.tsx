@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Button, MenuItem, Link } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import * as React from "react";
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Button, MenuItem, Link } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import { Route, useLocation, BrowserRouter as Router } from "react-router-dom";
 
-import GoogleAuth from './GoogleAuth';
+import GoogleAuth from "./GoogleAuth";
 
 const pages = [
   { name: "Browse Recipes", path: "/browse-recipes" },
@@ -33,33 +33,36 @@ function ResponsiveAppBar() {
   const location = useLocation();
 
   return (
-    <AppBar position="static" sx={{px: {md: '96px'}}}>
+    <AppBar
+      position="static"
+      sx={{ px: { md: "96px" } }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
+            color="secondary"
             noWrap
             component="a"
             href="/"
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
+              display: { xs: "none", md: "flex" },
               fontWeight: 800,
-              fontSize: '32px',
-              textDecoration: 'none',
-              color: 'white',
-            }}
-          >
+              fontSize: "32px",
+              textDecoration: "none",
+              // color: 'white',
+            }}>
             InFridge.
           </Typography>
-          <Box sx={{ flexGrow:.2, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 0.2, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color="secondary"
+              // color="inherit"
             >
               <MenuIcon />
             </IconButton>
@@ -67,29 +70,33 @@ function ResponsiveAppBar() {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
               //
             >
               {pages.map((page) => (
-                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography 
+                <MenuItem
+                  key={page.name}
+                  onClick={handleCloseNavMenu}>
+                  <Typography
                     textAlign="center"
                     fontWeight="500"
-                    textTransform="none"             
-                  >
-                    <Link href={page.path} underline="none" color="black">
+                    textTransform="none">
+                    <Link
+                      href={page.path}
+                      underline="none"
+                      color="black">
                       {page.name}
                     </Link>
                   </Typography>
@@ -102,32 +109,36 @@ function ResponsiveAppBar() {
             noWrap
             component="a"
             href="/"
-            color="white"
+            color="secondary"
+            // color="white"
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              display: { xs: "flex", md: "none" },
               flexGrow: 1,
               fontWeight: 800,
-              textDecoration: 'none',
-              justifyContent: 'center'
-            }}
-          >
+              textDecoration: "none",
+              justifyContent: "center",
+            }}>
             InFridge.
           </Typography>
-          <Box 
-            sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }} 
-          >
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "center" }}>
             {pages.map((page) => (
               <Button
                 key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block', textTransform: 'none', margin: '0 32px' }}
-              >
+                color="secondary"
+                sx={{
+                  my: 2,
+                  //  color: "white",
+                  display: "block",
+                  textTransform: "none",
+                  margin: "0 32px",
+                }}>
                 <Link
                   href={page.path}
-                  underline="none" 
-                  color="white"
-                >
+                  underline="none"
+                  // color="white"
+                  color="secondary">
                   {page.name}
                 </Link>
               </Button>
