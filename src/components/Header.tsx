@@ -1,7 +1,7 @@
 import React from 'react';
-import { Typography, Button, Grid } from '@mui/material';
+import { Typography, Button, Grid, Link } from '@mui/material';
 import Image from 'mui-image';
-import Navbar from '../components/Navbar';
+import Navbar from './Navbar';
 
 const Header = () => {
   return (
@@ -10,6 +10,7 @@ const Header = () => {
         container
         justifyContent="center"
         alignItems="center"
+        padding="96px"
       >
       <Grid 
         item 
@@ -19,6 +20,7 @@ const Header = () => {
         direction="column"
         justifyContent="center"
         alignItems="flex-start"
+        textAlign="left"
       >
         <Typography 
           variant="h2"
@@ -36,7 +38,6 @@ const Header = () => {
             fontSize: '24px',
             lineHeight: '32px',
             fontWeight: '500',
-            textAlign: 'left',
             mb: '32px',
           }}
         >
@@ -52,9 +53,13 @@ const Header = () => {
             gap: '10px',
             border: '2px solid',
             borderRadius: '8px',
+            textTransform: 'none',
+            textAlign: 'center',
           }} 
         >
-        Create My Fridge
+          <Link href="/my-fridge" underline="none" color="white">
+            Create My Fridge
+          </Link>
         </Button>
       </Grid>
       <Grid item xs={12} sm={6}>
