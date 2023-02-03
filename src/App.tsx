@@ -1,31 +1,35 @@
+import { ThemeProvider } from "@emotion/react";
+import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
+import ContactBanner from "./components/ContactBanner";
+import DishCard from "./components/DishCard";
+import Footer from "./components/Footer";
+import theme from "./theme";
 import "./App.css";
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import Navbar from "./components/Navbar";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Contact from "./components/Contact";
+import BestRecipes from "./components/BestRecipes";
 
-function App() {
+export default function App() {
   const [isSSR, setIsSSR] = useState(true);
-  
+
   useEffect(() => {
     setIsSSR(false);
   }, []);
 
-  if(isSSR) return null;
+  if (isSSR) return null;
 
   return (
-  <div className="App">
-    {/* <GoogleOAuthProvider clientId={`${process.env.PUBLIC_GOOGLE_API_TOKEN}`}> */}
-    <GoogleOAuthProvider clientId="917756343353-s67bgmnpv97ijhfahvmjhu0iegr2t6pn.apps.googleusercontent.com">
-      <Navbar /> 
-      <Header />
-      <Contact />
-      <Footer />
-    </GoogleOAuthProvider>
-  </div>
-  )
+    <ThemeProvider theme={theme}>
+      {/* <GoogleOAuthProvider clientId={`${process.env.PUBLIC_GOOGLE_API_TOKEN}`}> */}
+      <GoogleOAuthProvider clientId="917756343353-s67bgmnpv97ijhfahvmjhu0iegr2t6pn.apps.googleusercontent.com">
+        <Navbar />
+        <Header />
+        <BestRecipes />
+        <ContactBanner />
+        <Footer />
+      </GoogleOAuthProvider>
+    </ThemeProvider>
+  );
 }
-
-export default App;
