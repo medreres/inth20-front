@@ -8,18 +8,19 @@ export default function ContactBanner() {
       display="flex"
       justifyContent="space-between"
       alignItems="center"
-      px='5em'
-      py={10}
+      px='6em'
+      mx='-6em'
+      py={15}
       style={{
-        backgroundColor: "#A4A4A4", // secondary light
+        backgroundColor: "#28D681", // secondary light
       }}>
       <Typography
-        variant="h1"
+        variant="h2"
         color="primary">
         Any questions? Contact us
       </Typography>
       <Typography
-        variant="h1"
+        variant="h2"
         color="primary">
         infridge@gmail.com
       </Typography>

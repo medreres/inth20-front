@@ -6,9 +6,10 @@ export default function Footer() {
   return (
     <Stack
       direction="column"
-      py="3em"
-      px='6em'
-      >
+      p="5em"
+      sx={{
+        backgroundColor: "#E9FFF4",
+      }}>
       <Box
         display="flex"
         justifyContent="space-between">
@@ -27,7 +28,7 @@ export default function Footer() {
         </Stack>
       </Box>
       <Typography
-        pt={6}
+        pt={5}
         variant="body1">
         Random © 2023
       </Typography>

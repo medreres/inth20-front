@@ -7,9 +7,9 @@ const Header = () => {
   return (
     <Grid
       container
-      justifyContent="center"
+      justifyContent=""
       alignItems="center"
-      padding="96px">
+      py="96px">
       <Grid
         item
         xs={12}

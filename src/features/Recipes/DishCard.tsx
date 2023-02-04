@@ -36,7 +36,17 @@ export default function DishCard() {
                 fontWeight="bold">
                 Bread and butter pudding
               </Typography>
-              <div onClick={clickHandler}>{isLiked ? <FavoriteRounded /> : <FavoriteBorder />}</div>
+              <div onClick={clickHandler}>
+                {isLiked ? (
+                  <FavoriteRounded
+                    sx={{
+                      color: "#28D681",
+                    }}
+                  />
+                ) : (
+                  <FavoriteBorder />
+                )}
+              </div>
             </Box>
             <Box
               display="flex"

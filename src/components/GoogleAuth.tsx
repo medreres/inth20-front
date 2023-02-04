@@ -25,11 +25,17 @@ const GoogleAuth = () => {
     <div>
       <GoogleAuthButton
         variant="contained"
+        sx={{
+          color: "#28D681",
+          background: "#28D681",
+        }}
         onClick={() => login()}>
-        <Google />{" "}
+        <Google color="primary" />{" "}
         <Typography
           ml={0.5}
-          variant="body1">
+          variant="body1"
+          fontWeight="bold"
+          color="primary">
           Sign in with Google
         </Typography>
       </GoogleAuthButton>
