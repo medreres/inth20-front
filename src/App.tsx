@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar";
 import Header from "./components/Header";
 import BestRecipes from "./components/BestRecipes";
 
+
 export default function App() {
   const [isSSR, setIsSSR] = useState(true);
 
@@ -22,7 +23,6 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* <GoogleOAuthProvider clientId={`${process.env.PUBLIC_GOOGLE_API_TOKEN}`}> */}
       <GoogleOAuthProvider clientId="917756343353-s67bgmnpv97ijhfahvmjhu0iegr2t6pn.apps.googleusercontent.com">
         <Navbar />
         <Header />

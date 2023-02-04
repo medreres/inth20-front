@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Button, MenuItem, Link } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Route, useLocation, BrowserRouter as Router } from "react-router-dom";
@@ -32,6 +32,19 @@ function ResponsiveAppBar() {
   };
   const location = useLocation();
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [accessToken, setAccessToken] = useState(null);
+
+  const handleLogin = (response: any) => {
+    setIsLoggedIn(true);
+    setAccessToken(response.accessToken);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setAccessToken(null);
+  };
+
   return (
     <AppBar
       position="static"
@@ -62,7 +75,6 @@ function ResponsiveAppBar() {
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="secondary"
-              // color="inherit"
             >
               <MenuIcon />
             </IconButton>
