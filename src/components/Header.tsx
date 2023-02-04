@@ -2,8 +2,10 @@ import React from "react";
 import { Typography, Button, Grid, Link } from "@mui/material";
 import Image from "mui-image";
 import Navbar from "./Navbar";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <Grid
       container
@@ -44,6 +46,7 @@ const Header = () => {
           Consequat libero penatibus egestas et vitae.
         </Typography>
         <Button
+          onClick={() => navigate("/my-fridge")}
           variant="contained"
           href="/"
           sx={{
@@ -56,13 +59,13 @@ const Header = () => {
             textTransform: "none",
             textAlign: "center",
           }}>
-          <Link
-            href="/my-fridge"
+          {/* <Link
+            href="/"
             underline="none"
             // color="white"
-            color="secondary">
-            Create My Fridge
-          </Link>
+            color="secondary"> */}
+          Create My Fridge
+          {/* </Link> */}
         </Button>
       </Grid>
       <Grid

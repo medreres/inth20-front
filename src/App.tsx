@@ -14,47 +14,32 @@ import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BrowseRecipes from "./pages/BrowseRecipes";
 import SearchRecipes from "./pages/SearchRecipes";
+import AuthContextProvider from "./context/auth-context";
 
 export default function App() {
-  const [isSSR, setIsSSR] = useState(true);
-
-  useEffect(() => {
-    setIsSSR(false);
-  }, []);
-
-  // ? What does it do?
-  // if (isSSR) return null;
-
   return (
-    <ThemeProvider theme={theme}>
-      {/* <GoogleOAuthProvider clientId={`${process.env.PUBLIC_GOOGLE_API_TOKEN}`}> */}
-      {/* <GoogleOAuthProvider store={store}> */}
-      <GoogleOAuthProvider clientId="917756343353-s67bgmnpv97ijhfahvmjhu0iegr2t6pn.apps.googleusercontent.com">
-        <Navbar />
-        <Routes>
-          {/* Home Page */}
-          <Route
-            path="/"
-            element={<Home />}
-          />
+    <>
+      <Navbar />
+      <Routes>
+        {/* Home Page */}
+        <Route
+          path="/"
+          element={<Home />}
+        />
 
-          {/* Browse Recipes */}
-          <Route
-            path="/browse-recipes"
-            element={<BrowseRecipes />}
-          />
+        {/* Browse Recipes */}
+        <Route
+          path="/browse-recipes"
+          element={<BrowseRecipes />}
+        />
 
-          {/* Search Recipes */}
-          <Route
-            path="/search"
-            element={<SearchRecipes />}
-          />
-        </Routes>
-        <Footer />
-      </GoogleOAuthProvider>
-    </ThemeProvider>
-    // </Provider>
-    // </GoogleOAuthProvider>
-    // </ThemeProvider>
+        {/* Search Recipes */}
+        <Route
+          path="/search"
+          element={<SearchRecipes />}
+        />
+      </Routes>
+      <Footer />
+    </>
   );
 }

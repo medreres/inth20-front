@@ -88,7 +88,8 @@ function ResponsiveAppBar() {
               {pages.map((page) => (
                 <MenuItem
                   key={page.name}
-                  onClick={handleCloseNavMenu}>
+                  onClick={handleCloseNavMenu}
+                >
                   <Typography
                     textAlign="center"
                     fontWeight="500"
@@ -144,7 +145,7 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-          <GoogleAuth  />
+          <GoogleAuth />
         </Toolbar>
       </Container>
     </AppBar>

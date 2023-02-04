@@ -7,6 +7,7 @@ const arr = [1, 2, 3, 4, 5, 6, 10];
 
 export default function SearchRecipes() {
   return (
+    // TODO send request for searched meal
     <Box
       mx="6em"
       my="5em">
