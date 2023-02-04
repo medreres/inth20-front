@@ -1,26 +1,24 @@
-// import React, { useEffect, useState } from "react";
-// import { GoogleLogin, googleLogout, useGoogleLogin  } from '@react-oauth/google';
-// import useAuthStore from '../../store/authStore';
-// import { createOrGetUser } from '../../utils';
-// import Button from "@mui/material/Button";
-// import styled from "@emotion/styled";
-// import { Google } from "@mui/icons-material";
-// import { Typography, Link } from "@mui/material";
-// import Image from "mui-image";
-
 // interface UserProfile {
 //   image: string;
 // }
 
-// const GoogleAuthButton = styled(Button)({
-//   border: "2px solid",
-//   fontWeight: 500,
-//   borderRadius: "8px",
-//   padding: "8px 16px",
-//   textTransform: "none",
-//   lineHeight: "27px",
-//   margin: "24px ",
-// });
+import styled from "@emotion/styled";
+import { Google } from "@mui/icons-material";
+import { Button, Typography } from "@mui/material";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useAuthContext } from "../context/auth-context";
+
+const GoogleAuthButton = styled(Button)({
+  border: "2px solid",
+  fontWeight: 500,
+  borderRadius: "8px",
+  padding: "8px 16px",
+  textTransform: "none",
+  lineHeight: "27px",
+  margin: "24px ",
+});
 
 // const GoogleAuth = () => {
 //   const { userProfile, addUser, removeUser } = useAuthStore();
@@ -49,55 +47,75 @@
 
 // export default GoogleAuth;
 
-import React, { useState } from 'react';
-import { GoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
-
 const GoogleAuth = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [accessToken, setAccessToken] = useState(null);
+  const { user, setUser } = useAuthContext();
 
-  const handleLogin = (response: any) => {
-    setIsLoggedIn(true);
-    setAccessToken(response.accessToken);
+  console.log(user);
+
+  const [profile, setProfile] = useState<any>(null);
+
+  const handleLogin = (credential: any) => {
+    console.log(credential);
+    setUser(credential);
   };
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    setAccessToken(null);
+    googleLogout();
+    setUser(null);
   };
+  const login = useGoogleLogin({
+    onSuccess: handleLogin,
+    // flow: "auth-code",
+  });
 
-  const getRecipes = async () => {
-    const response = await axios.get('/recipes', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  };
+  useEffect(() => {
+    if (user != null) {
+      axios
+        .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+          headers: {
+            Authorization: `Bearer ${user.access_token}`,
+            Accept: "application/json",
+          },
+        })
+        .then((res) => {
+          setProfile(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
 
-  const isAlive = async () => {
-    const response = await axios.get('/alive');
-    return response.data;
-  };
+  if (profile) {
+    return (
+      <img
+        height={64}
+        style={{
+          borderRadius: "100%",
+        }}
+        src={profile.picture}
+        alt="user image"
+      />
+    );
+  }
 
   return (
-    <div>
-      {!isLoggedIn && (
-        <GoogleLogin
-          // clientId="917756343353-s67bgmnpv97ijhfahvmjhu0iegr2t6pn.apps.googleusercontent.com"
-          onSuccess={handleLogin}
-          onError={handleLogout}
-        />
-      )}
-      {isLoggedIn && (
-        <div>
-          <p>You are logged in!</p>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      )}
-    </div>
-  )
-}
+    <GoogleAuthButton
+      variant="contained"
+      sx={{
+        color: "#28D681",
+        background: "#28D681",
+      }}
+      onClick={() => login()}>
+      <Google color="primary" />{" "}
+      <Typography
+        ml={0.5}
+        variant="body1"
+        fontWeight="bold"
+        color="primary">
+        Sign in with Google
+      </Typography>
+    </GoogleAuthButton>
+  );
+  // googleLogout();
+};
 
-export default GoogleAuth
+export default GoogleAuth;
