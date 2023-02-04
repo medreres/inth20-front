@@ -16,7 +16,8 @@ export default function SearchForm() {
         maxWidth="30em">
         <TextField
           sx={{
-            width: "30em",
+            width: "90em",
+            marginRight: "1em",
           }}
           label="Dish Name"
           color="secondary"
@@ -25,14 +26,15 @@ export default function SearchForm() {
         <FormControl fullWidth>
           <InputLabel
             color="secondary"
-            id="demo-simple-select-label">
+            id="difficulty">
             Difficulty
           </InputLabel>
           <Select
             color="secondary"
             labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Age">
+            id="difficulty"
+            label="Difficulty"
+            defaultValue="easy">
             <MenuItem value="easy">Easy</MenuItem>
             <MenuItem value="medium">Medium</MenuItem>
             <MenuItem value="hard">Hard</MenuItem>
