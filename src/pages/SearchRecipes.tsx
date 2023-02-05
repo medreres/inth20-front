@@ -16,10 +16,7 @@ export default function SearchRecipes() {
   const [difficulty, setDifficulty] = useState(searchParams.get("difficulty") ?? "all");
   const handleDifficultyChange = (e: SelectChangeEvent<string>) => setDifficulty(e.target.value);
 
-  // send request to get all the recipes
-  useEffect(() => {
-    searchRecipe("").then((result) => setRecipes(result));
-  }, []);
+
 
   // TODO make some latency before calls
   useEffect(() => {
