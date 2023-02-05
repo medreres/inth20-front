@@ -1,6 +1,7 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import { getCategories } from "../api/googleAuth";
 import BestRecipes from "../features/Recipes/BestRecipes";
 import DishCard from "../features/Recipes/DishCard";
 import FindRecipes from "../features/Recipes/FindRecipes";
@@ -8,6 +9,7 @@ import FindRecipes from "../features/Recipes/FindRecipes";
 const arr = [1, 2, 3, 4];
 
 export default function Recipes() {
+  getCategories();
   return (
     <Box
       mx="6em"

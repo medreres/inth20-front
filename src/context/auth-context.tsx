@@ -1,4 +1,3 @@
-import { access } from "fs";
 import React, { createContext, useContext } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 
@@ -33,11 +32,7 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 export const useAuthContext = () => useContext(AuthContext) as AuthContextValue;
 
 const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
-  const [user, _setUser] = useLocalStorage<User | null>("INTH20_USER", null);
-  const setUser = (user: any) => {
-    console.log("setting locl storage");
-    _setUser(user);
-  };
+  const [user, setUser] = useLocalStorage<User | null>("INTH20_USER", null);
   return (
     <AuthContext.Provider
       value={{

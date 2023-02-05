@@ -50,12 +50,13 @@ const GoogleAuthButton = styled(Button)({
 const GoogleAuth = () => {
   const { user, setUser } = useAuthContext();
 
-  console.log(user);
+  // console.log(user);
 
   const [profile, setProfile] = useState<any>(null);
+  // console.log(profile)
+  // console.log(user)
 
   const handleLogin = (credential: any) => {
-    console.log(credential);
     setUser(credential);
   };
 
@@ -74,10 +75,11 @@ const GoogleAuth = () => {
         .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
           headers: {
             Authorization: `Bearer ${user.access_token}`,
-            Accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
           },
         })
         .then((res) => {
+          // console.log(res);
           setProfile(res.data);
         })
         .catch((err) => console.log(err));
