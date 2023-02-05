@@ -64,7 +64,6 @@ function ResponsiveAppBar() {
               fontWeight: 800,
               fontSize: "32px",
               textDecoration: "none",
-              // color: 'white',
             }}>
             InFridge.
           </Typography>

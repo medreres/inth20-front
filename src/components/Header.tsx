@@ -1,7 +1,6 @@
 import React from "react";
 import { Typography, Button, Grid, Link } from "@mui/material";
 import Image from "mui-image";
-import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {

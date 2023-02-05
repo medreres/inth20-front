@@ -7,13 +7,19 @@ const arr = [1, 2, 3];
 
 const BestRecipes = () => {
   const navigate = useNavigate();
+  const handleDishClick = (id: string) => {
+    navigate(`/recipe/${id}`);
+  };
+
   return (
     <Stack direction="column">
       <Typography variant="h1">Best Recipes of The Day</Typography>
-      <Grid container spacing={6} padding="64px 0">
+      <Grid container spacing={{xs: 4, md: 6}} padding="64px 0">
         {arr.map((i) => (
-          <Grid item xs={12} md={4}>
-            <DishCard key={i} />
+          <Grid item xs={12} sm={4} >
+            <Link to="/recipe" style={{ textDecoration: "none" }}>
+              <DishCard key={i} />
+            </Link>
           </Grid>
         ))}
       </Grid>

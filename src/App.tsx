@@ -15,6 +15,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BrowseRecipes from "./pages/BrowseRecipes";
 import SearchRecipes from "./pages/SearchRecipes";
 import AuthContextProvider from "./context/auth-context";
+import RecipePage from "./pages/RecipePage";
 
 
 export default function App() {
@@ -38,6 +39,11 @@ export default function App() {
         <Route
           path="/search"
           element={<SearchRecipes />}
+        />
+
+        <Route
+          path="/recipe"
+          element={<RecipePage />}
         />
       </Routes>
       <Footer />

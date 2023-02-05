@@ -1,10 +1,10 @@
-import { Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 
 export default function ContactBanner() {
   return (
-    <Box
+    <Box 
       display="flex"
       justifyContent="space-between"
       alignItems="center"
@@ -14,6 +14,7 @@ export default function ContactBanner() {
       style={{
         backgroundColor: "#28D681", // secondary light
       }}>
+      
       <Typography
         variant="h2"
         color="primary">

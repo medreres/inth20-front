@@ -6,10 +6,12 @@ import { Box } from "@mui/material";
 
 export default function Home() {
   return (
-    <Box mx="6em">
+    <div>
+    <Box mx={{xs: "2em", md: "6em"}}>
       <Header />
       <BestRecipes />
-      <ContactBanner />
     </Box>
+    <ContactBanner />
+    </div>
   );
 }

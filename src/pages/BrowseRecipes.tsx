@@ -1,6 +1,6 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BestRecipes from "../features/Recipes/BestRecipes";
 import DishCard from "../features/Recipes/DishCard";
 import FindRecipes from "../features/Recipes/FindRecipes";
@@ -8,6 +8,8 @@ import FindRecipes from "../features/Recipes/FindRecipes";
 const arr = [1, 2, 3, 4];
 
 export default function Recipes() {
+  const navigate = useNavigate();
+
   return (
     <Box
       mx="6em"
@@ -51,7 +53,7 @@ export default function Recipes() {
           // m={3}
         >
           {arr.map((i) => (
-            <DishCard key={i} />
+            <DishCard key={i}  />
           ))}
         </Box>
         <Link
@@ -68,3 +70,4 @@ export default function Recipes() {
     </Box>
   );
 }
+
