@@ -14,11 +14,23 @@ const BestRecipes = () => {
   return (
     <Stack direction="column">
       <Typography variant="h1">Best Recipes of The Day</Typography>
-      <Grid container spacing={{xs: 4, md: 6}} padding="64px 0">
+      <Grid
+        container
+        spacing={{ xs: 4, md: 6 }}
+        padding="64px 0">
         {arr.map((i) => (
-          <Grid item xs={12} sm={4} >
-            <Link to="/recipe" style={{ textDecoration: "none" }}>
-              <DishCard key={i} />
+          <Grid
+            item
+            xs={12}
+            sm={4}>
+            <Link
+            // TODO meaningful dishcards
+              to="/recipe"
+              style={{ textDecoration: "none" }}>
+              <DishCard
+                mealName="dumplings"
+                key={i}
+              />
             </Link>
           </Grid>
         ))}
