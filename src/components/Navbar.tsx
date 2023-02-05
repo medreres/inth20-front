@@ -32,6 +32,8 @@ function ResponsiveAppBar() {
   };
   const location = useLocation();
 
+  
+
   return (
     <AppBar
       position="static"
