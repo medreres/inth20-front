@@ -32,18 +32,7 @@ function ResponsiveAppBar() {
   };
   const location = useLocation();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [accessToken, setAccessToken] = useState(null);
-
-  const handleLogin = (response: any) => {
-    setIsLoggedIn(true);
-    setAccessToken(response.accessToken);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setAccessToken(null);
-  };
+  
 
   return (
     <AppBar
