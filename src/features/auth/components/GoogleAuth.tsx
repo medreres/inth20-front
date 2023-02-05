@@ -52,6 +52,8 @@ import { getDateUnix } from "../../../utils/format";
 const GoogleAuth = () => {
   const { idToken, setIdToken, profile, setProfile } = useAuthContext();
 
+  console.log(idToken)
+
   const handleLogin = ({ credential }: CredentialResponse) => {
     setIdToken(credential as string);
     setProfile(jwtDecode(credential as string));
