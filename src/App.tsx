@@ -28,12 +28,14 @@ export default function App() {
           element={<BrowseRecipes />}
         />
 
+        {/* TODO make work with params */}
         {/* Search Recipes */}
         <Route
           path="/search"
           element={<SearchRecipes />}
         />
         
+        {/* TODO make work with id */}
         {/* Recipe Page */}
         <Route
           path="/recipe"

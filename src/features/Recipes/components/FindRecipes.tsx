@@ -1,17 +1,29 @@
 import { Button, OutlinedInputProps, styled, TextField, TextFieldProps, Typography } from "@mui/material";
 import { alpha, Box, Stack } from "@mui/system";
 import img from "../../../assets/browserecipes-bkg.jpg";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import DishCard from "./DishCard";
 // import { Search } from "react-router-dom";
 
-const Searchbar = styled((props: TextFieldProps) => (
-  <TextField
-    InputProps={{ disableUnderline: true } as Partial<OutlinedInputProps>}
-    {...props}
-  />
-))(({ theme }) => ({
+const Searchbar = styled((props: TextFieldProps) => {
+  const navigate = useNavigate();
+  const dishRef = useRef<HTMLInputElement>(null);
+  // TODO fix layout
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        navigate(`/search?dish=${dishRef.current?.value}`);
+      }}>
+      <TextField
+        inputRef={dishRef}
+        InputProps={{ disableUnderline: true } as Partial<OutlinedInputProps>}
+        {...props}
+      />
+    </form>
+  );
+})(({ theme }) => ({
   "& .MuiFilledInput-root": {
     border: "1px solid #e2e2e1",
     overflow: "hidden",
@@ -40,7 +52,6 @@ export default function FindRecipes() {
         backgroundSize: "100%",
         backgroundRepeat: "no-repeat",
       }}
-      // backgroundImage={img}
       position="relative"
       minHeight="10em"
       display="flex"
@@ -54,6 +65,7 @@ export default function FindRecipes() {
           color="primary">
           Find your favorite recipes
         </Typography>
+        {/* TODO on enter navigate user to search page  */}
         <Searchbar
           label="Search Recipes"
           variant="filled"
