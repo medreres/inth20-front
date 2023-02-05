@@ -11,21 +11,13 @@ scope: "email profile openid https://www.googleapis.com/auth/userinfo.email http
 token_type:"Bearer"
  */
 
-interface User {
-  access_token: string;
-  authuser: string;
-  expires_in: number;
-  scope: string;
-  token_type: string;
-}
-
 interface AuthContextProviderProps {
   children: React.ReactNode;
 }
 
 interface AuthContextValue {
-  user: User | null;
-  setUser: (user: User | null) => void;
+  idToken: string | null;
+  setIdToken: (user: string | null) => void;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -33,13 +25,13 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 export const useAuthContext = () => useContext(AuthContext) as AuthContextValue;
 
 const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
-  const [user, setUser] = useLocalStorage<User | null>("INTH20_USER", null);
- 
+  const [idToken, setIdToken] = useLocalStorage<string | null>("INTH20_ID_TOKEN", null);
+
   return (
     <AuthContext.Provider
       value={{
-        user,
-        setUser,
+        idToken,
+        setIdToken,
       }}>
       {children}
     </AuthContext.Provider>

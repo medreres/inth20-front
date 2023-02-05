@@ -1,24 +1,22 @@
-// interface UserProfile {
-//   image: string;
-// }
-
 import styled from "@emotion/styled";
 import { Google } from "@mui/icons-material";
 import { Button, Typography } from "@mui/material";
-import { GoogleLogin, googleLogout, useGoogleLogin } from "@react-oauth/google";
+import { CredentialResponse, GoogleLogin, googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import { useEffect } from "react";
+import { getRecipes } from "../api/googleAuth";
 import { useAuthContext } from "../context/auth-context";
 
-const GoogleAuthButton = styled(Button)({
-  border: "2px solid",
-  fontWeight: 500,
-  borderRadius: "8px",
-  padding: "8px 16px",
-  textTransform: "none",
-  lineHeight: "27px",
-  margin: "24px ",
-});
+// const GoogleAuthButton = styled(Button)({
+//   border: "2px solid",
+//   fontWeight: 500,
+//   borderRadius: "8px",
+//   padding: "8px 16px",
+//   textTransform: "none",
+//   lineHeight: "27px",
+//   margin: "24px ",
+// });
 
 // const GoogleAuth = () => {
 //   const { userProfile, addUser, removeUser } = useAuthStore();
@@ -47,8 +45,13 @@ const GoogleAuthButton = styled(Button)({
 
 // export default GoogleAuth;
 
+
+
+// TODO handle token expiration
+
+
 const GoogleAuth = () => {
-  const { user, setUser } = useAuthContext();
+  const { idToken, setIdToken } = useAuthContext();
 
   // console.log(user);
   // console.log(gapi.auth.getToken())
@@ -107,42 +110,37 @@ const GoogleAuth = () => {
   //   );
   // }
 
+  const handleLogin = ({ credential }: CredentialResponse) => {
+    setIdToken(credential as string);
+  };
+
+  useEffect(() => {
+    if (idToken == null) return;
+
+    
+     getRecipes(idToken).then(recipes => {
+       console.log(recipes)
+     })
+  }, [idToken]);
+
   return (
-    <GoogleLogin
-      onSuccess={({credential}) => {
-        const decoded = jwtDecode(credential as string);
-        axios.get('https://int20h.onrender.com/recipes', {
-          headers: {
-            'Authorization-Google': credential,
-            "Access-Control-Allow-Origin": "*",
-          }
-        }).then(({data}) => {
-          console.log(data)
-        })
-      }}
-      // TODO handle error
-      onError={() => {
-        console.log("Login Failed");
-      }}
-    />
-    // <GoogleAuthButton
-    //   variant="contained"
-    //   sx={{
-    //     color: "#28D681",
-    //     background: "#28D681",
-    //   }}
-    //   onClick={() => login()}>
-    //   <Google color="primary" />{" "}
-    //   <Typography
-    //     ml={0.5}
-    //     variant="body1"
-    //     fontWeight="bold"
-    //     color="primary">
-    //     Sign in with Google
-    //   </Typography>
-    // </GoogleAuthButton>
+    <>
+      <GoogleLogin
+        onSuccess={handleLogin}
+        // TODO handle error
+        onError={() => {
+          console.log("Login Failed");
+        }}
+      />
+      <Button
+        onClick={() => {
+          googleLogout();
+          setIdToken(null);
+        }}>
+        Log out
+      </Button>
+    </>
   );
-  // googleLogout();
 };
 
 export default GoogleAuth;
