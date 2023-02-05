@@ -1,15 +1,7 @@
 import { access } from "fs";
 import React, { createContext, useContext } from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
-
-/**
- * access_token: "ya29.a0AVvZVsopvBrykevnneN2GJ5Dr2rRgTEGLyP-d-L9cX6o_rqbcx3IFsEv7TihJ7hFvyLLOmRAPY1tSBcDurY_ad9X4wmbjAUg-IYxPCEzf2P9mZoecVn-7Rk7qbOOoP7MEbixIAOu7OAaZkzX9AG0E6W_nkDKaCgYKAWISARASFQGbdwaIxt619RGlrPD3KSxzcx5rlw0163"
-authuser: "2"
-expires_in: 3599
-prompt: "none"
-scope: "email profile openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
-token_type:"Bearer"
- */
+import { StringMappingType } from "typescript";
+import useLocalStorage from "../../../hooks/useLocalStorage";
 
 interface AuthContextProviderProps {
   children: React.ReactNode;
@@ -18,6 +10,18 @@ interface AuthContextProviderProps {
 interface AuthContextValue {
   idToken: string | null;
   setIdToken: (user: string | null) => void;
+  profile: Profile | null;
+  setProfile: (profile: Profile | null) => void;
+}
+
+interface Profile {
+  email: string;
+  exp: number;
+  family_name: string;
+  given_name: string;
+  iat: number;
+  name: string;
+  picture: string;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -26,12 +30,15 @@ export const useAuthContext = () => useContext(AuthContext) as AuthContextValue;
 
 const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [idToken, setIdToken] = useLocalStorage<string | null>("INTH20_ID_TOKEN", null);
+  const [profile, setProfile] = useLocalStorage<Profile | null>("INTH20_PROFILE_DECODED", null);
 
   return (
     <AuthContext.Provider
       value={{
         idToken,
         setIdToken,
+        profile,
+        setProfile
       }}>
       {children}
     </AuthContext.Provider>
