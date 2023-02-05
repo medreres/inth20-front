@@ -3,7 +3,7 @@ import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Button, 
 import MenuIcon from "@mui/icons-material/Menu";
 import { Route, useLocation, BrowserRouter as Router } from "react-router-dom";
 
-import GoogleAuth from "./GoogleAuth";
+import GoogleAuth from "../features/auth/components/GoogleAuth";
 
 const pages = [
   { name: "Browse Recipes", path: "/browse-recipes" },
