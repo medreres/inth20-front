@@ -3,7 +3,11 @@ import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/m
 import { Box, Stack } from "@mui/system";
 import React, { useState } from "react";
 
-export default function DishCard() {
+interface DishCardProps {
+  mealName: string;
+  imageUrl?: string | undefined;
+}
+export default function DishCard({ mealName, imageUrl = undefined }: DishCardProps) {
   const [isLiked, setIsLiked] = useState(false);
   const toggleLiked = () => setIsLiked((prevState) => !prevState);
   const clickHandler = (e: any) => {
@@ -14,13 +18,17 @@ export default function DishCard() {
     <Card>
       <CardActionArea>
         <CardMedia
+          loading="lazy"
           component="img"
           height="200"
           width="200"
           style={{
             borderRadius: "10px",
           }}
-          image="https://loveincorporated.blob.core.windows.net/contentimages/gallery/d9e900e4-212e-4c3d-96d5-cb14a023c659-worlds-most-delicious-dishes.jpg"
+          image={
+            imageUrl ||
+            "https://www.yanaya.co.zw/wp-content/uploads/2020/08/79-798754_hoteles-y-centros-vacacionales-dish-placeholder-hd-png.jpg"
+          }
         />
         <CardContent>
           <Stack
@@ -34,7 +42,7 @@ export default function DishCard() {
                 flexBasis="70%"
                 variant="body1"
                 fontWeight="bold">
-                Bread and butter pudding
+                {mealName}
               </Typography>
               <div onClick={clickHandler}>
                 {isLiked ? (

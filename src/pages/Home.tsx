@@ -1,5 +1,5 @@
 import React from "react";
-import BestRecipes from "../features/Recipes/BestRecipes";
+import BestRecipes from "../features/Recipes/components/BestRecipes";
 import ContactBanner from "../components/ContactBanner";
 import Header from "../components/Header";
 import { Box } from "@mui/material";

@@ -19,7 +19,7 @@ const BestRecipes = () => {
         // m={3}
       >
         {arr.map((i) => (
-          <DishCard key={i} />
+          <DishCard mealName="Dumplings" key={i} />
         ))}
       </Box>
       <Link
