@@ -9,19 +9,24 @@ const Header = () => {
   return (
     <Grid
       container
-      justifyContent=""
+      justifyContent="space-between"
       alignItems="center"
       py="96px">
       <Grid
         item
-        xs={12}
-        sm={6}
+        sm={12}
+        md={6}
         container
         direction="column"
         justifyContent="center"
         alignItems="flex-start"
-        textAlign="left"
-        color="secondary">
+        color="secondary"
+        sx={{
+          pb: { xs: "64px", md: "none" },
+          alignItems: { xs: "center", md: "flex-start" },
+          textAlign: { xs: "center", md: "left" }
+        }}
+        >
         <Typography
           variant="h2"
           color="secondary"
@@ -59,22 +64,18 @@ const Header = () => {
             textTransform: "none",
             textAlign: "center",
           }}>
-          {/* <Link
-            href="/"
-            underline="none"
-            // color="white"
-            color="secondary"> */}
           Create My Fridge
-          {/* </Link> */}
         </Button>
       </Grid>
       <Grid
         item
-        xs={12}
-        sm={6}>
-        <img
+        sm={12}
+        md={6}
+        >
+        <Image
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWE2cA4gMLSElnMWVnB25lMSOzGt8TeIwgiA&usqp=CAU"
           alt="dish"
+          width="100%"
           style={{
             borderRadius: "10px",
           }}

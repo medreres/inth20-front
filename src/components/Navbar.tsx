@@ -6,6 +6,7 @@ import { Route, useLocation, BrowserRouter as Router } from "react-router-dom";
 import GoogleAuth from "./GoogleAuth";
 
 const pages = [
+  { name: "Home", path: "/" },
   { name: "Browse Recipes", path: "/browse-recipes" },
   { name: "My Fridge", path: "/my-fridge" },
   { name: "Shopping List", path: "/shopping-list" },

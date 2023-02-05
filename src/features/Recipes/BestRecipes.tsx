@@ -1,27 +1,22 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography, Grid } from "@mui/material";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import DishCard from "./DishCard";
 
-const arr = [1, 2, 3, 4];
+const arr = [1, 2, 3];
 
 const BestRecipes = () => {
   const navigate = useNavigate();
   return (
     <Stack direction="column">
       <Typography variant="h1">Best Recipes of The Day</Typography>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        // gap={3}
-        my={5}
-        flexWrap="wrap"
-        // m={3}
-      >
+      <Grid container spacing={6} padding="64px 0">
         {arr.map((i) => (
-          <DishCard key={i} />
+          <Grid item xs={12} md={4}>
+            <DishCard key={i} />
+          </Grid>
         ))}
-      </Box>
+      </Grid>
       <Link
         onClick={(e) => window.scrollTo({ top: 0 })}
         to={"/browse-recipes"}
