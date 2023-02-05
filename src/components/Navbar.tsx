@@ -3,9 +3,10 @@ import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Button, 
 import MenuIcon from "@mui/icons-material/Menu";
 import { Route, useLocation, BrowserRouter as Router } from "react-router-dom";
 
-import GoogleAuth from "../features/auth/components/GoogleAuth";
+import GoogleAuth from "../features/Auth/components/GoogleAuth";
 
 const pages = [
+  { name: "Home", path: "/" },
   { name: "Browse Recipes", path: "/browse-recipes" },
   { name: "My Fridge", path: "/my-fridge" },
   { name: "Shopping List", path: "/shopping-list" },
@@ -52,7 +53,6 @@ function ResponsiveAppBar() {
               fontWeight: 800,
               fontSize: "32px",
               textDecoration: "none",
-              // color: 'white',
             }}>
             InFridge.
           </Typography>

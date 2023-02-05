@@ -3,13 +3,14 @@ import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/m
 import { Box, Stack } from "@mui/system";
 import React, { useState } from "react";
 
-export default function DishCard() {
+export default function DishCard({ }) {
   const [isLiked, setIsLiked] = useState(false);
   const toggleLiked = () => setIsLiked((prevState) => !prevState);
   const clickHandler = (e: any) => {
     e.stopPropagation();
     toggleLiked();
   };
+  
   return (
     <Card>
       <CardActionArea>

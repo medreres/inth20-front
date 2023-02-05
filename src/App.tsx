@@ -5,6 +5,8 @@ import { Routes, Route } from "react-router-dom";
 import BrowseRecipes from "./pages/BrowseRecipes";
 import SearchRecipes from "./pages/SearchRecipes";
 import Home from "./pages/Home";
+import RecipePage from "./pages/RecipePage";
+
 
 export default function App() {
   return (
@@ -27,6 +29,11 @@ export default function App() {
         <Route
           path="/search"
           element={<SearchRecipes />}
+        />
+
+        <Route
+          path="/recipe"
+          element={<RecipePage />}
         />
       </Routes>
       <Footer />

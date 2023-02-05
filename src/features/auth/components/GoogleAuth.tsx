@@ -77,6 +77,8 @@ const GoogleAuth = () => {
     }
   }, [idToken, profile, setIdToken, setProfile]);
 
+  // console.log(getDateUnix(profile!.exp))
+
   // TODO styling
   if (idToken)
     return (
