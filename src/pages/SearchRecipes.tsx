@@ -2,9 +2,10 @@ import { SelectChangeEvent } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import searchRecipe, { Recipe } from "../features/Recipes/api/searchRecipe";
+import searchRecipe from "../features/Recipes/api/searchRecipe";
 import DishCard from "../features/Recipes/components/DishCard";
 import SearchForm from "../features/Recipes/components/SearchForm";
+import { Recipe } from "../features/Recipes/interface";
 
 export default function SearchRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -15,8 +16,6 @@ export default function SearchRecipes() {
 
   const [difficulty, setDifficulty] = useState(searchParams.get("difficulty") ?? "all");
   const handleDifficultyChange = (e: SelectChangeEvent<string>) => setDifficulty(e.target.value);
-
-
 
   // TODO make some latency before calls
   useEffect(() => {
