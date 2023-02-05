@@ -20,17 +20,15 @@ const BestRecipes = () => {
         padding="64px 0">
         {arr.map((i) => (
           <Grid
+            key={i}
             item
             xs={12}
             sm={4}>
             <Link
-            // TODO meaningful dishcards
+              // TODO meaningful dishcards
               to="/recipe"
               style={{ textDecoration: "none" }}>
-              <DishCard
-                mealName="dumplings"
-                key={i}
-              />
+              <DishCard mealName="dumplings" />
             </Link>
           </Grid>
         ))}
