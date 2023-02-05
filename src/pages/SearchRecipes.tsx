@@ -1,24 +1,41 @@
 import { Box } from "@mui/system";
-import React from "react";
-import DishCard from "../features/Recipes/DishCard";
-import SearchForm from "../features/Recipes/SearchForm";
-
-const arr = [1, 2, 3, 4, 5, 6, 10];
+import React, { useEffect, useState } from "react";
+import searchRecipe, { Recipe } from "../features/Recipes/api/searchRecipe";
+import DishCard from "../features/Recipes/components/DishCard";
+import SearchForm from "../features/Recipes/components/SearchForm";
 
 export default function SearchRecipes() {
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+
+  // send request to get all the recipes
+  useEffect(() => {
+    searchRecipe("").then((result) => setRecipes(result));
+  }, []);
+
+  console.log(recipes);
+
   return (
     // TODO send request for searched meal
+
+    // TODO create loading spinner
+
+    // TODO handle empty list
+    // if recipes.length === 0
     <Box
       mx="6em"
       my="5em">
-      <SearchForm />
+      <SearchForm setSearchResults={setRecipes} />
       <Box
         my="4em"
         gap={1}
         display="flex"
         flexWrap="wrap">
-        {arr.map((el) => (
-          <DishCard key={el} />
+        {recipes.map((el, index) => (
+          <DishCard
+            key={index}
+            mealName={el.strMeal}
+            imageUrl={el.strMealThumb}
+          />
         ))}
       </Box>
     </Box>

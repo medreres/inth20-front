@@ -1,9 +1,18 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
+<<<<<<< HEAD
 import { Link, useNavigate } from "react-router-dom";
 import BestRecipes from "../features/Recipes/BestRecipes";
 import DishCard from "../features/Recipes/DishCard";
 import FindRecipes from "../features/Recipes/FindRecipes";
+=======
+import { Link } from "react-router-dom";
+import BestRecipes from "../features/Recipes/components/BestRecipes";
+import DishCard from "../features/Recipes/components/DishCard";
+import FindRecipes from "../features/Recipes/components/FindRecipes";
+// import DishCard from "../features/Recipes/DishCard";
+// import FindRecipes from "../features/Recipes/FindRecipes";
+>>>>>>> feature/search-recipes
 
 const arr = [1, 2, 3, 4];
 
@@ -16,7 +25,9 @@ export default function Recipes() {
       mt={5}>
       <FindRecipes />
 
-      <Stack direction="column" my={5}>
+      <Stack
+        direction="column"
+        my={5}>
         <Typography variant="h1">Best Recipes of The Day</Typography>
         <Box
           display="flex"
@@ -27,7 +38,10 @@ export default function Recipes() {
           // m={3}
         >
           {arr.map((i) => (
-            <DishCard key={i} />
+            <DishCard
+              mealName="Dumplings"
+              key={i}
+            />
           ))}
         </Box>
         <Link
@@ -41,8 +55,10 @@ export default function Recipes() {
           </Button>
         </Link>
       </Stack>
-      
-      <Stack direction="column" my={5}>
+
+      <Stack
+        direction="column"
+        my={5}>
         <Typography variant="h1">Latest Recipes</Typography>
         <Box
           display="flex"
@@ -53,7 +69,10 @@ export default function Recipes() {
           // m={3}
         >
           {arr.map((i) => (
-            <DishCard key={i}  />
+            <DishCard
+              mealName="Dumplings"
+              key={i}
+            />
           ))}
         </Box>
         <Link

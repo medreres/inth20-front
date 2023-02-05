@@ -1,0 +1,1 @@
+export *  as searchRecipe from './searchRecipe';

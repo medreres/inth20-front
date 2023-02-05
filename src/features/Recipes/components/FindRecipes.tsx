@@ -1,12 +1,10 @@
 import { Button, OutlinedInputProps, styled, TextField, TextFieldProps, Typography } from "@mui/material";
 import { alpha, Box, Stack } from "@mui/system";
-import img from "../../assets/browserecipes-bkg.jpg";
+import img from "../../../assets/browserecipes-bkg.jpg";
 import React from "react";
 import { Link } from "react-router-dom";
 import DishCard from "./DishCard";
 // import { Search } from "react-router-dom";
-
-const arr = [1, 2, 3, 4];
 
 const Searchbar = styled((props: TextFieldProps) => (
   <TextField
@@ -18,7 +16,7 @@ const Searchbar = styled((props: TextFieldProps) => (
     border: "1px solid #e2e2e1",
     overflow: "hidden",
     borderRadius: 4,
-    color: '#fff',
+    color: "#fff",
     backgroundColor: theme.palette.mode === "light" ? "#fcfcfb" : "#2b2b2b",
     transition: theme.transitions.create(["border-color", "background-color", "box-shadow"]),
     "&:hover": {
