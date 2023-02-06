@@ -1,5 +1,12 @@
 import { format } from "path";
 import { Recipe, Ingredient } from "./../interface/index";
+
+const DIFFICULTIES = {
+  easy: (n: number) => n < 7,
+  medium: (n: number) => n >= 7 && n <= 12,
+  hard: (n: number) => n > 12,
+};
+
 export const formatIngredients = (recipe: Recipe | undefined): Ingredient[] => {
   if (!recipe) return [];
   // TODO extract all the ingredients and format them intp
@@ -29,12 +36,16 @@ export const formatIngredients = (recipe: Recipe | undefined): Ingredient[] => {
  * hard > 12
  */
 export const filterByDifficulty = (recipes: Recipe[], difficulty: string) => {
-  const DIFFICULTIES = {
-    easy: (n: number) => n < 7,
-    medium: (n: number) => n >= 7 && n <= 12,
-    hard: (n: number) => n > 12,
-  };
   return recipes.filter((recipe) =>
     DIFFICULTIES[difficulty as keyof typeof DIFFICULTIES](formatIngredients(recipe).length)
   );
+};
+
+export const assessComplexity = (recipes: Ingredient[]) => {
+  let difficulty = "";
+  Object.keys(DIFFICULTIES).forEach((key) => {
+    if (DIFFICULTIES[key as keyof typeof DIFFICULTIES](recipes.length)) difficulty = key;
+  });
+
+  return difficulty;
 };

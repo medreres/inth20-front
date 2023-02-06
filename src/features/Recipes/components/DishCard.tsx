@@ -9,7 +9,7 @@ import savedRecipes from "../api/savedRecipes";
 import saveRecipe from "../api/saveRecipe";
 import { useRecipeContext } from "../context/recipe-context";
 import { Recipe, RecipeToSave } from "../interface";
-import { formatIngredients } from "../utils";
+import { assessComplexity, formatIngredients } from "../utils";
 
 interface DishCardProps {
   data: Recipe;
@@ -17,6 +17,8 @@ interface DishCardProps {
 export default function DishCard({ data }: DishCardProps) {
   const { savedRecipes } = useRecipeContext();
   const [isLiked, setIsLiked] = useState(false);
+
+  const formattedIngredients = formatIngredients(data);
 
   // check if liked
   useEffect(() => {
@@ -124,8 +126,8 @@ export default function DishCard({ data }: DishCardProps) {
                 justifyContent="space-between"
                 pt={1}>
                 {/* <Typography variant="body1">30 min</Typography> */}
-                <Typography variant="body1">{formatIngredients(data).length} ingredients</Typography>
-                <Typography variant="body1">Easy</Typography>
+                <Typography variant="body1">{formattedIngredients.length} ingredients</Typography>
+                <Typography variant="body1">{assessComplexity(formattedIngredients)}</Typography>
               </Box>
             </Stack>
           </CardContent>
