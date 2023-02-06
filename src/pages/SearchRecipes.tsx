@@ -6,11 +6,11 @@ import searchRecipe from "../features/Recipes/api/searchRecipe";
 import DishCard from "../features/Recipes/components/DishCard";
 import SearchForm from "../features/Recipes/components/SearchForm";
 import { Recipe } from "../features/Recipes/interface";
+import { filterByDifficulty } from "../features/Recipes/utils";
 
 export default function SearchRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  
 
   const [dishName, setDishName] = useState(searchParams.get("dish") ?? "");
   const handleDishNameChange = (e: React.ChangeEvent<HTMLInputElement>) => setDishName(e.target.value);
@@ -29,8 +29,15 @@ export default function SearchRecipes() {
     window.history.pushState(params, "recipes");
 
     // send request
-    searchRecipe(dishName, difficulty).then((result) => setRecipes(result));
+    searchRecipe(dishName).then((result) => setRecipes(result));
   }, [difficulty, dishName, setSearchParams]);
+
+  useEffect(() => {
+    // filter incoming response
+    if (difficulty === "all") return;
+
+    setRecipes(filterByDifficulty(recipes, difficulty));
+  }, [difficulty, recipes]);
 
   return (
     // TODO send request for searched meal

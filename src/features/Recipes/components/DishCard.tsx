@@ -122,8 +122,8 @@ export default function DishCard({ data }: DishCardProps) {
                 display="flex"
                 justifyContent="space-between"
                 pt={1}>
-                <Typography variant="body1">30 min</Typography>
-                <Typography variant="body1">7 ingredients</Typography>
+                {/* <Typography variant="body1">30 min</Typography> */}
+                <Typography variant="body1">{formatIngredients(data).length} ingredients</Typography>
                 <Typography variant="body1">Easy</Typography>
               </Box>
             </Stack>
