@@ -1,29 +1,19 @@
+import { RecipeToSave } from './../interface/index';
 import axios from "axios";
-import { Recipe } from "./../interface/index";
-export default async function saveRecipe(recipe: RecipeToSave) {
+export default async function saveRecipe(recipe: RecipeToSave, id_token: string) {
+  console.log(recipe);
   return axios
     .post(
       "https://int20h.onrender.com/recipes",
-      {},
+      { ...recipe },
       {
-        data: {
-          recipe,
+        headers: {
+          "Authorization-Google": id_token,
+          "Content-Type": "application/json",
         },
       }
     )
-    .then(({ data }) => (data.meals as Recipe[]) ?? []);
+    .then(({ data }) => data)
+    .catch((err) => err);
 }
 
-interface RecipeToSave {
-  title: string;
-  category: string;
-  instructions: string;
-  pic: string;
-  youtube_url: string;
-  ingredients: Ingredient[];
-}
-
-interface Ingredient {
-  title: string;
-  amount: string;
-}

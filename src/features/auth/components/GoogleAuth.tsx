@@ -52,8 +52,6 @@ import { getDateUnix } from "../../../utils/format";
 const GoogleAuth = () => {
   const { idToken, setIdToken, profile, setProfile } = useAuthContext();
 
-  console.log(idToken)
-
   const handleLogin = ({ credential }: CredentialResponse) => {
     setIdToken(credential as string);
     setProfile(jwtDecode(credential as string));
@@ -69,6 +67,7 @@ const GoogleAuth = () => {
   useEffect(() => {
     // console.log(jwtDecode(idToken))
     // if token is null - exit
+    console.log(idToken);
     if (idToken == null) return;
 
     // if token is present, but not valid - set to null
@@ -86,14 +85,15 @@ const GoogleAuth = () => {
     return (
       <>
         <img
-        style={{
-          borderRadius: '100%',
-          marginRight: '1em'
-        }}
+          style={{
+            borderRadius: "100%",
+            marginRight: "1em",
+          }}
           alt="profile"
           height={48}
           src={profile?.picture}
-        /> <Button
+        />{" "}
+        <Button
           variant="contained"
           onClick={handleLogout}>
           Log out

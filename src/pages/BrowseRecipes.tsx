@@ -29,8 +29,9 @@ export default function Recipes() {
         >
           {arr.map((i) => (
             <DishCard
-              mealName="Dumplings"
+              // TODO fix temp placeholder
               key={i}
+              data={{} as any}
             />
           ))}
         </Box>
@@ -60,7 +61,8 @@ export default function Recipes() {
         >
           {arr.map((i) => (
             <DishCard
-              mealName="Dumplings"
+              // TODO fix
+              data={{} as any}
               key={i}
             />
           ))}

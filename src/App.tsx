@@ -8,8 +8,19 @@ import BrowseRecipes from "./pages/BrowseRecipes";
 import SearchRecipes from "./pages/SearchRecipes";
 import Home from "./pages/Home";
 import RecipePage from "./pages/RecipePage";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function App() {
+  useEffect(() => {
+    const cleanup = setTimeout(() => {
+      axios.get("https://int20h.onrender.com/alive");
+    }, 300000); // 5 min
+
+    return () => {
+      clearTimeout(cleanup);
+    };
+  }, []);
   return (
     <>
       <Navbar />
