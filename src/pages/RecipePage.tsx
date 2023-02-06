@@ -22,7 +22,7 @@ import axios from "axios";
 import { Recipe } from "../features/Recipes/interface";
 import { useRecipeContext } from "../features/Recipes/context/recipe-context";
 import { useSearchParams } from "react-router-dom";
-import { formatIngredients } from "../features/Recipes/utils";
+import { assessComplexity, formatIngredients } from "../features/Recipes/utils";
 
 // interface Meal {
 //   idMeal: string;
@@ -59,6 +59,7 @@ const RecipePage = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const formattedIngredients = formatIngredients(recipe);
 
   useEffect(() => {
     axios.get(`https://themealdb.com/api/json/v1/1/lookup.php?i=${searchParams.get("id")}`).then(({ data }) => {
@@ -189,8 +190,8 @@ const RecipePage = () => {
               gap={{ md: "64px" }}
               pb="24px">
               {/* <Typography variant="body1">30 min</Typography> */}
-              <Typography variant="body1">7 ingredients</Typography>
-              <Typography variant="body1">Easy</Typography>
+              <Typography variant="body1">{formattedIngredients.length} ingredients</Typography>
+              <Typography variant="body1">{assessComplexity(formattedIngredients)}</Typography>
             </Box>
             <Box
               display="flex"
@@ -225,7 +226,7 @@ const RecipePage = () => {
                   maxWidth: 360,
                   bgcolor: "background.paper",
                 }}>
-                {formatIngredients(recipe ?? undefined).map(({ amount, title }, index) => {
+                {formatIngredients(recipe ?? null).map(({ amount, title }, index) => {
                   const labelId = `checkbox-list-label-${title}`;
                   return (
                     <ListItem

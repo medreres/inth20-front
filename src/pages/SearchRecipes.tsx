@@ -29,7 +29,7 @@ export default function SearchRecipes() {
     window.history.pushState(params, "recipes");
 
     // send request
-    searchRecipe(dishName).then((result) => setRecipes(result));
+    searchRecipe(dishName).then((result) => setRecipes(result.slice(0, 24)));
   }, [difficulty, dishName, setSearchParams]);
 
   useEffect(() => {

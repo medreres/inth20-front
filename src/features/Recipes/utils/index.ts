@@ -7,7 +7,7 @@ const DIFFICULTIES = {
   hard: (n: number) => n > 12,
 };
 
-export const formatIngredients = (recipe: Recipe | undefined): Ingredient[] => {
+export const formatIngredients = (recipe: Recipe | null): Ingredient[] => {
   if (!recipe) return [];
   // TODO extract all the ingredients and format them intp
   const ingredients: Ingredient[] = [];
