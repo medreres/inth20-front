@@ -90,17 +90,13 @@ function ResponsiveAppBar() {
                 <MenuItem
                   key={page.name}
                   onClick={handleCloseNavMenu}
+                  href={page.path}
                 >
                   <Typography
                     textAlign="center"
                     fontWeight="500"
                     textTransform="none">
-                    <Link
-                      href={page.path}
-                      underline="none"
-                      color="black">
                       {page.name}
-                    </Link>
                   </Typography>
                 </MenuItem>
               ))}
@@ -129,6 +125,7 @@ function ResponsiveAppBar() {
                 key={page.name}
                 onClick={handleCloseNavMenu}
                 color="secondary"
+                href={page.path}
                 sx={{
                   my: 2,
                   //  color: "white",
@@ -136,17 +133,11 @@ function ResponsiveAppBar() {
                   textTransform: "none",
                   margin: "0 32px",
                 }}>
-                <Link
-                  href={page.path}
-                  underline="none"
-                  // color="white"
-                  color="secondary">
                   {page.name}
-                </Link>
               </Button>
             ))}
           </Box>
-          <GoogleAuth />
+          {/* <GoogleAuth /> */}
         </Toolbar>
       </Container>
     </AppBar>

@@ -8,6 +8,8 @@ import BrowseRecipes from "./pages/BrowseRecipes";
 import SearchRecipes from "./pages/SearchRecipes";
 import Home from "./pages/Home";
 import RecipePage from "./pages/RecipePage";
+import MyFridge from "./pages/MyFridge";
+import ShoppingList from "./pages/ShoppingList";
 
 export default function App() {
   return (
@@ -32,13 +34,27 @@ export default function App() {
           path="/search"
           element={<SearchRecipes />}
         />
-
+        
         {/* TODO make work with id */}
+        {/* Recipe Page */}
         <Route
           path="/recipe"
           element={<RecipePage />}
         />
+
+        {/* My Fridge */}
+        <Route
+          path="/my-fridge"
+          element={<MyFridge />}
+        />
       </Routes>
+
+      {/* Shopping List */}
+      <Route
+          path="/shopping-list"
+          element={<ShoppingList />}
+        />
+
       <Footer />
     </>
   );
