@@ -140,6 +140,7 @@ const MyFridge = () => {
                 {item.ingredient} {item.amount}
               <Button onClick={() => handleRemoveFromMyFridge(i)}>
                 Remove
+                <ClearIcon />
               </Button>
             </ListItem>
             ))}
