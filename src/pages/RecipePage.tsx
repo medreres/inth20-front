@@ -71,7 +71,7 @@ const RecipePage = () => {
     if (recipe == null) return;
     if (savedRecipes.length === 0) setIsLiked(false);
 
-    setIsLiked(savedRecipes.some((recipe) => recipe.title === recipe.title));
+    setIsLiked(savedRecipes.some((recipeListed) => recipe.strMeal === recipeListed.title));
   }, [recipe, savedRecipes]);
 
   const toggleLiked = () => setIsLiked((prevState) => !prevState);
@@ -188,7 +188,7 @@ const RecipePage = () => {
               justifyContent={{ xs: "space-between", md: "flex-start" }}
               gap={{ md: "64px" }}
               pb="24px">
-              <Typography variant="body1">30 min</Typography>
+              {/* <Typography variant="body1">30 min</Typography> */}
               <Typography variant="body1">7 ingredients</Typography>
               <Typography variant="body1">Easy</Typography>
             </Box>

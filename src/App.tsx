@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import axios from "axios";
 
 export default function App() {
+  // scheduler to make server stay put
   useEffect(() => {
     const cleanup = setTimeout(() => {
       axios.get("https://int20h.onrender.com/alive");

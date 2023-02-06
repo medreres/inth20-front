@@ -1,15 +1,19 @@
 import { Box, Button, Stack, Typography, Grid } from "@mui/material";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import randomRecipe from "../api/randomRecipe";
+import { Recipe } from "../interface";
 import DishCard from "./DishCard";
 
-const arr = [1, 2, 3];
-
 const BestRecipes = () => {
-  const navigate = useNavigate();
-  const handleDishClick = (id: string) => {
-    navigate(`/recipe/${id}`);
-  };
+  const [randomRecipes, setRandomRecipes] = useState<Recipe[]>([]);
+
+  useEffect(() => {
+    for (let i = 0; i < 3; i++) {
+      randomRecipe().then((recipe) => setRandomRecipes((prevState) => [...prevState, recipe]));
+    }
+  }, []);
 
   return (
     <Stack direction="column">
@@ -18,13 +22,13 @@ const BestRecipes = () => {
         container
         spacing={{ xs: 4, md: 6 }}
         padding="64px 0">
-        {arr.map((i) => (
+        {randomRecipes.map((recipe) => (
           <Grid
-            key={i}
+            key={recipe.idMeal}
             item
             xs={12}
             sm={4}>
-              <DishCard data={{} as any} />
+            <DishCard data={recipe} />
           </Grid>
         ))}
       </Grid>

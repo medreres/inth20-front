@@ -76,7 +76,8 @@ export default function DishCard({ data }: DishCardProps) {
     <Link
       // TODO meaningful dishcards
       to={`/recipe?id=${data.idMeal}`}
-      style={{ textDecoration: "none" }}>
+      style={{ textDecoration: "none" }}
+      onClick={(e) => window.scrollTo({ top: 0 })}>
       <Card>
         <CardActionArea>
           <CardMedia
