@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Stack } from "@mui/system";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {
   Box,
   Button,
@@ -17,11 +17,7 @@ import {
   Typography,
 } from "@mui/material";
 import Image from "mui-image";
-import {
-  AddShoppingCart,
-  FavoriteBorder,
-  FavoriteRounded,
-} from "@mui/icons-material";
+import { AddShoppingCart, FavoriteBorder, FavoriteRounded } from "@mui/icons-material";
 import axios from "axios";
 
 interface Meal {
@@ -52,7 +48,7 @@ interface Props {
   setList: (list: string[]) => void;
 }
 
-const RecipePage = ({ }) => {
+const RecipePage = ({}) => {
   //Liked
   const [isLiked, setIsLiked] = useState(false);
   const toggleLiked = () => setIsLiked((prevState) => !prevState);
@@ -79,7 +75,9 @@ const RecipePage = ({ }) => {
 
   return (
     <div>
-      <Grid container padding={{ xs: "10px 24px", md: "14px 96px" }}>
+      <Grid
+        container
+        padding={{ xs: "10px 24px", md: "14px 96px" }}>
         <Grid
           item
           xs={12}
@@ -90,15 +88,17 @@ const RecipePage = ({ }) => {
             lineHeight: "33px",
             display: "flex",
             alignItems: "center",
-            mt: "24px"
-          }}
-        >
+            mt: "24px",
+          }}>
           <ArrowBackIcon
             sx={{
               mr: "40px",
             }}
           />
-          <Link href="/browse-recipes" color="inherit" underline="none">
+          <Link
+            href="/browse-recipes"
+            color="inherit"
+            underline="none">
             Browse Recipes
           </Link>
         </Grid>
@@ -107,9 +107,12 @@ const RecipePage = ({ }) => {
           justifyContent="space-between"
           alignItems="center"
           mt="48px"
-          columnSpacing="64px"
-        >
-          <Grid item xs={12} md={6} mb={{xs: '48px', md: '0'}}>
+          columnSpacing="64px">
+          <Grid
+            item
+            xs={12}
+            md={6}
+            mb={{ xs: "48px", md: "0" }}>
             <Image
               src="https://www.kwestiasmaku.com/sites/v123.kwestiasmaku.com/files/pancakes_04.jpg"
               alt="meal image"
@@ -120,16 +123,16 @@ const RecipePage = ({ }) => {
               }}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid
+            item
+            xs={12}
+            md={6}>
             <Box
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              pb="24px"
-            >
-              <Typography variant="h3">
-                Name
-              </Typography>
+              pb="24px">
+              <Typography variant="h3">Name</Typography>
               <div onClick={clickHandler}>
                 {isLiked ? (
                   <FavoriteRounded
@@ -151,30 +154,34 @@ const RecipePage = ({ }) => {
               display="flex"
               justifyContent={{ xs: "space-between", md: "flex-start" }}
               gap={{ md: "64px" }}
-              pb="24px"
-            >
+              pb="24px">
               <Typography variant="body1">30 min</Typography>
               <Typography variant="body1">7 ingredients</Typography>
               <Typography variant="body1">Easy</Typography>
             </Box>
-            <Box display="flex" flexDirection="column">
-              <Typography variant="h4" pb="24px">Ingredients</Typography>
-              <Box 
+            <Box
+              display="flex"
+              flexDirection="column">
+              <Typography
+                variant="h4"
+                pb="24px">
+                Ingredients
+              </Typography>
+              <Box
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
                   pb: "24px",
                   fontWeight: "700",
-                  fontSize: "24px"
-                }}
-              >
+                  fontSize: "24px",
+                }}>
                 <Button>
-                  <AddShoppingCartIcon 
-                  sx={{
-                    color: "black",
-                    mr: '20px'
-                  }}
+                  <AddShoppingCartIcon
+                    sx={{
+                      color: "black",
+                      mr: "20px",
+                    }}
                   />
                   <Typography>Add All to Shopping List</Typography>
                 </Button>
@@ -184,21 +191,17 @@ const RecipePage = ({ }) => {
                   width: "100%",
                   maxWidth: 360,
                   bgcolor: "background.paper",
-                }}
-              >
+                }}>
                 {[0, 1, 2, 3].map((value) => {
                   const labelId = `checkbox-list-label-${value}`;
                   return (
                     <ListItem
                       key={value}
-                      disablePadding
-                      
-                    >
+                      disablePadding>
                       <ListItemButton
                         role={undefined}
                         onClick={handleToggle(value)}
-                        dense
-                      >
+                        dense>
                         <ListItemIcon>
                           <Checkbox
                             edge="start"
@@ -221,22 +224,25 @@ const RecipePage = ({ }) => {
             </Box>
           </Grid>
         </Grid>
-        <Box maxWidth={{xs: '100%', md: '60%'}}>
-          <Typography variant="h4" pb="24px">
+        <Box maxWidth={{ xs: "100%", md: "60%" }}>
+          <Typography
+            variant="h4"
+            pb="24px">
             Directions
           </Typography>
-          <Typography pb={{xs: "48px", md: "96px"}}>
-          Lorem ipsum dolor sit amet consectetur. Eget lorem volutpat ac sed nisi sodales rutrum. Ullamcorper ac purus orci ipsum lacus magna facilisis. Molestie egestas fermentum egestas id iaculis lacus tristique lobortis. Id tincidunt morbi dictum sit at dolor commodo neque posuere.
+          <Typography pb={{ xs: "48px", md: "96px" }}>
+            Lorem ipsum dolor sit amet consectetur. Eget lorem volutpat ac sed nisi sodales rutrum. Ullamcorper ac purus
+            orci ipsum lacus magna facilisis. Molestie egestas fermentum egestas id iaculis lacus tristique lobortis. Id
+            tincidunt morbi dictum sit at dolor commodo neque posuere.
           </Typography>
-          <Typography 
+          <Typography
             sx={{
-              fontWeight: '700',
-              fontSize: '32px',
-              lineHeight: '44px',
-              color: '#28D681',
-              mb: '96px'
-            }}
-          >
+              fontWeight: "700",
+              fontSize: "32px",
+              lineHeight: "44px",
+              color: "#28D681",
+              mb: "96px",
+            }}>
             Bon appetit!
           </Typography>
         </Box>

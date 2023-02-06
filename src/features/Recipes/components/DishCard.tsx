@@ -49,7 +49,8 @@ export default function DishCard({ data }: DishCardProps) {
     // send request to database
     if (isLiked) {
       removeRecipe(data.idMeal as string, idToken as string).then(response => {
-        console.log(response)
+        console.log(response);
+        console.log('recipe removed');
       });
     } else {
       const ingredients = formatIngredients(data);

@@ -6,9 +6,5 @@ export default async function removeRecipe(recipeId: string, id_token: string) {
         "Authorization-Google": id_token,
       },
     })
-    .then(response => {
-      console.log(recipeId)
-      console.log(response)
-      return response
-    });
+    .then((response) => response);
 }
