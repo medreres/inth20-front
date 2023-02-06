@@ -67,6 +67,7 @@ const GoogleAuth = () => {
   useEffect(() => {
     // console.log(jwtDecode(idToken))
     // if token is null - exit
+    // console.log(idToken);
     if (idToken == null) return;
 
     // if token is present, but not valid - set to null
@@ -79,19 +80,21 @@ const GoogleAuth = () => {
 
   // console.log(getDateUnix(profile!.exp))
 
+
   // TODO styling
   if (idToken)
     return (
       <>
         <img
-        style={{
-          borderRadius: '100%',
-          marginRight: '1em'
-        }}
+          style={{
+            borderRadius: "100%",
+            marginRight: "1em",
+          }}
           alt="profile"
           height={48}
           src={profile?.picture}
-        /> <Button
+        />{" "}
+        <Button
           variant="contained"
           onClick={handleLogout}>
           Log out

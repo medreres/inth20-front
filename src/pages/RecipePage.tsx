@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Stack } from "@mui/system";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {
   Box,
   Button,
@@ -17,49 +17,75 @@ import {
   Typography,
 } from "@mui/material";
 import Image from "mui-image";
-import {
-  AddShoppingCart,
-  FavoriteBorder,
-  FavoriteRounded,
-} from "@mui/icons-material";
+import { AddShoppingCart, FavoriteBorder, FavoriteRounded } from "@mui/icons-material";
 import axios from "axios";
+import { Recipe } from "../features/Recipes/interface";
+import { useRecipeContext } from "../features/Recipes/context/recipe-context";
+import { useSearchParams } from "react-router-dom";
+import { formatIngredients } from "../features/Recipes/utils";
 
-interface Meal {
-  idMeal: string;
-  strMeal: string;
-  strMealThumb: string;
-  strInstructions: string;
-  strIngredient1: string;
-  strIngredient2: string;
-  strIngredient3: string;
-  strIngredient4: string;
-  strIngredient5: string;
-  strIngredient6: string;
-  strIngredient7: string;
-  strIngredient8: string;
-  strIngredient9: string;
-  strIngredient10: string;
-  strIngredient11: string;
-  strIngredient12: string;
-  strIngredient13: string;
-  strIngredient14: string;
-  strIngredient15: string;
-}
+// interface Meal {
+//   idMeal: string;
+//   strMeal: string;
+//   strMealThumb: string;
+//   strInstructions: string;
+//   strIngredient1: string;
+//   strIngredient2: string;
+//   strIngredient3: string;
+//   strIngredient4: string;
+//   strIngredient5: string;
+//   strIngredient6: string;
+//   strIngredient7: string;
+//   strIngredient8: string;
+//   strIngredient9: string;
+//   strIngredient10: string;
+//   strIngredient11: string;
+//   strIngredient12: string;
+//   strIngredient13: string;
+//   strIngredient14: string;
+//   strIngredient15: string;
+// }
 
-interface Props {
-  id: string;
-  list: string[];
-  setList: (list: string[]) => void;
-}
+// interface Props {
+//   id: string;
+//   list: string[];
+//   setList: (list: string[]) => void;
+//   // recipe: Recipe;
+// }
 
-const RecipePage = ({ }) => {
+const RecipePage = () => {
   //Liked
+  const { savedRecipes } = useRecipeContext();
   const [isLiked, setIsLiked] = useState(false);
+  const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    axios.get(`https://themealdb.com/api/json/v1/1/lookup.php?i=${searchParams.get("id")}`).then(({ data }) => {
+      setRecipe(data.meals[0]);
+    });
+  }, [searchParams]);
+
+  // check if liked
+  useEffect(() => {
+    if (recipe == null) return;
+    if (savedRecipes.length === 0) setIsLiked(false);
+
+    setIsLiked(savedRecipes.some((recipeListed) => recipe.strMeal === recipeListed.title));
+  }, [recipe, savedRecipes]);
+
   const toggleLiked = () => setIsLiked((prevState) => !prevState);
   const clickHandler = (e: any) => {
     e.stopPropagation();
     toggleLiked();
   };
+
+  // const [recipe, setRecipe] = useState('');
+
+  // fetch recipe from db
+  // useEffect(() => {
+  //   axios.get('www.themealdb.com/api/json/v1/1/lookup.php?i='+)
+  // }, [])
 
   //Check
   const [added, setAdded] = React.useState([0]);
@@ -79,7 +105,9 @@ const RecipePage = ({ }) => {
 
   return (
     <div>
-      <Grid container padding={{ xs: "10px 24px", md: "14px 96px" }}>
+      <Grid
+        container
+        padding={{ xs: "10px 24px", md: "14px 96px" }}>
         <Grid
           item
           xs={12}
@@ -90,15 +118,17 @@ const RecipePage = ({ }) => {
             lineHeight: "33px",
             display: "flex",
             alignItems: "center",
-            mt: "24px"
-          }}
-        >
+            mt: "24px",
+          }}>
           <ArrowBackIcon
             sx={{
               mr: "40px",
             }}
           />
-          <Link href="/browse-recipes" color="inherit" underline="none">
+          <Link
+            href="/browse-recipes"
+            color="inherit"
+            underline="none">
             Browse Recipes
           </Link>
         </Grid>
@@ -107,11 +137,17 @@ const RecipePage = ({ }) => {
           justifyContent="space-between"
           alignItems="center"
           mt="48px"
-          columnSpacing="64px"
-        >
-          <Grid item xs={12} md={6} mb={{xs: '48px', md: '0'}}>
+          columnSpacing="64px">
+          <Grid
+            item
+            xs={12}
+            md={6}
+            mb={{ xs: "48px", md: "0" }}>
             <Image
-              src="https://www.kwestiasmaku.com/sites/v123.kwestiasmaku.com/files/pancakes_04.jpg"
+              src={
+                recipe?.strMealThumb ??
+                "https://www.yanaya.co.zw/wp-content/uploads/2020/08/79-798754_hoteles-y-centros-vacacionales-dish-placeholder-hd-png.jpg"
+              }
               alt="meal image"
               style={{
                 borderRadius: "16px",
@@ -120,16 +156,16 @@ const RecipePage = ({ }) => {
               }}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid
+            item
+            xs={12}
+            md={6}>
             <Box
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              pb="24px"
-            >
-              <Typography variant="h3">
-                Name
-              </Typography>
+              pb="24px">
+              <Typography variant="h3">{recipe?.strMeal}</Typography>
               <div onClick={clickHandler}>
                 {isLiked ? (
                   <FavoriteRounded
@@ -151,30 +187,34 @@ const RecipePage = ({ }) => {
               display="flex"
               justifyContent={{ xs: "space-between", md: "flex-start" }}
               gap={{ md: "64px" }}
-              pb="24px"
-            >
-              <Typography variant="body1">30 min</Typography>
+              pb="24px">
+              {/* <Typography variant="body1">30 min</Typography> */}
               <Typography variant="body1">7 ingredients</Typography>
               <Typography variant="body1">Easy</Typography>
             </Box>
-            <Box display="flex" flexDirection="column">
-              <Typography variant="h4" pb="24px">Ingredients</Typography>
-              <Box 
+            <Box
+              display="flex"
+              flexDirection="column">
+              <Typography
+                variant="h4"
+                pb="24px">
+                Ingredients
+              </Typography>
+              <Box
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
                   pb: "24px",
                   fontWeight: "700",
-                  fontSize: "24px"
-                }}
-              >
+                  fontSize: "24px",
+                }}>
                 <Button>
-                  <AddShoppingCartIcon 
-                  sx={{
-                    color: "black",
-                    mr: '20px'
-                  }}
+                  <AddShoppingCartIcon
+                    sx={{
+                      color: "black",
+                      mr: "20px",
+                    }}
                   />
                   <Typography>Add All to Shopping List</Typography>
                 </Button>
@@ -184,34 +224,30 @@ const RecipePage = ({ }) => {
                   width: "100%",
                   maxWidth: 360,
                   bgcolor: "background.paper",
-                }}
-              >
-                {[0, 1, 2, 3].map((value) => {
-                  const labelId = `checkbox-list-label-${value}`;
+                }}>
+                {formatIngredients(recipe ?? undefined).map(({ amount, title }, index) => {
+                  const labelId = `checkbox-list-label-${title}`;
                   return (
                     <ListItem
-                      key={value}
-                      disablePadding
-                      
-                    >
+                      key={title}
+                      disablePadding>
                       <ListItemButton
                         role={undefined}
-                        onClick={handleToggle(value)}
-                        dense
-                      >
+                        // onClick={handleToggle(value)}
+                        dense>
                         <ListItemIcon>
                           <Checkbox
                             edge="start"
-                            checked={added.indexOf(value) !== -1}
+                            // checked={added.indexOf(value) !== -1}
                             tabIndex={-1}
                             disableRipple
                             color="success"
-                            inputProps={{ "aria-labelledby": labelId }}
+                            inputProps={{ "aria-labelledby": title }}
                           />
                         </ListItemIcon>
                         <ListItemText
                           id={labelId}
-                          primary={`Line item ${value + 1}`}
+                          primary={`${title}  ${amount}`}
                         />
                       </ListItemButton>
                     </ListItem>
@@ -221,22 +257,21 @@ const RecipePage = ({ }) => {
             </Box>
           </Grid>
         </Grid>
-        <Box maxWidth={{xs: '100%', md: '60%'}}>
-          <Typography variant="h4" pb="24px">
+        <Box maxWidth={{ xs: "100%", md: "60%" }}>
+          <Typography
+            variant="h4"
+            pb="24px">
             Directions
           </Typography>
-          <Typography pb={{xs: "48px", md: "96px"}}>
-          Lorem ipsum dolor sit amet consectetur. Eget lorem volutpat ac sed nisi sodales rutrum. Ullamcorper ac purus orci ipsum lacus magna facilisis. Molestie egestas fermentum egestas id iaculis lacus tristique lobortis. Id tincidunt morbi dictum sit at dolor commodo neque posuere.
-          </Typography>
-          <Typography 
+          <Typography pb={{ xs: "48px", md: "96px" }}>{recipe?.strInstructions ?? "loading"}</Typography>
+          <Typography
             sx={{
-              fontWeight: '700',
-              fontSize: '32px',
-              lineHeight: '44px',
-              color: '#28D681',
-              mb: '96px'
-            }}
-          >
+              fontWeight: "700",
+              fontSize: "32px",
+              lineHeight: "44px",
+              color: "#28D681",
+              mb: "96px",
+            }}>
             Bon appetit!
           </Typography>
         </Box>

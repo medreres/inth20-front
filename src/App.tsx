@@ -8,10 +8,22 @@ import BrowseRecipes from "./pages/BrowseRecipes";
 import SearchRecipes from "./pages/SearchRecipes";
 import Home from "./pages/Home";
 import RecipePage from "./pages/RecipePage";
-import MyFridge from "./pages/MyFridge";
+// import MyFridge from "./pages/MyFridge";
 import ShoppingList from "./pages/ShoppingList";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function App() {
+  // scheduler to make server stay put
+  useEffect(() => {
+    const cleanup = setTimeout(() => {
+      axios.get("https://int20h.onrender.com/alive");
+    }, 300000); // 5 min
+
+    return () => {
+      clearTimeout(cleanup);
+    };
+  }, []);
   return (
     <>
       <Navbar />
@@ -28,22 +40,20 @@ export default function App() {
           element={<BrowseRecipes />}
         />
 
-        {/* TODO make work with params */}
         {/* Search Recipes */}
         <Route
           path="/search"
           element={<SearchRecipes />}
         />
-        
-        {/* TODO make work with id */}
-        {/* Recipe Page */}
+
+        {/* TODO work with id */}
         <Route
           path="/recipe"
           element={<RecipePage />}
         />
 
-        {/* My Fridge */}
-        <Route
+        {/* My Fridge ! no such page */}
+        {/* <Route
           path="/my-fridge"
           element={<MyFridge />}
         />
