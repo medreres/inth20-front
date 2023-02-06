@@ -56,15 +56,15 @@ export default function App() {
         {/* <Route
           path="/my-fridge"
           element={<MyFridge />}
-        /> */}
-
+        />
 
         {/* Shopping List */}
-        <Route
-          path="/shopping-list"
-          element={<ShoppingList />}
-        />
+          <Route
+            path="/shopping-list"
+            element={<ShoppingList />}
+          />
       </Routes>
+
 
       <Footer />
     </>
