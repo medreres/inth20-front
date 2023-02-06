@@ -22,7 +22,6 @@ export default function DishCard({ data }: DishCardProps) {
 
   // check if liked
   useEffect(() => {
-    console.log(savedRecipes);
     if (savedRecipes.length === 0) setIsLiked(false);
 
     setIsLiked(savedRecipes.some((recipe) => recipe.title === data.strMeal));
@@ -54,8 +53,6 @@ export default function DishCard({ data }: DishCardProps) {
     // send request to database
     if (isLiked) {
       removeRecipe(data.idMeal as string, idToken as string).then((response) => {
-        console.log(response);
-        console.log("recipe removed");
       });
     } else {
       const ingredients = formatIngredients(data);

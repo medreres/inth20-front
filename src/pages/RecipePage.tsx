@@ -19,10 +19,12 @@ import {
 import Image from "mui-image";
 import { AddShoppingCart, FavoriteBorder, FavoriteRounded } from "@mui/icons-material";
 import axios from "axios";
-import { Recipe } from "../features/Recipes/interface";
+import { Recipe, RecipeToSave } from "../features/Recipes/interface";
 import { useRecipeContext } from "../features/Recipes/context/recipe-context";
 import { useSearchParams } from "react-router-dom";
 import { assessComplexity, formatIngredients } from "../features/Recipes/utils";
+import { removeRecipe, saveRecipe } from "../features/Recipes/api";
+import { useAuthContext } from "../features/Auth/context/auth-context";
 
 // interface Meal {
 //   idMeal: string;
@@ -55,8 +57,10 @@ import { assessComplexity, formatIngredients } from "../features/Recipes/utils";
 
 const RecipePage = () => {
   //Liked
-  const { savedRecipes } = useRecipeContext();
   const [isLiked, setIsLiked] = useState(false);
+  const toggleLiked = () => setIsLiked((prevState) => !prevState);
+  const { idToken } = useAuthContext();
+  const { savedRecipes } = useRecipeContext();
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const formattedIngredients = formatIngredients(recipe);
@@ -67,6 +71,38 @@ const RecipePage = () => {
     });
   }, [searchParams]);
 
+  const clickHandler = (e: any) => {
+    if (!recipe) return;
+    // prevent event bubbling
+    e.stopPropagation();
+
+    // tailor object for backend
+
+    // toggle state
+    toggleLiked();
+
+    // send request to database
+    if (isLiked) {
+      removeRecipe(recipe.idMeal as string, idToken as string).then((response) => {
+        console.log('removed')
+      });
+    } else {
+      const ingredients = formatIngredients(recipe);
+
+      const recipeToSave: RecipeToSave = {
+        id: recipe.idMeal,
+        title: recipe.strMeal,
+        category: recipe.strCategory,
+        ingredients,
+        instructions: "",
+        pic: recipe.strMealThumb,
+        youtube_url: recipe.strYoutube,
+      };
+
+      saveRecipe(recipeToSave, idToken as string);
+    }
+  };
+
   // check if liked
   useEffect(() => {
     if (recipe == null) return;
@@ -74,12 +110,6 @@ const RecipePage = () => {
 
     setIsLiked(savedRecipes.some((recipeListed) => recipe.strMeal === recipeListed.title));
   }, [recipe, savedRecipes]);
-
-  const toggleLiked = () => setIsLiked((prevState) => !prevState);
-  const clickHandler = (e: any) => {
-    e.stopPropagation();
-    toggleLiked();
-  };
 
   // const [recipe, setRecipe] = useState('');
 
