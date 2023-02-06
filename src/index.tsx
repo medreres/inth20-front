@@ -7,16 +7,19 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ThemeProvider } from "@emotion/react";
 import AuthContextProvider from "./features/Auth/context/auth-context";
 import theme from "./theme";
+import RecipeContextProvider from "./features/Recipes/context/recipe-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <AuthContextProvider>
-    <ThemeProvider theme={theme}>
-      <GoogleOAuthProvider clientId="959926205727-sk1i8lcga7v8bdrlu0jehkd8jv836cea.apps.googleusercontent.com">
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </GoogleOAuthProvider>
-    </ThemeProvider>
-  // </AuthContextProvider>
+    <RecipeContextProvider>
+      <ThemeProvider theme={theme}>
+        <GoogleOAuthProvider clientId="959926205727-sk1i8lcga7v8bdrlu0jehkd8jv836cea.apps.googleusercontent.com">
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </GoogleOAuthProvider>
+      </ThemeProvider>
+    </RecipeContextProvider>
+  </AuthContextProvider>
 );

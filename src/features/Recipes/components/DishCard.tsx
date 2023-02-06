@@ -1,20 +1,73 @@
 import { FavoriteBorder, FavoriteRounded } from "@mui/icons-material";
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAuthContext } from "../../Auth/context/auth-context";
+import removeRecipe from "../api/removeRecipe";
+import savedRecipes from "../api/savedRecipes";
+import saveRecipe from "../api/saveRecipe";
+import { useRecipeContext } from "../context/recipe-context";
+import { Recipe, RecipeToSave } from "../interface";
+import { formatIngredients } from "../utils";
 
 interface DishCardProps {
-  mealName: string;
-  imageUrl?: string | undefined;
+  data: Recipe;
 }
-export default function DishCard({ mealName, imageUrl = undefined }: DishCardProps) {
+export default function DishCard({ data }: DishCardProps) {
+  const { savedRecipes } = useRecipeContext();
   const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    console.log(savedRecipes)
+    if (savedRecipes.length === 0) setIsLiked(false);
+
+    setIsLiked(savedRecipes.some((recipe) => recipe.title === data.strMeal));
+  }, [data.strMeal, savedRecipes]);
+  const { idToken } = useAuthContext();
+
+  // fetch all saved recipes and check if it is saved
+  // useEffect(() => {
+  //   if (idToken == null) setIsLiked(false);
+
+  //   // TODO handle not logged case
+  //   savedRecipes(idToken as string).then((recipes) => {
+  //     const isSaved = recipes.some((recipe) => recipe.title === data.strMeal);
+  //     setIsLiked(isSaved);
+  //   });
+  // }, [data.strMeal, idToken]);
+
   const toggleLiked = () => setIsLiked((prevState) => !prevState);
   const clickHandler = (e: any) => {
+    // prevent event bubbling
     e.stopPropagation();
+
+    // tailor object for backend
+
+    // toggle state
     toggleLiked();
+
+    // send request to database
+    if (isLiked) {
+      removeRecipe(data.idMeal as string, idToken as string).then(response => {
+        console.log(response);
+        console.log('recipe removed');
+      });
+    } else {
+      const ingredients = formatIngredients(data);
+
+      const recipe: RecipeToSave = {
+        title: data.strMeal,
+        category: data.strCategory,
+        ingredients,
+        instructions: "",
+        pic: data.strMealThumb,
+        youtube_url: data.strYoutube,
+      };
+
+      saveRecipe(recipe, idToken as string);
+    }
   };
-  
+
   return (
     <Card>
       <CardActionArea>
@@ -27,7 +80,7 @@ export default function DishCard({ mealName, imageUrl = undefined }: DishCardPro
             borderRadius: "10px",
           }}
           image={
-            imageUrl ||
+            data.strMealThumb ||
             "https://www.yanaya.co.zw/wp-content/uploads/2020/08/79-798754_hoteles-y-centros-vacacionales-dish-placeholder-hd-png.jpg"
           }
         />
@@ -43,7 +96,7 @@ export default function DishCard({ mealName, imageUrl = undefined }: DishCardPro
                 flexBasis="70%"
                 variant="body1"
                 fontWeight="bold">
-                {mealName}
+                {data.strMeal}
               </Typography>
               <div onClick={clickHandler}>
                 {isLiked ? (

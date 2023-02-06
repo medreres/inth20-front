@@ -30,6 +30,7 @@ export default function SearchRecipes() {
     // send request
     searchRecipe(dishName, difficulty).then((result) => setRecipes(result));
   }, [difficulty, dishName, setSearchParams]);
+
   return (
     // TODO send request for searched meal
 
@@ -50,11 +51,10 @@ export default function SearchRecipes() {
         gap={1}
         display="flex"
         flexWrap="wrap">
-        {recipes.map((el, index) => (
+        {recipes.map((recipe) => (
           <DishCard
-            key={index}
-            mealName={el.strMeal}
-            imageUrl={el.strMealThumb}
+            key={recipe.idMeal}
+            data={recipe}
           />
         ))}
       </Box>

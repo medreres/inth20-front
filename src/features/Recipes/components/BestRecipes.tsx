@@ -28,7 +28,7 @@ const BestRecipes = () => {
               // TODO meaningful dishcards
               to="/recipe"
               style={{ textDecoration: "none" }}>
-              <DishCard mealName="dumplings" />
+              <DishCard data={{} as any} />
             </Link>
           </Grid>
         ))}

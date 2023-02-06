@@ -1,8 +1,19 @@
+import { RecipeToSave } from './../interface/index';
 import axios from "axios";
-import { Recipe } from "./../interface/index";
-export default async function searchRecipe(name: string, difficulty?: string) {
-  // TODO difficulty
+export default async function saveRecipe(recipe: RecipeToSave, id_token: string) {
+  console.log(recipe);
   return axios
-    .post("https://themealdb.com/api/json/v1/1/search.php?s=" + name)
-    .then(({ data }) => (data.meals as Recipe[]) ?? []);
+    .post(
+      "https://int20h.onrender.com/recipes",
+      { ...recipe },
+      {
+        headers: {
+          "Authorization-Google": id_token,
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then(({ data }) => data)
+    .catch((err) => err);
 }
+

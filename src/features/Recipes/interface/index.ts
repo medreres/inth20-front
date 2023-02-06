@@ -53,3 +53,18 @@ export interface Recipe {
   strTags: string;
   strYoutube: string;
 }
+
+export interface RecipeToSave {
+  title: string;
+  category: string;
+  instructions: string;
+  pic: string;
+  youtube_url: string;
+  ingredients: Ingredient[];
+}
+
+export interface Ingredient {
+  title: string;
+  amount: string;
+}
+
