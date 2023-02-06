@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import BestRecipes from "../features/Recipes/components/BestRecipes";
 import DishCard from "../features/Recipes/components/DishCard";
 import FindRecipes from "../features/Recipes/components/FindRecipes";
+import LatestRecipes from "../features/Recipes/components/LatestRecipes";
 // import DishCard from "../features/Recipes/DishCard";
 // import FindRecipes from "../features/Recipes/FindRecipes";
 
@@ -45,9 +46,9 @@ export default function Recipes() {
           </Button>
         </Link>
       </Stack> */}
-      <BestRecipes />
 
       <BestRecipes />
+      <LatestRecipes />
       {/* <Stack
         direction="column"
         my={5}>

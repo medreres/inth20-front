@@ -2,22 +2,23 @@ import { Box, Button, Stack, Typography, Grid } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import latestRecipe from "../api/latestRecipe";
 import randomRecipe from "../api/randomRecipe";
 import { Recipe } from "../interface";
 import DishCard from "./DishCard";
 
-const BestRecipes = () => {
+const LatestRecipes = () => {
   const [randomRecipes, setRandomRecipes] = useState<Recipe[]>([]);
 
   useEffect(() => {
-    randomRecipe(3).then((recipes) => {
+    latestRecipe().then((recipes) => {
       setRandomRecipes(recipes);
     });
   }, []);
 
   return (
     <Stack direction="column">
-      <Typography variant="h1">Best Recipes of The Day</Typography>
+      <Typography variant="h1">Latest Recipes</Typography>
       <Grid
         container
         spacing={{ xs: 4, md: 6 }}
@@ -47,4 +48,4 @@ const BestRecipes = () => {
   );
 };
 
-export default BestRecipes;
+export default LatestRecipes;
