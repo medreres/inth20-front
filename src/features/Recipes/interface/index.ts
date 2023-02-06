@@ -55,6 +55,7 @@ export interface Recipe {
 }
 
 export interface RecipeToSave {
+  id: string;
   title: string;
   category: string;
   instructions: string;

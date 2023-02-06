@@ -1,5 +1,6 @@
 import { Recipe, Ingredient } from "./../interface/index";
-export const formatIngredients = (recipe: Recipe): Ingredient[] => {
+export  const formatIngredients = (recipe: Recipe | undefined): Ingredient[] => {
+  if (!recipe) return [];
   // TODO extract all the ingredients and format them intp
   const ingredients: Ingredient[] = [];
   for (let i = 0; i < 20; i++) {

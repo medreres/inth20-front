@@ -24,12 +24,7 @@ const BestRecipes = () => {
             item
             xs={12}
             sm={4}>
-            <Link
-              // TODO meaningful dishcards
-              to="/recipe"
-              style={{ textDecoration: "none" }}>
               <DishCard data={{} as any} />
-            </Link>
           </Grid>
         ))}
       </Grid>

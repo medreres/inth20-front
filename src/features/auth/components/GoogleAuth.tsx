@@ -67,7 +67,7 @@ const GoogleAuth = () => {
   useEffect(() => {
     // console.log(jwtDecode(idToken))
     // if token is null - exit
-    console.log(idToken);
+    // console.log(idToken);
     if (idToken == null) return;
 
     // if token is present, but not valid - set to null
@@ -79,6 +79,7 @@ const GoogleAuth = () => {
   }, [idToken, profile, setIdToken, setProfile]);
 
   // console.log(getDateUnix(profile!.exp))
+
 
   // TODO styling
   if (idToken)

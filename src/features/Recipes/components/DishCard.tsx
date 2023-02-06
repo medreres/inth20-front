@@ -2,6 +2,7 @@ import { FavoriteBorder, FavoriteRounded } from "@mui/icons-material";
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import React, { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { useAuthContext } from "../../Auth/context/auth-context";
 import removeRecipe from "../api/removeRecipe";
 import savedRecipes from "../api/savedRecipes";
@@ -17,12 +18,14 @@ export default function DishCard({ data }: DishCardProps) {
   const { savedRecipes } = useRecipeContext();
   const [isLiked, setIsLiked] = useState(false);
 
+  // check if liked
   useEffect(() => {
-    console.log(savedRecipes)
+    console.log(savedRecipes);
     if (savedRecipes.length === 0) setIsLiked(false);
 
     setIsLiked(savedRecipes.some((recipe) => recipe.title === data.strMeal));
   }, [data.strMeal, savedRecipes]);
+
   const { idToken } = useAuthContext();
 
   // fetch all saved recipes and check if it is saved
@@ -48,14 +51,15 @@ export default function DishCard({ data }: DishCardProps) {
 
     // send request to database
     if (isLiked) {
-      removeRecipe(data.idMeal as string, idToken as string).then(response => {
+      removeRecipe(data.idMeal as string, idToken as string).then((response) => {
         console.log(response);
-        console.log('recipe removed');
+        console.log("recipe removed");
       });
     } else {
       const ingredients = formatIngredients(data);
 
       const recipe: RecipeToSave = {
+        id: data.idMeal,
         title: data.strMeal,
         category: data.strCategory,
         ingredients,
@@ -69,58 +73,63 @@ export default function DishCard({ data }: DishCardProps) {
   };
 
   return (
-    <Card>
-      <CardActionArea>
-        <CardMedia
-          loading="lazy"
-          component="img"
-          height="200"
-          width="200"
-          style={{
-            borderRadius: "10px",
-          }}
-          image={
-            data.strMealThumb ||
-            "https://www.yanaya.co.zw/wp-content/uploads/2020/08/79-798754_hoteles-y-centros-vacacionales-dish-placeholder-hd-png.jpg"
-          }
-        />
-        <CardContent>
-          <Stack
-            direction="column"
-            gap={2}>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center">
-              <Typography
-                flexBasis="70%"
-                variant="body1"
-                fontWeight="bold">
-                {data.strMeal}
-              </Typography>
-              <div onClick={clickHandler}>
-                {isLiked ? (
-                  <FavoriteRounded
-                    sx={{
-                      color: "#28D681",
-                    }}
-                  />
-                ) : (
-                  <FavoriteBorder />
-                )}
-              </div>
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              pt={1}>
-              <Typography variant="body1">30 min</Typography>
-              <Typography variant="body1">7 ingredients</Typography>
-              <Typography variant="body1">Easy</Typography>
-            </Box>
-          </Stack>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <Link
+      // TODO meaningful dishcards
+      to={`/recipe?id=${data.idMeal}`}
+      style={{ textDecoration: "none" }}>
+      <Card>
+        <CardActionArea>
+          <CardMedia
+            loading="lazy"
+            component="img"
+            height="200"
+            width="200"
+            style={{
+              borderRadius: "10px",
+            }}
+            image={
+              data.strMealThumb ||
+              "https://www.yanaya.co.zw/wp-content/uploads/2020/08/79-798754_hoteles-y-centros-vacacionales-dish-placeholder-hd-png.jpg"
+            }
+          />
+          <CardContent>
+            <Stack
+              direction="column"
+              gap={2}>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center">
+                <Typography
+                  flexBasis="70%"
+                  variant="body1"
+                  fontWeight="bold">
+                  {data.strMeal}
+                </Typography>
+                <div onClick={clickHandler}>
+                  {isLiked ? (
+                    <FavoriteRounded
+                      sx={{
+                        color: "#28D681",
+                      }}
+                    />
+                  ) : (
+                    <FavoriteBorder />
+                  )}
+                </div>
+              </Box>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                pt={1}>
+                <Typography variant="body1">30 min</Typography>
+                <Typography variant="body1">7 ingredients</Typography>
+                <Typography variant="body1">Easy</Typography>
+              </Box>
+            </Stack>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Link>
   );
 }

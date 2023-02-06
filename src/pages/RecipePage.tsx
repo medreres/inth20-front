@@ -19,43 +19,73 @@ import {
 import Image from "mui-image";
 import { AddShoppingCart, FavoriteBorder, FavoriteRounded } from "@mui/icons-material";
 import axios from "axios";
+import { Recipe } from "../features/Recipes/interface";
+import { useRecipeContext } from "../features/Recipes/context/recipe-context";
+import { useSearchParams } from "react-router-dom";
+import { formatIngredients } from "../features/Recipes/utils";
 
-interface Meal {
-  idMeal: string;
-  strMeal: string;
-  strMealThumb: string;
-  strInstructions: string;
-  strIngredient1: string;
-  strIngredient2: string;
-  strIngredient3: string;
-  strIngredient4: string;
-  strIngredient5: string;
-  strIngredient6: string;
-  strIngredient7: string;
-  strIngredient8: string;
-  strIngredient9: string;
-  strIngredient10: string;
-  strIngredient11: string;
-  strIngredient12: string;
-  strIngredient13: string;
-  strIngredient14: string;
-  strIngredient15: string;
-}
+// interface Meal {
+//   idMeal: string;
+//   strMeal: string;
+//   strMealThumb: string;
+//   strInstructions: string;
+//   strIngredient1: string;
+//   strIngredient2: string;
+//   strIngredient3: string;
+//   strIngredient4: string;
+//   strIngredient5: string;
+//   strIngredient6: string;
+//   strIngredient7: string;
+//   strIngredient8: string;
+//   strIngredient9: string;
+//   strIngredient10: string;
+//   strIngredient11: string;
+//   strIngredient12: string;
+//   strIngredient13: string;
+//   strIngredient14: string;
+//   strIngredient15: string;
+// }
 
-interface Props {
-  id: string;
-  list: string[];
-  setList: (list: string[]) => void;
-}
+// interface Props {
+//   id: string;
+//   list: string[];
+//   setList: (list: string[]) => void;
+//   // recipe: Recipe;
+// }
 
-const RecipePage = ({}) => {
+const RecipePage = () => {
   //Liked
+  const { savedRecipes } = useRecipeContext();
   const [isLiked, setIsLiked] = useState(false);
+  const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    axios.get(`https://themealdb.com/api/json/v1/1/lookup.php?i=${searchParams.get("id")}`).then(({ data }) => {
+      setRecipe(data.meals[0]);
+    });
+  }, [searchParams]);
+
+  // check if liked
+  useEffect(() => {
+    if (recipe == null) return;
+    if (savedRecipes.length === 0) setIsLiked(false);
+
+    setIsLiked(savedRecipes.some((recipe) => recipe.title === recipe.title));
+  }, [recipe, savedRecipes]);
+
   const toggleLiked = () => setIsLiked((prevState) => !prevState);
   const clickHandler = (e: any) => {
     e.stopPropagation();
     toggleLiked();
   };
+
+  // const [recipe, setRecipe] = useState('');
+
+  // fetch recipe from db
+  // useEffect(() => {
+  //   axios.get('www.themealdb.com/api/json/v1/1/lookup.php?i='+)
+  // }, [])
 
   //Check
   const [added, setAdded] = React.useState([0]);
@@ -114,7 +144,10 @@ const RecipePage = ({}) => {
             md={6}
             mb={{ xs: "48px", md: "0" }}>
             <Image
-              src="https://www.kwestiasmaku.com/sites/v123.kwestiasmaku.com/files/pancakes_04.jpg"
+              src={
+                recipe?.strMealThumb ??
+                "https://www.yanaya.co.zw/wp-content/uploads/2020/08/79-798754_hoteles-y-centros-vacacionales-dish-placeholder-hd-png.jpg"
+              }
               alt="meal image"
               style={{
                 borderRadius: "16px",
@@ -132,7 +165,7 @@ const RecipePage = ({}) => {
               justifyContent="space-between"
               alignItems="center"
               pb="24px">
-              <Typography variant="h3">Name</Typography>
+              <Typography variant="h3">{recipe?.strMeal}</Typography>
               <div onClick={clickHandler}>
                 {isLiked ? (
                   <FavoriteRounded
@@ -192,29 +225,29 @@ const RecipePage = ({}) => {
                   maxWidth: 360,
                   bgcolor: "background.paper",
                 }}>
-                {[0, 1, 2, 3].map((value) => {
-                  const labelId = `checkbox-list-label-${value}`;
+                {formatIngredients(recipe ?? undefined).map(({ amount, title }, index) => {
+                  const labelId = `checkbox-list-label-${title}`;
                   return (
                     <ListItem
-                      key={value}
+                      key={title}
                       disablePadding>
                       <ListItemButton
                         role={undefined}
-                        onClick={handleToggle(value)}
+                        // onClick={handleToggle(value)}
                         dense>
                         <ListItemIcon>
                           <Checkbox
                             edge="start"
-                            checked={added.indexOf(value) !== -1}
+                            // checked={added.indexOf(value) !== -1}
                             tabIndex={-1}
                             disableRipple
                             color="success"
-                            inputProps={{ "aria-labelledby": labelId }}
+                            inputProps={{ "aria-labelledby": title }}
                           />
                         </ListItemIcon>
                         <ListItemText
                           id={labelId}
-                          primary={`Line item ${value + 1}`}
+                          primary={`${title}  ${amount}`}
                         />
                       </ListItemButton>
                     </ListItem>
@@ -230,11 +263,7 @@ const RecipePage = ({}) => {
             pb="24px">
             Directions
           </Typography>
-          <Typography pb={{ xs: "48px", md: "96px" }}>
-            Lorem ipsum dolor sit amet consectetur. Eget lorem volutpat ac sed nisi sodales rutrum. Ullamcorper ac purus
-            orci ipsum lacus magna facilisis. Molestie egestas fermentum egestas id iaculis lacus tristique lobortis. Id
-            tincidunt morbi dictum sit at dolor commodo neque posuere.
-          </Typography>
+          <Typography pb={{ xs: "48px", md: "96px" }}>{recipe?.strInstructions ?? "loading"}</Typography>
           <Typography
             sx={{
               fontWeight: "700",

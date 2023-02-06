@@ -10,6 +10,7 @@ import { Recipe } from "../features/Recipes/interface";
 export default function SearchRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  
 
   const [dishName, setDishName] = useState(searchParams.get("dish") ?? "");
   const handleDishNameChange = (e: React.ChangeEvent<HTMLInputElement>) => setDishName(e.target.value);
