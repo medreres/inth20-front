@@ -19,10 +19,11 @@ import saveRecipe from "../api/recipes/saveRecipe";
 import { useRecipeContext } from "../context/recipe-context";
 import { Recipe, RecipeToSave } from "../interface";
 import { assessComplexity, formatIngredients } from "../utils";
-import CloseIcon from "@mui/icons-material/Close";
+
 // import {  } from "@react-oauth/google";
 import jwtDecode from "jwt-decode";
 import { savedRecipes as getSavedRecipes } from "../api";
+import SignInPopup from "./SignInPopup";
 
 interface DishCardProps {
   data: Recipe;
@@ -37,11 +38,11 @@ export default function DishCard({ data }: DishCardProps) {
 
   const formattedIngredients = formatIngredients(data);
 
-  const [showModal, setShowModal] = useState(false);
-  const toggleModal = (e: any) => {
+  const [showPopup, setShowPopup] = useState(false);
+  const togglePopup = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
-    setShowModal((prevState) => !prevState);
+    setShowPopup((prevState) => !prevState);
   };
 
   // check if liked
@@ -96,25 +97,6 @@ export default function DishCard({ data }: DishCardProps) {
     }
   };
 
-  const action = (
-    <React.Fragment>
-      {/* <Button
-        variant="outlined"
-        color="primary"
-        size="small"
-        onClick={login}>
-        Sign In
-      </Button> */}
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={toggleModal}>
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
-
   return (
     <>
       <Link
@@ -164,7 +146,7 @@ export default function DishCard({ data }: DishCardProps) {
                     fontWeight="bold">
                     {data.strMeal}
                   </Typography>
-                  <div onClick={idToken ? clickHandler : toggleModal}>
+                  <div onClick={idToken ? clickHandler : togglePopup}>
                     {isLiked ? (
                       <FavoriteRounded
                         sx={{
@@ -189,13 +171,9 @@ export default function DishCard({ data }: DishCardProps) {
           </CardActionArea>
         </Card>
       </Link>
-      {/* Modal to prompt user to sign in */}
-      <Snackbar
-        open={showModal}
-        autoHideDuration={6000}
-        onClose={toggleModal}
-        message="You have to sign in"
-        action={action}
+      <SignInPopup
+        show={showPopup}
+        onClose={togglePopup}
       />
     </>
   );
