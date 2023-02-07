@@ -74,8 +74,7 @@ const Header = () => {
       <Grid
         item
         sm={12}
-        md={6}
-        >
+        md={6}>
         <Image
           src={require('../assets/header.png')}
           alt="Meal"
