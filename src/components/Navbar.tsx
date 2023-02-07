@@ -148,7 +148,6 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-          <Button>GoogleAuth</Button>
           <GoogleAuth />
           </Grid>
         </Toolbar>
