@@ -10,8 +10,7 @@ export default function SavedRecipes() {
   return (
     <Grid
       container
-      p={{ xs: "36px 36px", md: "48px 96px" }}
-      >
+      p={{ xs: "36px 36px", md: "48px 96px" }}>
       <Grid
         item
         xs={12}

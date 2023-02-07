@@ -6,7 +6,11 @@ import randomRecipe from "../api/recipes/randomRecipe";
 import { Recipe } from "../interface";
 import DishCard from "./DishCard";
 
-const BestRecipes = () => {
+interface BestRecipesProps {
+  seeMore?: boolean;
+}
+
+const BestRecipes = ({ seeMore }: BestRecipesProps) => {
   const [randomRecipes, setRandomRecipes] = useState<Recipe[]>([]);
 
   useEffect(() => {
@@ -32,17 +36,19 @@ const BestRecipes = () => {
           </Grid>
         ))}
       </Grid>
-      <Link
-        onClick={(e) => window.scrollTo({ top: 0 })}
-        to={"/browse-recipes"}
-        style={{ textDecoration: "none", alignSelf: "center", marginBottom: "3em" }}>
-        <Button
-          // alignSelf="center"
-          variant="outlined"
-          color="secondary">
-          See More
-        </Button>
-      </Link>
+      {seeMore && (
+        <Link
+          onClick={(e) => window.scrollTo({ top: 0 })}
+          to={"/browse-recipes"}
+          style={{ textDecoration: "none", alignSelf: "center", marginBottom: "3em" }}>
+          <Button
+            // alignSelf="center"
+            variant="outlined"
+            color="secondary">
+            See More
+          </Button>
+        </Link>
+      )}
     </Stack>
   );
 };

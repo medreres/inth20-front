@@ -66,7 +66,7 @@ function ResponsiveAppBar() {
               </Typography>
             </Link>
           </Button>
-          <Box sx={{ flexGrow: 0.2, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 0.2, display: { xs: "flex", md: "none" }, justifyContent: "flex-start" }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -153,7 +153,8 @@ function ResponsiveAppBar() {
             }}>
             InFridge.
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "center" }}>
+          <Box
+            sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "center", alignItems: "center" }}>
             {pages.map((page) => (
               <Button
                 key={page.name}
@@ -163,7 +164,8 @@ function ResponsiveAppBar() {
                 sx={{
                   my: 2,
                   textDecoration: "none",
-                  display: "block",
+                  display: "flex",
+                  justifyContent: "center",
                   textTransform: "none",
                   margin: "0 32px",
                 }}>

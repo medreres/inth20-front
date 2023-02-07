@@ -10,10 +10,7 @@ import LatestRecipes from "../features/Recipes/components/LatestRecipes";
 
 export default function Recipes() {
   return (
-    <Grid
-      container
-      spacing={4}
-      p={{ xs: "36px 36px", md: "48px 96px" }}>
+    <Grid p={{ xs: "36px 36px", md: "48px 96px" }}>
       <Grid
         item
         mb={{ xs: "48px", md: "96px" }}>

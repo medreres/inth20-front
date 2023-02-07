@@ -15,7 +15,7 @@ interface DishCardProps {
   data: RecipeToSave;
 }
 export default function DishCardSaved({ data }: DishCardProps) {
-  const { savedRecipes } = useRecipeContext();
+  const { savedRecipes, setSavedRecipes } = useRecipeContext();
   const [isLiked, setIsLiked] = useState(true);
 
   //   const formattedIngredients = formatIngredients(data);
@@ -41,35 +41,20 @@ export default function DishCardSaved({ data }: DishCardProps) {
   // }, [data.strMeal, idToken]);
 
   const toggleLiked = () => setIsLiked((prevState) => !prevState);
-    const clickHandler = (e: any) => {
-  //     // prevent event bubbling
-  //     e.stopPropagation();
+  const clickHandler = (e: any) => {
+    // prevent event bubbling
+    e.preventDefault();
+    e.stopPropagation();
+    // tailor object for backend
 
-  //     // tailor object for backend
+    // toggle state
+    toggleLiked();
 
-  //     // toggle state
-  //     toggleLiked();
+    // send request to database
 
-  //     // send request to database
-  //     if (isLiked) {
-  //       removeRecipe(data.idMeal as string, idToken as string).then((response) => {
-  //       });
-  //     } else {
-  //       const ingredients = formatIngredients(data);
-
-  //       const recipe: RecipeToSave = {
-  //         id: data.idMeal,
-  //         title: data.strMeal,
-  //         category: data.strCategory,
-  //         ingredients,
-  //         instructions: "",
-  //         pic: data.strMealThumb,
-  //         youtube_url: data.strYoutube,
-  //       };
-
-  //       saveRecipe(recipe, idToken as string);
-  //     }
-    };
+    removeRecipe(data.id as string, idToken as string).then((response) => {});
+    setSavedRecipes((recipes) => recipes.filter((recipes) => recipes.id !== data.id));
+  };
 
   return (
     <Link

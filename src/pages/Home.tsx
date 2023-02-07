@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <Box mx={{ xs: "2em", md: "6em" }}>
         <Header />
-        <BestRecipes />
+        <BestRecipes seeMore />
       </Box>
       <ContactBanner />
     </>

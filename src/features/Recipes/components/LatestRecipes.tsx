@@ -33,7 +33,7 @@ const LatestRecipes = () => {
           </Grid>
         ))}
       </Grid>
-      <Link
+      {/* <Link
         onClick={(e) => window.scrollTo({ top: 0 })}
         to={"/browse-recipes"}
         style={{ textDecoration: "none", alignSelf: "center", marginBottom: "3em" }}>
@@ -43,7 +43,7 @@ const LatestRecipes = () => {
           color="secondary">
           See More
         </Button>
-      </Link>
+      </Link> */}
     </Stack>
   );
 };

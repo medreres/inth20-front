@@ -46,8 +46,13 @@ export default function SearchRecipes() {
 
     // TODO handle empty list
     // if recipes.length === 0
-    <Grid container p={{xs:"36px 36px", md:"48px 96px"}}>
-      <Grid item xs={12} >
+    <Grid
+      container
+      justifyContent='center'
+      p={{ xs: "36px 36px", md: "48px 96px" }}>
+      <Grid
+        item
+        xs={12}>
         <SearchForm
           dishName={dishName}
           handleDishNameChange={handleDishNameChange}
@@ -55,16 +60,20 @@ export default function SearchRecipes() {
           fullWidth
         />
       </Grid>
-      <Grid item 
+      <Grid
+        container
         xs={12}
-        gap={{xs: 4, sm: 6, md: 8}}
-        my={{xs: "48px", md: "64px"}}
+        gap={{ xs: 4, sm: 6, md: 8 }}
+        my={{ xs: "48px", md: "64px" }}
         display="flex"
         flex-direction="row"
-        justifyContent={{xs: "start"}}
+        justifyContent={{ xs: "start" }}
         flexWrap="wrap">
         {recipes.map((recipe) => (
-          <Grid item xs={8} sm={3}>
+          <Grid
+            item
+            xs={8}
+            sm={3}>
             <DishCard
               key={recipe.idMeal}
               data={recipe}

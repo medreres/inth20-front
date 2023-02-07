@@ -17,7 +17,7 @@ export { default as savedCategories } from "./categories/savedCategories";
 export interface IngredientToSave {
   title: string;
   category: {
-    id: string;
+    id: string | undefined;
     title: string;
   };
   amount: string;

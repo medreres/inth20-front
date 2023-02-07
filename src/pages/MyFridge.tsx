@@ -23,6 +23,7 @@ import { Box } from "@mui/system";
 import { useRecipeContext } from "../features/Recipes/context/recipe-context";
 import { addIngredient } from "../features/Recipes/api";
 import { useAuthContext } from "../features/Auth/context/auth-context";
+import SignIn from "../components/SignIn";
 
 interface MyFridgeItem {
   ingredient: string;
@@ -65,7 +66,7 @@ const MyFridge = () => {
       {
         amount,
         category: {
-          id: "",
+          id: undefined,
           title: category,
         },
         title,
@@ -109,6 +110,8 @@ const MyFridge = () => {
   // useEffect(() => {
   //   localStorage.setItem("myFridge", JSON.stringify(myFridge));
   // }, [myFridge]);
+
+  if (!idToken) return <SignIn />;
 
   return (
     <Grid

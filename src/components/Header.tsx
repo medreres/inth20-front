@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <Grid
       container
-      justifyContent="space-between"
+      justifyContent="center"
       alignItems="center"
       py="96px">
       <Grid
