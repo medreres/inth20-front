@@ -21,7 +21,7 @@ import Creatable, { useCreatable } from "react-select/creatable";
 import data from "../features/Recipes/data/ingredients.json";
 import { Box } from "@mui/system";
 import { useRecipeContext } from "../features/Recipes/context/recipe-context";
-import { addIngredient } from "../features/Recipes/api";
+import { addIngredient, deleteIngredient, IngredientToSave } from "../features/Recipes/api";
 import { useAuthContext } from "../features/Auth/context/auth-context";
 import SignIn from "../components/SignIn";
 
@@ -48,7 +48,7 @@ const MyFridge = () => {
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
 
-  const { ingredients, categories } = useRecipeContext();
+  const { ingredients, categories, setIngredients } = useRecipeContext();
   const { idToken } = useAuthContext();
 
   // const [shoppingList, setShoppingList] = useState<MyFridgeItem[]>([]);
@@ -64,6 +64,7 @@ const MyFridge = () => {
 
     addIngredient(
       {
+        id: undefined,
         amount,
         category: {
           id: undefined,
@@ -73,43 +74,16 @@ const MyFridge = () => {
       },
       idToken as string
     ).then((response) => {
-      console.log(response);
+      setIngredients((prevState) => [...prevState, response as IngredientToSave]);
     });
   };
 
-  // const handleRemoveFromMyFridge = (index: number) => {
-  //   setMyFridge(myFridge.filter((_, i) => i !== index));
-  // };
-
-  // const handleMoveToShoppingList = (index: number) => {
-  //   const [ingredient] = myFridge.splice(index, 1);
-  //   setMyFridge([...myFridge]);
-  //   setShoppingList([...shoppingList, ingredient]);
-  // };
-
-  // const sortedMyFridge = myFridge
-  //   .sort((a, b) => (a.category > b.category ? 1 : -1))
-  //   .reduce((acc, item) => {
-  //     const category = acc.find((c) => c.category === item.category);
-  //     if (category) {
-  //       category.ingredients.push(item);
-  //     } else {
-  //       acc.push({ category: item.category, ingredients: [item] });
-  //     }
-  //     return acc;
-  //   }, [] as { category: string; ingredients: { ingredient: string; amount: string }[] }[]);
-
-  // useEffect(() => {
-  //   const myFridgeFromLocalStorage = localStorage.getItem("myFridge");
-
-  //   if (myFridgeFromLocalStorage) {
-  //     setMyFridge(JSON.parse(myFridgeFromLocalStorage));
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem("myFridge", JSON.stringify(myFridge));
-  // }, [myFridge]);
+  const removeIngredient = (id: string) => {
+    deleteIngredient(id, idToken as string).then((response) => {
+      console.log(response);
+    });
+    setIngredients((ingredients) => ingredients.filter((ingredient) => ingredient.id !== id));
+  };
 
   if (!idToken) return <SignIn />;
 
@@ -235,19 +209,21 @@ const MyFridge = () => {
           </Grid>
         ) : (
           <Grid item>
-            {categories.map((category, i) => (
-              <Box pb={{ xs: "24px", md: "48px" }}>
+            {categories.map((category) => (
+              <Box
+                key={category}
+                pb={{ xs: "24px", md: "48px" }}>
                 <List>
                   <Typography
                     variant="h2"
                     mb="16px">
-                    {category.title}
+                    {category}
                     {/* <span style={{ color: "#28D681", paddingLeft: "8px" }}>({category.ingredients.length})</span> */}
                   </Typography>
                   {ingredients
-                    .filter((ingredient) => ingredient.category.title === category.title)
+                    .filter((ingredient) => ingredient.category.title === category)
                     .map((ingredient, i) => (
-                      <ListItem key={i}>
+                      <ListItem key={ingredient.title}>
                         <Grid
                           item
                           xs={12}
@@ -272,8 +248,8 @@ const MyFridge = () => {
                             {ingredient.amount}
                           </Typography>
                           <Button
-                            variant="text"
-                            // onClick={() => handleRemoveFromMyFridge(i)}
+                            // variant="text"
+                            onClick={() => removeIngredient(ingredient.id as string)}
                             sx={{ color: "black" }}>
                             <ClearIcon sx={{ fontSize: "20px" }} />
                           </Button>
@@ -283,26 +259,6 @@ const MyFridge = () => {
                 </List>
               </Box>
             ))}
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={4}>
-              <Button
-                href="/frige-based"
-                fullWidth
-                style={{
-                  backgroundColor: "#28D681",
-                  color: "#fff",
-                  padding: "20px auto",
-                  textTransform: "capitalize",
-                  fontSize: "20px",
-                  fontWeight: "700",
-                  borderRadius: "8px",
-                }}>
-                Find Fridge-Based Recipes
-              </Button>
-            </Grid>
           </Grid>
         )}
       </Grid>

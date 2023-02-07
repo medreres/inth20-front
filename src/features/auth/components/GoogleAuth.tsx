@@ -63,7 +63,7 @@ const GoogleAuth = () => {
     setIdToken(null);
   };
 
-  // console.log(idToken)
+  console.log(idToken)
 
   // TODO styling
   if (idToken)

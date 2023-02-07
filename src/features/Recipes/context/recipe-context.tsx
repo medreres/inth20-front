@@ -11,8 +11,8 @@ interface RecipeContextValue {
   setSavedRecipes: React.Dispatch<React.SetStateAction<RecipeToSave[]>>;
   ingredients: IngredientToSave[];
   setIngredients: React.Dispatch<React.SetStateAction<IngredientToSave[]>>;
-  categories: Category[];
-  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
+  categories: string[];
+  setCategories: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const useRecipeContext = () => useContext(RecipeContext) as RecipeContextValue;
@@ -21,7 +21,7 @@ const RecipeContextProvider = ({ children }: any) => {
   const { idToken } = useAuthContext();
   const [savedRecipes, setSavedRecipes] = useState<RecipeToSave[]>([]);
   const [ingredients, setIngredients] = useState<IngredientToSave[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
 
   // get saved recipes
   useEffect(() => {
@@ -32,12 +32,18 @@ const RecipeContextProvider = ({ children }: any) => {
 
   // get all categories
   useEffect(() => {
-    if (idToken == null) return;
+    if (idToken == null || ingredients.length === 0) return;
 
-    savedCategories(idToken).then((categories) => {
-      setCategories(categories);
+    const categories: string[] = [];
+    ingredients.forEach((ingredient) => {
+      if (!categories.includes(ingredient.category.title)) categories.push(ingredient.category.title);
     });
-  }, [idToken]);
+
+    setCategories(categories);
+    // savedCategories(idToken).then((categories) => {
+    //   setCategories(categories);
+    // });
+  }, [idToken, ingredients, ingredients.length]);
 
   // get all ingredients
   useEffect(() => {
