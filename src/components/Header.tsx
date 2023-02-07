@@ -23,9 +23,8 @@ const Header = () => {
         sx={{
           pb: { xs: "64px", md: "none" },
           alignItems: { xs: "center", md: "flex-start" },
-          textAlign: { xs: "center", md: "left" }
-        }}
-        >
+          textAlign: { xs: "center", md: "left" },
+        }}>
         <Typography
           variant="h2"
           color="secondary"
@@ -45,9 +44,9 @@ const Header = () => {
             fontWeight: "500",
             mb: "32px",
           }}>
-          Lorem ipsum dolor sit amet consectetur. Sit sapien justo ac adipiscing aliquet. Eget sit facilisi sit lorem
-          consequat. Sagittis gravida sed mattis feugiat vitae. Morbi in non faucibus ac bibendum vitae turpis sed.
-          Consequat libero penatibus egestas et vitae.
+          It is an ultimate tool for managing your grocery list, discovering new recipes, and meal planning! With
+          InFridge, you can keep track of what food you have in your fridge, group your ingredients by type, and easily
+          find recipes based on what you have on hand. Get started now!
         </Typography>
         <Button
           onClick={() => navigate("/my-fridge")}
@@ -69,8 +68,7 @@ const Header = () => {
       <Grid
         item
         sm={12}
-        md={6}
-        >
+        md={6}>
         <Image
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWE2cA4gMLSElnMWVnB25lMSOzGt8TeIwgiA&usqp=CAU"
           alt="dish"
