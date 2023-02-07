@@ -145,23 +145,25 @@ const RecipePage = () => {
           sx={{
             color: "black",
             fontWeight: "700",
-            fontSize: { xs: "18px", md: "24px" },
+            fontSize: "24px" ,
             lineHeight: "33px",
             display: "flex",
             alignItems: "center",
-            mt: "24px",
+            mt: "24px"
           }}>
-          <ArrowBackIcon
-            sx={{
-              mr: "40px",
-            }}
-          />
-          <Link
+          <Button
             href="/browse-recipes"
             color="inherit"
-            underline="none">
+            // underline="none"
+            style={{ cursor: 'pointer', fontWeight: "700", textTransform: "capitalize", padding: "0" }}
+            >
+            <ArrowBackIcon
+              sx={{
+                mr: {xs: "16px", md: "32px"},
+              }}
+            />
             Browse Recipes
-          </Link>
+          </Button>
         </Grid>
         <Grid
           container
@@ -184,6 +186,7 @@ const RecipePage = () => {
                 borderRadius: "16px",
                 padding: "0 10px",
                 objectFit: "contain",
+                maxHeight: "60vh"
               }}
             />
           </Grid>
@@ -196,7 +199,7 @@ const RecipePage = () => {
               justifyContent="space-between"
               alignItems="center"
               pb="24px">
-              <Typography variant="h3">{recipe?.strMeal}</Typography>
+              <Typography variant="h1" fontWeight="700" >{recipe?.strMeal}</Typography>
               <div onClick={clickHandler}>
                 {isLiked ? (
                   <FavoriteRounded
@@ -220,8 +223,8 @@ const RecipePage = () => {
               gap={{ md: "64px" }}
               pb="24px">
               {/* <Typography variant="body1">30 min</Typography> */}
-              <Typography variant="body1">{formattedIngredients.length} ingredients</Typography>
-              <Typography variant="body1">{assessComplexity(formattedIngredients)}</Typography>
+              <Typography variant="caption">{formattedIngredients.length} ingredients</Typography>
+              <Typography variant="caption">{assessComplexity(formattedIngredients)}</Typography>
             </Box>
             <Box
               display="flex"
@@ -255,6 +258,7 @@ const RecipePage = () => {
                   width: "100%",
                   maxWidth: 360,
                   bgcolor: "background.paper",
+                  py: "0"
                 }}>
                 {formatIngredients(recipe ?? null).map(({ amount, title }, index) => {
                   const labelId = `checkbox-list-label-${title}`;
@@ -291,7 +295,7 @@ const RecipePage = () => {
         <Box maxWidth={{ xs: "100%", md: "60%" }}>
           <Typography
             variant="h4"
-            pb="24px">
+            my="24px">
             Directions
           </Typography>
           <Typography pb={{ xs: "48px", md: "96px" }}>{recipe?.strInstructions ?? "loading"}</Typography>

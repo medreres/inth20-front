@@ -19,6 +19,7 @@ import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import ClearIcon from "@mui/icons-material/Clear";
 import Creatable, { useCreatable } from "react-select/creatable";
 import data from "../features/Recipes/data/ingredients.json";
+import { Box } from "@mui/system";
 
 interface MyFridgeItem {
   ingredient: string;
@@ -89,7 +90,7 @@ const MyFridge = () => {
   return (
     <Grid
       container
-      p="48px 96px"
+      p={{ xs: "36px 36px", md: "48px 96px" }}
       direction="column">
       <Grid
         item
@@ -103,8 +104,24 @@ const MyFridge = () => {
           item
           md={6}
           mb="16px">
-          <Autocomplete
+          <TextField
+            label="Enter ingredient"
+            variant="outlined"
+            value={ingredient}
+            onChange={(e) => setIngredient(e.target.value)}
+            fullWidth
+            color="secondary"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+           {/* <Autocomplete
             id="ingredients"
+            color="secondary"
             freeSolo
             options={data.ingredients.map((option) => option)}
             renderInput={(params) => (
@@ -113,71 +130,58 @@ const MyFridge = () => {
                 label="Enter ingredient"
               />
             )}
-          />
-          {/* <TextField
-            label="Enter ingredient"
-            variant="outlined"
-            value={ingredient}
-            onChange={(e) => setIngredient(e.target.value)}
-            fullWidth
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
           /> */}
         </Grid>
         <Grid
           item
           md={6}
           mb="16px">
-          <FormControl fullWidth>
+          <FormControl
+            color="secondary"
+            fullWidth>
             <InputLabel id="category-select-label">Choose a category</InputLabel>
             <Select
               labelId="category-select-label"
               label="Choose a category"
               value={category}
               onChange={(e) => setCategory(e.target.value as string)}>
-              {categories.map((category, index) => (
-                <MenuItem
-                  key={index}
-                  value={category}>
-                  {category}
-                </MenuItem>
+              {categories.map((category) => (
+                <MenuItem value={category}>{category}</MenuItem>
               ))}
             </Select>
           </FormControl>
         </Grid>
         <Grid
           item
-          xs={4}
+          xs={6}
+          sm={4}
           mb="16px">
           <TextField
             label="Enter amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
+            color="secondary"
             fullWidth
           />
         </Grid>
         <Grid
           item
-          alignItems="center"
-          xs={8}
+          xs={12}
+          sm={8}
           md={4}
-          mb="48px">
+          mb={{ xs: "24px", sm: "48px" }}>
           <Button
-            variant="contained"
-            color="primary"
+            variant="text"
             fullWidth
             onClick={handleAddToMyFridge}
             sx={{
               fontSize: "24px",
               lineHeight: "32px",
               fontWeight: "700",
-              textTransform: "capitalize",
+              textTransform: "none",
               border: "none",
+              py: "10px",
+              color: "black",
             }}>
             <AddBoxOutlinedIcon sx={{ fontSize: "30px", mr: "20px" }} />
             Add to Fridge
@@ -202,21 +206,71 @@ const MyFridge = () => {
         ) : (
           <Grid item>
             {sortedMyFridge.map((category, i) => (
-              <List key={i}>
-                <Typography
-                  variant="h2"
-                  mb="16px">
-                  {category.category}
-                  <span style={{ color: "#28D681", paddingLeft: "8px" }}>({category.ingredients.length})</span>
-                </Typography>
-                {category.ingredients.map((item, i) => (
-                  <ListItem key={i}>
-                    {item.ingredient} {item.amount}
-                    <Button onClick={() => handleRemoveFromMyFridge(i)}>Remove</Button>
-                  </ListItem>
-                ))}
-              </List>
+              <Box pb={{ xs: "24px", md: "48px" }}>
+                <List>
+                  <Typography
+                    variant="h2"
+                    mb="16px">
+                    {category.category}
+                    <span style={{ color: "#28D681", paddingLeft: "8px" }}>({category.ingredients.length})</span>
+                  </Typography>
+                  {category.ingredients.map((item, i) => (
+                    <ListItem key={i}>
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        display="flex"
+                        flexDirection="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        pl={{ xs: "0", sm: "32px" }}>
+                        <Typography
+                          sx={{
+                            fontSize: "24px",
+                            fontWeight: "500",
+                          }}>
+                          {item.ingredient}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontSize: "20px",
+                            color: "#9E9EB0",
+                          }}>
+                          {item.amount}
+                        </Typography>
+                        <Button
+                          variant="text"
+                          onClick={() => handleRemoveFromMyFridge(i)}
+                          sx={{ color: "black" }}>
+                          <ClearIcon sx={{ fontSize: "20px" }} />
+                        </Button>
+                      </Grid>
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
             ))}
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={4}>
+              <Button
+                href="/frige-based"
+                fullWidth
+                style={{
+                  backgroundColor: "#28D681",
+                  color: "#fff",
+                  padding: "20px auto",
+                  textTransform: "capitalize",
+                  fontSize: "20px",
+                  fontWeight: "700",
+                  borderRadius: "8px",
+                }}>
+                Find Fridge-Based Recipes
+              </Button>
+            </Grid>
           </Grid>
         )}
       </Grid>

@@ -1,4 +1,4 @@
-import { SelectChangeEvent } from "@mui/material";
+import { Grid, SelectChangeEvent } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -46,26 +46,32 @@ export default function SearchRecipes() {
 
     // TODO handle empty list
     // if recipes.length === 0
-    <Box
-      mx="6em"
-      my="5em">
-      <SearchForm
-        dishName={dishName}
-        handleDishNameChange={handleDishNameChange}
-        handleDifficultyChange={handleDifficultyChange}
-      />
-      <Box
-        my="4em"
-        gap={1}
+    <Grid container p={{xs:"36px 36px", md:"48px 96px"}}>
+      <Grid item xs={12} >
+        <SearchForm
+          dishName={dishName}
+          handleDishNameChange={handleDishNameChange}
+          handleDifficultyChange={handleDifficultyChange}
+          fullWidth
+        />
+      </Grid>
+      <Grid item 
+        xs={12}
+        gap={{xs: 4, sm: 6, md: 8}}
+        my={{xs: "48px", md: "64px"}}
         display="flex"
+        flex-direction="row"
+        justifyContent={{xs: "start"}}
         flexWrap="wrap">
         {recipes.map((recipe) => (
-          <DishCard
-            key={recipe.idMeal}
-            data={recipe}
-          />
+          <Grid item xs={8} sm={3}>
+            <DishCard
+              key={recipe.idMeal}
+              data={recipe}
+            />
+          </Grid>
         ))}
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 }

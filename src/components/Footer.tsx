@@ -5,7 +5,7 @@ import React from "react";
 export default function Footer() {
   return (
     <Grid container
-      p="5em"
+      p={{xs: "48px 36px", md: "48px 96px" }}
       display="flex"
       flex="1"
       justifyContent="space-between"
@@ -14,8 +14,7 @@ export default function Footer() {
       }}>
   
       <Grid item xs={12} sm={4}
-        display="flex"
-        justifyContent="space-between">
+        display="flex" pb={{xs: "24px", sm: "0"}}>
         <Typography
           variant="h2"
           color="primary_secondary">

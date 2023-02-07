@@ -26,9 +26,9 @@ const theme = createTheme({
     secondary_lighter: { main: "#A4A4A4" },
   },
   typography: {
-    h1: { fontSize: 48, color: "#5E5C5C", fontFamily: "Manrope", fontWeight: 'bold' },
+    h1: { fontSize: 48, color: "#171627", fontFamily: "Manrope", fontWeight: 'bold' },
     h2: { fontSize: 32, color: "#5E5C5C", fontFamily: "Manrope", fontWeight: "700" },
-    caption: { fontSize: 24, color: "#5E5C5C", fontFamily: "Manrope", fontWeight: "bold"  },
+    caption: { fontSize: 20, color: "#44444E", fontFamily: "Manrope", fontWeight: "bold"  },
     body1: { fontSize: 16, color: "#5E5C5C", fontFamily: "Manrope" },
   },
 });

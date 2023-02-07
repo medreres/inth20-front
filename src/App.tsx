@@ -8,7 +8,6 @@ import BrowseRecipes from "./pages/BrowseRecipes";
 import SearchRecipes from "./pages/SearchRecipes";
 import Home from "./pages/Home";
 import RecipePage from "./pages/RecipePage";
-// import MyFridge from "./pages/MyFridge";
 import ShoppingList from "./pages/ShoppingList";
 import { useEffect } from "react";
 import axios from "axios";

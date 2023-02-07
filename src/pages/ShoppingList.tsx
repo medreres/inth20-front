@@ -72,15 +72,13 @@ const ShoppingList = () => {
   }, [shoppingList]);
 
   return (
-    
-    <Grid container p="48px 96px" direction="column">
-      {/* ShoppingList */}
+      <Grid container p={{xs:"36px 36px", md:"48px 96px"}} direction="column">
       <Grid item xs={12} md={6} >
         <Typography variant="h1" mb="48px">
           Shopping List
         </Typography>
         <Grid item md={6} mb="16px">
-        <TextField label="Enter ingredient" variant="outlined" value={ingredient} onChange={e => setIngredient(e.target.value)} fullWidth InputProps={{
+        <TextField label="Enter ingredient" variant="outlined" value={ingredient} onChange={e => setIngredient(e.target.value)} fullWidth color="secondary" InputProps={{
             endAdornment: (
               <InputAdornment position="end">
                 <SearchIcon />
@@ -89,7 +87,7 @@ const ShoppingList = () => {
           }} />
         </Grid>
         <Grid item md={6} mb="16px" >
-          <FormControl fullWidth>
+          <FormControl color="secondary" fullWidth>
             <InputLabel id="category-select-label">Choose a category</InputLabel>
             <Select
               labelId="category-select-label"
@@ -102,15 +100,15 @@ const ShoppingList = () => {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={4} mb="16px">
-        <TextField label="Enter amount" value={amount} onChange={e => setAmount(e.target.value)} fullWidth  />
+      <Grid item xs={6} sm={4} mb="16px">
+        <TextField label="Enter amount" color="secondary" value={amount} onChange={e => setAmount(e.target.value)} fullWidth  />
       </Grid>
       <Grid item alignItems="center"xs={8} md={4} mb="48px">
-        <Button variant="contained" color="primary" fullWidth onClick={handleAddToShoppingList} sx={{
+        <Button variant="text" color="secondary" fullWidth onClick={handleAddToShoppingList} sx={{
           fontSize: "24px",
           lineHeight: "32px",
           fontWeight: "700",
-          textTransform: "capitalize",
+          textTransform: "none",
           border: "none"
         }} >
           <AddBoxOutlinedIcon sx={{ fontSize: "30px", mr: "20px" }} />
@@ -138,12 +136,28 @@ const ShoppingList = () => {
             </Typography>
             {category.ingredients.map((item, i) => (
             <ListItem key={i}>
-              <Checkbox color="success" />
-                {item.ingredient} - {item.amount}
-              <Button onClick={() => handleRemoveFromShoppingList(i)} variant="outlined">
-                <ClearIcon />
-                Remove
-              </Button>
+              <Grid item xs={12} sm={6} display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" pl={{xs:"0", sm:"32px"}}>
+                <Checkbox color="success" />
+                <Typography 
+                  sx={{
+                    fontSize: "24px",
+                    fontWeight: "500",
+                  }}
+                >
+                  {item.ingredient}
+                </Typography>
+                <Typography
+                sx={{
+                  fontSize: "20px",
+                  color: "#9E9EB0"
+                }}
+                >
+                  {item.amount}
+                </Typography>
+                <Button variant="text" onClick={() => handleRemoveFromShoppingList(i)} sx={{color: "black"}}>
+                  <ClearIcon sx={{ fontSize: "20px" }} />
+                </Button>
+              </Grid>
             </ListItem>
             ))}
           </List>

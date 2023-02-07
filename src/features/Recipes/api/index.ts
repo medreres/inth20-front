@@ -6,3 +6,12 @@ export { default as removeRecipe } from "./removeRecipe";
 export { default as savedRecipes } from "./savedRecipes";
 export { default as randomRecipe } from "./randomRecipe";
 export { default as latestRecipe } from "./latestRecipe";
+
+export interface IngredientToSave {
+    title: string;
+    category: {
+      id: string;
+      titie: string;
+    };
+    amount: string;
+  }
