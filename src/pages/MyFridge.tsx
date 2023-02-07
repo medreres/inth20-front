@@ -13,6 +13,7 @@ import {
   List,
   ListItem,
   Checkbox,
+  CircularProgress,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
@@ -48,7 +49,7 @@ const MyFridge = () => {
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
 
-  const { ingredients, categories, setIngredients } = useRecipeContext();
+  const { ingredients, categories, setIngredients, isLoading } = useRecipeContext();
   const { idToken } = useAuthContext();
 
   // const [shoppingList, setShoppingList] = useState<MyFridgeItem[]>([]);
@@ -191,75 +192,99 @@ const MyFridge = () => {
             Add to Fridge
           </Button>
         </Grid>
-        {ingredients.length === 0 ? (
+        {isLoading && (
           <Grid
             item
             xs={12}
             justifyContent="center"
             textAlign="center"
             alignItems="center"
-            mt="120px"
-            mb="180px">
-            <Typography
-              variant="h2"
-              mb="16px">
-              Your Fridge is empty
-            </Typography>
-            <Typography variant="caption">Fill your Fridge by adding ingredients using the search bar above</Typography>
+            // mt="120px"
+            // mb="180px"
+            >
+            <CircularProgress
+              size="10em"
+              style={{
+                color: "#26D681",
+              }}
+            />
           </Grid>
-        ) : (
-          <Grid item>
-            {categories.map((category) => (
-              <Box
-                key={category}
-                pb={{ xs: "24px", md: "48px" }}>
-                <List>
-                  <Typography
-                    variant="h2"
-                    mb="16px">
-                    {category}
-                    {/* <span style={{ color: "#28D681", paddingLeft: "8px" }}>({category.ingredients.length})</span> */}
-                  </Typography>
-                  {ingredients
-                    .filter((ingredient) => ingredient.category.title === category)
-                    .map((ingredient, i) => (
-                      <ListItem key={ingredient.title}>
-                        <Grid
-                          item
-                          xs={12}
-                          sm={6}
-                          display="flex"
-                          flexDirection="row"
-                          justifyContent="space-between"
-                          alignItems="center"
-                          pl={{ xs: "0", sm: "32px" }}>
-                          <Typography
-                            sx={{
-                              fontSize: "24px",
-                              fontWeight: "500",
-                            }}>
-                            {ingredient.title}
-                          </Typography>
-                          <Typography
-                            sx={{
-                              fontSize: "20px",
-                              color: "#9E9EB0",
-                            }}>
-                            {ingredient.amount}
-                          </Typography>
-                          <Button
-                            // variant="text"
-                            onClick={() => removeIngredient(ingredient.id as string)}
-                            sx={{ color: "black" }}>
-                            <ClearIcon sx={{ fontSize: "20px" }} />
-                          </Button>
-                        </Grid>
-                      </ListItem>
-                    ))}
-                </List>
-              </Box>
-            ))}
-          </Grid>
+        )}
+        {!isLoading && (
+          <>
+            {ingredients.length === 0 ? (
+              <Grid
+                item
+                xs={12}
+                justifyContent="center"
+                textAlign="center"
+                alignItems="center"
+                mt="120px"
+                mb="180px">
+                <Typography
+                  variant="h2"
+                  mb="16px">
+                  Your Fridge is empty
+                </Typography>
+                <Typography variant="caption">
+                  Fill your Fridge by adding ingredients using the search bar above
+                </Typography>
+              </Grid>
+            ) : (
+              <Grid item>
+                {categories.map((category) => (
+                  <Box
+                    key={category}
+                    pb={{ xs: "24px", md: "48px" }}>
+                    <List>
+                      <Typography
+                        variant="h2"
+                        mb="16px">
+                        {category}
+                        {/* <span style={{ color: "#28D681", paddingLeft: "8px" }}>({category.ingredients.length})</span> */}
+                      </Typography>
+                      {ingredients
+                        .filter((ingredient) => ingredient.category.title === category)
+                        .map((ingredient, i) => (
+                          <ListItem key={ingredient.title}>
+                            <Grid
+                              item
+                              xs={12}
+                              sm={6}
+                              display="flex"
+                              flexDirection="row"
+                              justifyContent="space-between"
+                              alignItems="center"
+                              pl={{ xs: "0", sm: "32px" }}>
+                              <Typography
+                                sx={{
+                                  fontSize: "24px",
+                                  fontWeight: "500",
+                                }}>
+                                {ingredient.title}
+                              </Typography>
+                              <Typography
+                                sx={{
+                                  fontSize: "20px",
+                                  color: "#9E9EB0",
+                                }}>
+                                {ingredient.amount}
+                              </Typography>
+                              <Button
+                                // variant="text"
+                                onClick={() => removeIngredient(ingredient.id as string)}
+                                sx={{ color: "black" }}>
+                                <ClearIcon sx={{ fontSize: "20px" }} />
+                              </Button>
+                            </Grid>
+                          </ListItem>
+                        ))}
+                    </List>
+                  </Box>
+                ))}
+              </Grid>
+            )}
+          </>
         )}
       </Grid>
     </Grid>
