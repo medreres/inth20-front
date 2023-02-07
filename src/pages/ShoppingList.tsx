@@ -18,6 +18,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import ClearIcon from "@mui/icons-material/Clear";
 import useLocalStorage from "../hooks/useLocalStorage";
+import IngredientForm from "../features/Recipes/components/IngredientForm";
 
 interface ShoppingListItem {
   ingredient: string;
@@ -80,79 +81,16 @@ const ShoppingList = () => {
           mb="48px">
           Shopping List
         </Typography>
-        <Grid
-          item
-          md={6}
-          mb="16px">
-          <TextField
-            label="Enter ingredient"
-            variant="outlined"
-            value={ingredient}
-            onChange={(e) => setIngredient(e.target.value)}
-            fullWidth
-            color="secondary"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
-        <Grid
-          item
-          md={6}
-          mb="16px">
-          <FormControl
-            color="secondary"
-            fullWidth>
-            <InputLabel id="category-select-label">Choose a category</InputLabel>
-            <Select
-              labelId="category-select-label"
-              value={category}
-              onChange={(e) => setCategory(e.target.value as string)}>
-              {categories.map((category) => (
-                <MenuItem value={category}>{category}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid
-          item
-          xs={6}
-          sm={4}
-          mb="16px">
-          <TextField
-            label="Enter amount"
-            color="secondary"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            fullWidth
-          />
-        </Grid>
-        <Grid
-          item
-          alignItems="center"
-          xs={8}
-          md={4}
-          mb="48px">
-          <Button
-            variant="text"
-            color="secondary"
-            fullWidth
-            onClick={handleAddToShoppingList}
-            sx={{
-              fontSize: "24px",
-              lineHeight: "32px",
-              fontWeight: "700",
-              textTransform: "none",
-              border: "none",
-            }}>
-            <AddBoxOutlinedIcon sx={{ fontSize: "30px", mr: "20px" }} />
-            Add to Shopping List
-          </Button>
-        </Grid>
+        <IngredientForm
+          buttonLabel="Add to Shopping List"
+          amount={amount}
+          setAmount={setAmount}
+          title={ingredient}
+          setTitle={setIngredient}
+          category={category}
+          setCategory={setCategory}
+          submitHandler={handleAddToShoppingList}
+        />
         {sortedShoppingList.length === 0 ? (
           <Grid
             item
