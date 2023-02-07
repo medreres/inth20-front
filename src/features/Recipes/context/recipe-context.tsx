@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useAuthContext } from "../../Auth/context/auth-context";
 import { Category, RecipeToSave } from "../interface";
-import getSavedRecipes from "../api/savedRecipes";
+import getSavedRecipes from "../api/recipes/savedRecipes";
 import { IngredientToSave, savedCategories, savedIngredients } from "../api";
 
 const RecipeContext = React.createContext<RecipeContextValue | null>(null);

@@ -1,4 +1,4 @@
-import { RecipeToSave } from './../interface/index';
+import { RecipeToSave } from '../../interface/index';
 import axios from "axios";
 export default async function saveRecipe(recipe: RecipeToSave, id_token: string) {
   console.log(recipe);

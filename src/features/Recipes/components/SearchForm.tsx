@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import React, { ChangeEvent, ChangeEventHandler, useCallback, useEffect, useRef, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import searchRecipe from "../api/searchRecipe";
+import searchRecipe from "../api/recipes/searchRecipe";
 
 // create latency in order not to storm server with request on each letter
 

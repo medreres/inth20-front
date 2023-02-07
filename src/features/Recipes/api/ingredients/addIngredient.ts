@@ -1,4 +1,4 @@
-import { IngredientToSave } from "./index";
+import { IngredientToSave } from "../index";
 
 import axios from "axios";
 export default async function addIngredient(ingredient: IngredientToSave, id_token: string) {

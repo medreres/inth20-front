@@ -49,6 +49,7 @@ const MyFridge = () => {
 
   const { ingredients, categories } = useRecipeContext();
   const { idToken } = useAuthContext();
+
   // const [shoppingList, setShoppingList] = useState<MyFridgeItem[]>([]);
   // const [myFridge, setMyFridge] = useState<MyFridgeItem[]>([]);
 

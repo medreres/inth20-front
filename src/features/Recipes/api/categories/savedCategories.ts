@@ -1,8 +1,8 @@
-import { Category } from './../interface/index';
+import { Category } from '../../interface/index';
 import axios from "axios";
 export default async function savedCategories(id_token: string) {
   return axios
-    .post("https://int20h.onrender.com/categories", {
+    .get("https://int20h.onrender.com/categories", {
       headers: {
         "Authorization-Google": id_token,
         "Content-Type": "application/json",

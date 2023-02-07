@@ -52,7 +52,7 @@ const Header = () => {
         <Button
           onClick={() => navigate("/my-fridge")}
           variant="contained"
-          href="/"
+          // href="/"
           sx={{
             fontSize: "24px",
             lineHeight: "1.5",

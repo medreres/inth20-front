@@ -2,7 +2,7 @@ import { Box, Button, Stack, Typography, Grid } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import randomRecipe from "../api/randomRecipe";
+import randomRecipe from "../api/recipes/randomRecipe";
 import { Recipe } from "../interface";
 import DishCard from "./DishCard";
 

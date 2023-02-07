@@ -18,7 +18,7 @@ export default function SavedRecipes() {
         my={{ xs: "48px", md: "64px" }}
         display="flex"
         flex-direction="row"
-        justifyContent={{ xs: "start" }}
+        justifyContent={{ xs: "space-between" }}
         flexWrap="wrap">
         {savedRecipes.map((recipe) => (
           <Grid
