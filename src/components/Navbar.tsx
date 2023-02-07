@@ -1,5 +1,17 @@
 import React, { useState } from "react";
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, MenuItem, Button, Link } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  MenuItem,
+  Link,
+  Button,
+  Grid,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Route, useLocation, BrowserRouter as Router, Link as RouterLink } from "react-router-dom";
 
@@ -34,142 +46,117 @@ function ResponsiveAppBar() {
   const location = useLocation();
 
   return (
-    <AppBar
-      position="static"
-      sx={{ px: { md: "96px" } }}>
-      <Container maxWidth="xl">
-        <Toolbar>
-          <Button
-            color="secondary"
-            sx={{
-              textTransform: "none",
-            }}>
-            <Link
+    <Grid
+      container
+      sx={{ display: "flex", flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar disableGutters>
+          <Grid
+            item
+            xs={12}
+            display="flex"
+            alignItems="center"
+            py="16px"
+            px={{ xs: "36px", sm: "48px", md: "96px" }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              color="#171627"
               sx={{
+                mr: { md: 1, xl: 2 },
+                display: { xs: "none", md: "flex" },
+                fontWeight: 800,
+                fontSize: { md: "24px", xl: "32px" },
                 textDecoration: "none",
-              }}
-              component={RouterLink}
-              to="/">
-              <Typography
-                variant="h6"
-                color="secondary"
-                noWrap
-                // component="a"
+              }}>
+              InFridge
+              <span style={{ color: "#28D681" }}>.</span>
+            </Typography>
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}>
+                <MenuIcon sx={{ color: "black" }} />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
                 sx={{
-                  mr: 2,
-                  display: { xs: "none", md: "flex" },
-                  fontWeight: 800,
-                  fontSize: "32px",
-                  // textDecoration: "none",
-                }}>
-                InFridge.
-              </Typography>
-            </Link>
-          </Button>
-          <Box sx={{ flexGrow: 0.2, display: { xs: "flex", md: "none" }, justifyContent: "flex-start" }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="secondary">
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+                  display: { xs: "block", md: "none" },
+                  color: "#171627",
+                }}
+                //
+              >
+                {pages.map((page) => (
+                  <MenuItem
+                    key={page.name}
+                    onClick={handleCloseNavMenu}
+                    color="#171627">
+                    <Button href={page.path}>
+                      <Typography
+                        textAlign="center"
+                        fontWeight="500"
+                        textTransform="none">
+                        {page.name}
+                      </Typography>
+                    </Button>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+            {/* </Grid> */}
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="/"
+              color="#171627"
               sx={{
-                display: { xs: "block", md: "none" },
-              }}
-              //
-            >
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontWeight: 800,
+                textDecoration: "none",
+                justifyContent: "center",
+              }}>
+              InFridge
+              <span style={{ color: "#28D681" }}>.</span>
+            </Typography>
+            <Box
+              sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
+              textAlign="center"
+              alignItems="center">
               {pages.map((page) => (
-                <MenuItem
+                <Button
                   key={page.name}
-                  onClick={handleCloseNavMenu}
-                  color="primary"
+                  color="secondary"
+                  component={RouterLink}
+                  to={page.path}
                   sx={{
+                    my: 2,
                     textDecoration: "none",
+                    display: "flex",
+                    justifyContent: "center",
+                    textTransform: "none",
+                    margin: { md: "0 8px", xl: "0 32px" },
                   }}>
                   {/* <Link
-                    width="100%"
-                    component={RouterLink}
-                    to={page.path}
-                    // to={page.path}
-                    // href={page.path}
-                  > */}
-                  {/* <Button
-                    fullWidth
-                    sx={{
-                      display: "flex",
-                      justifyContent: "flex-start",
-                    }}> */}
-                  <RouterLink
-                    to={page.path}
-                    style={{
-                      width: "100%",
-                      textDecoration: "none",
-                    }}>
-                    <Typography
-                      textAlign="center"
-                      fontWeight="500"
-                      textTransform="none">
-                      {page.name}
-                    </Typography>
-                  </RouterLink>
-                  {/* </Button> */}
-                  {/* </Link> */}
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component={RouterLink}
-            to={"/"}
-            // href="/"
-            color="secondary"
-            // color="white"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontWeight: 800,
-              textDecoration: "none",
-              justifyContent: "center",
-            }}>
-            InFridge.
-          </Typography>
-          <Box
-            sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "center", alignItems: "center" }}>
-            {pages.map((page) => (
-              <Button
-                key={page.name}
-                color="secondary"
-                component={RouterLink}
-                to={page.path}
-                sx={{
-                  my: 2,
-                  textDecoration: "none",
-                  display: "flex",
-                  justifyContent: "center",
-                  textTransform: "none",
-                  margin: "0 32px",
-                }}>
-                {/* <Link
                   // LinkComponent={<RouterLink to={page.path} />}
                   component={RouterLink}
                   to={page.path}
@@ -184,15 +171,16 @@ function ResponsiveAppBar() {
                     textTransform: "none",
                     margin: "0 32px",
                   }}> */}
-                {page.name}
-                {/* </Link> */}
-              </Button>
-            ))}
-          </Box>
-          <GoogleAuth />
+                  {page.name}
+                  {/* </Link> */}
+                </Button>
+              ))}
+            </Box>
+            <GoogleAuth />
+          </Grid>
         </Toolbar>
-      </Container>
-    </AppBar>
+      </AppBar>
+    </Grid>
   );
 }
 export default ResponsiveAppBar;

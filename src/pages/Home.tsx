@@ -7,9 +7,9 @@ import { Box } from "@mui/material";
 export default function Home() {
   return (
     <>
-      <Box mx={{ xs: "2em", md: "6em" }}>
+      <Box px={{ xs: "36px", sm: "48px", md: "96px" }}>
         <Header />
-        <BestRecipes seeMore />
+        <BestRecipes />
       </Box>
       <ContactBanner />
     </>
