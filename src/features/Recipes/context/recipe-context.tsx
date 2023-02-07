@@ -66,7 +66,9 @@ const RecipeContextProvider = ({ children }: any) => {
 
   // loading state
   useEffect(() => {
-    if (isLoading) setIsLoading(!savedRecipesDonwloaded && !ingredientsDonwloaded);
+    // console.log('savedRecipesDonwloaded', savedRecipesDonwloaded)
+    // console.log('ingredientsDonwloaded', ingredientsDonwloaded)
+    setIsLoading(!(savedRecipesDonwloaded && ingredientsDonwloaded));
   }, [ingredientsDonwloaded, isLoading, savedRecipesDonwloaded]);
 
   return (

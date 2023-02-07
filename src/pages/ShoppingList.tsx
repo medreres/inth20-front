@@ -112,7 +112,7 @@ const ShoppingList = () => {
         ) : (
           <Grid item>
             {sortedShoppingList.map((category, i) => (
-              <List>
+              <List key={category.category}>
                 <Typography
                   variant="h2"
                   mb="16px">
