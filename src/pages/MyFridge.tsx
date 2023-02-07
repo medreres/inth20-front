@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TextField, Select, FormControl, InputLabel, MenuItem, Button, Grid, Typography, Autocomplete, InputAdornment, List, ListItem, Checkbox } from '@mui/material';
+import { TextField, Select, FormControl, InputLabel, MenuItem, Button, Grid, Typography, Autocomplete, InputAdornment, List, ListItem, Checkbox, alpha, styled, ButtonProps, Box } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -73,13 +73,13 @@ const MyFridge = () => {
   }, [myFridge]);
 
   return (
-    <Grid container p="48px 96px" direction="column">
+    <Grid container p={{xs:"36px 36px", md:"48px 96px"}} direction="column">
       <Grid item xs={12}>
       <Typography variant="h1" mb="48px">
         My Fridge 
         </Typography>
         <Grid item md={6} mb="16px">
-        <TextField label="Enter ingredient" variant="outlined" value={ingredient} onChange={e => setIngredient(e.target.value)} fullWidth InputProps={{
+        <TextField label="Enter ingredient" variant="outlined" value={ingredient} onChange={e => setIngredient(e.target.value)} fullWidth color="secondary" InputProps={{
             endAdornment: (
               <InputAdornment position="end">
                 <SearchIcon />
@@ -88,7 +88,7 @@ const MyFridge = () => {
           }} />
         </Grid>
         <Grid item md={6} mb="16px" >
-          <FormControl fullWidth>
+          <FormControl color="secondary" fullWidth>
             <InputLabel id="category-select-label">Choose a category</InputLabel>
             <Select
               labelId="category-select-label"
@@ -101,16 +101,18 @@ const MyFridge = () => {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={4} mb="16px">
-        <TextField label="Enter amount" value={amount} onChange={e => setAmount(e.target.value)} fullWidth  />
+      <Grid item xs={6} sm={4} mb="16px">
+        <TextField label="Enter amount" value={amount} onChange={e => setAmount(e.target.value)} color="secondary" fullWidth />
       </Grid>
-      <Grid item alignItems="center"  xs={8} md={4} mb="48px">
-        <Button variant="contained" color="primary" fullWidth onClick={handleAddToMyFridge} sx={{
+      <Grid item xs={12} sm={8} md={4} mb={{xs:"24px", sm:"48px"}}>
+        <Button variant="text" fullWidth onClick={handleAddToMyFridge} sx={{
           fontSize: "24px",
           lineHeight: "32px",
           fontWeight: "700",
-          textTransform: "capitalize",
-          border: "none"
+          textTransform: "none",
+          border: "none",
+          py: "10px",
+          color: "black"
         }} >
           <AddBoxOutlinedIcon sx={{ fontSize: "30px", mr: "20px" }} />
           Add to Fridge
@@ -128,6 +130,7 @@ const MyFridge = () => {
         ) : (
         <Grid item>
           {sortedMyFridge.map((category, i) => (
+        <Box pb={{xs: "24px", md: "48px"}}>
           <List>
             <Typography variant="h2" mb="16px">
               {category.category} 
@@ -137,15 +140,41 @@ const MyFridge = () => {
             </Typography>
             {category.ingredients.map((item, i) => (
             <ListItem key={i}>
-                {item.ingredient} {item.amount}
-              <Button onClick={() => handleRemoveFromMyFridge(i)}>
-                Remove
-                <ClearIcon />
+              <Grid item xs={12} sm={6} display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" pl={{xs:"0", sm:"32px"}}>
+                <Typography 
+                  sx={{
+                    fontSize: "24px",
+                    fontWeight: "500",
+                  }}
+                >
+                  {item.ingredient}
+                </Typography>
+                <Typography
+                sx={{
+                  fontSize: "20px",
+                  color: "#9E9EB0"
+                }}
+                >
+                  {item.amount}
+                </Typography>
+              <Button variant="text" onClick={() => handleRemoveFromMyFridge(i)} sx={{color: "black"}}>
+                <ClearIcon sx={{ fontSize: "20px" }} />
               </Button>
+              </Grid>
             </ListItem>
             ))}
           </List>
+        </Box>
             ))}
+          <Grid item xs={12} sm={6} md={4}>
+            <Button
+              href="/frige-based"
+              fullWidth
+              style={{backgroundColor: "#28D681", color: "#fff", padding: "20px auto", textTransform: "capitalize", fontSize: "20px", fontWeight: "700", borderRadius: "8px"}}
+            >
+              Find Fridge-Based Recipes 
+            </Button>
+          </Grid>
         </Grid>
         )}
       </Grid>

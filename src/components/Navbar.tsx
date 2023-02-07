@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Button, MenuItem, Link } from "@mui/material";
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, MenuItem, Link, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Route, useLocation, BrowserRouter as Router } from "react-router-dom";
 
@@ -31,16 +31,14 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const location = useLocation();
-
-  
+  const location = useLocation();  
 
   return (
     <AppBar
       position="static"
       sx={{ px: { md: "96px" } }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar>
           <Typography
             variant="h6"
             color="secondary"
@@ -90,14 +88,19 @@ function ResponsiveAppBar() {
                 <MenuItem
                   key={page.name}
                   onClick={handleCloseNavMenu}
-                  href={page.path}
-                >
-                  <Typography
-                    textAlign="center"
-                    fontWeight="500"
-                    textTransform="none">
-                      {page.name}
-                  </Typography>
+                  color="primary"
+                  >
+                    <Button
+                      href={page.path}
+                    >
+                      <Typography
+                        textAlign="center"
+                        fontWeight="500"
+                        textTransform="none"
+                      >
+                          {page.name}
+                      </Typography>
+                    </Button>
                 </MenuItem>
               ))}
             </Menu>

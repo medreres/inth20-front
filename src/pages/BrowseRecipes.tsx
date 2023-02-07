@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import BestRecipes from "../features/Recipes/components/BestRecipes";
@@ -10,10 +10,10 @@ import LatestRecipes from "../features/Recipes/components/LatestRecipes";
 
 export default function Recipes() {
   return (
-    <Box
-      mx="6em"
-      my={5}>
-      <FindRecipes />
+    <Grid spacing={4} p={{xs:"36px 36px", md:"48px 96px"}}>
+      <Grid item mb={{xs: "48px",  md: "96px"}}>
+        <FindRecipes />
+      </Grid>
 
       {/* <Stack
         direction="column"
@@ -46,9 +46,12 @@ export default function Recipes() {
           </Button>
         </Link>
       </Stack> */}
-
-      <BestRecipes />
-      <LatestRecipes />
+      <Grid item>
+        <BestRecipes />
+      </Grid>
+      <Grid item>
+        <LatestRecipes />
+      </Grid>
       {/* <Stack
         direction="column"
         my={5}>
@@ -80,6 +83,6 @@ export default function Recipes() {
           </Button>
         </Link>
       </Stack> */}
-    </Box>
+    </Grid>
   );
 }

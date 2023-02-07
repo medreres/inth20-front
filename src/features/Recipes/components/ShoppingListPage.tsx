@@ -138,7 +138,7 @@ const ShoppingListPage = () => {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={4} mb="16px">
+      <Grid item xs={6} sm={4} mb="16px">
         <TextField label="Enter amount" value={amount} onChange={e => setAmount(e.target.value)} fullWidth  />
       </Grid>
       <Grid item alignItems="center"xs={8} md={4} mb="48px">
