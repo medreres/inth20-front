@@ -13,21 +13,30 @@ interface RecipeContextValue {
   setIngredients: React.Dispatch<React.SetStateAction<IngredientToSave[]>>;
   categories: string[];
   setCategories: React.Dispatch<React.SetStateAction<string[]>>;
+  isLoading: boolean;
 }
 
 export const useRecipeContext = () => useContext(RecipeContext) as RecipeContextValue;
 
 const RecipeContextProvider = ({ children }: any) => {
   const { idToken } = useAuthContext();
+
   const [savedRecipes, setSavedRecipes] = useState<RecipeToSave[]>([]);
-  const [ingredients, setIngredients] = useState<IngredientToSave[]>([]);
+  const [savedRecipesDonwloaded, setSavedRecipesDonwloaded] = useState(false);
   const [categories, setCategories] = useState<string[]>([]);
+  const [ingredients, setIngredients] = useState<IngredientToSave[]>([]);
+  const [ingredientsDonwloaded, setIngredientsDonwloaded] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   // get saved recipes
   useEffect(() => {
     if (idToken == null) return;
 
-    getSavedRecipes(idToken as string).then((recipes) => setSavedRecipes(recipes));
+    getSavedRecipes(idToken as string).then((recipes) => {
+      setSavedRecipes(recipes);
+      setSavedRecipesDonwloaded(true);
+    });
   }, [idToken]);
 
   // get all categories
@@ -51,8 +60,16 @@ const RecipeContextProvider = ({ children }: any) => {
 
     savedIngredients(idToken).then((ingredients) => {
       setIngredients(ingredients);
+      setIngredientsDonwloaded(true);
     });
   }, [idToken]);
+
+  // loading state
+  useEffect(() => {
+    // console.log('savedRecipesDonwloaded', savedRecipesDonwloaded)
+    // console.log('ingredientsDonwloaded', ingredientsDonwloaded)
+    setIsLoading(!(savedRecipesDonwloaded && ingredientsDonwloaded));
+  }, [ingredientsDonwloaded, isLoading, savedRecipesDonwloaded]);
 
   return (
     <RecipeContext.Provider
@@ -63,6 +80,7 @@ const RecipeContextProvider = ({ children }: any) => {
         setIngredients,
         categories,
         setCategories,
+        isLoading,
       }}>
       {children}
     </RecipeContext.Provider>

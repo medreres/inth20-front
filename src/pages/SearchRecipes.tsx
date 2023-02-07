@@ -1,4 +1,4 @@
-import { Grid, SelectChangeEvent } from "@mui/material";
+import { CircularProgress, Grid, SelectChangeEvent, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -10,6 +10,7 @@ import { filterByDifficulty } from "../features/Recipes/utils";
 
 export default function SearchRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [dishName, setDishName] = useState(searchParams.get("dish") ?? "");
@@ -29,7 +30,10 @@ export default function SearchRecipes() {
     window.history.pushState(params, "recipes");
 
     // send request
-    searchRecipe(dishName).then((result) => setRecipes(result.slice(0, 24)));
+    searchRecipe(dishName).then((result) => {
+      setIsLoading(false);
+      setRecipes(result.slice(0, 24));
+    });
   }, [difficulty, dishName, setSearchParams]);
 
   useEffect(() => {
@@ -40,12 +44,7 @@ export default function SearchRecipes() {
   }, [difficulty, recipes]);
 
   return (
-    // TODO send request for searched meal
-
     // TODO create loading spinner
-
-    // TODO handle empty list
-    // if recipes.length === 0
     <Grid
       container
       justifyContent="center"
@@ -68,20 +67,48 @@ export default function SearchRecipes() {
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "flex-start",
+          justifyContent: isLoading ? "center" : "flex-start",
         }}>
-        {recipes.map((recipe) => (
-          <Grid
-            item
-            xs={12}
-            sm={4}
-            md={3}>
-            <DishCard
-              key={recipe.idMeal}
-              data={recipe}
-            />
-          </Grid>
-        ))}
+        {isLoading && (
+          <CircularProgress
+            style={{
+              marginTop: "5em",
+              color: "#26D681",
+            }}
+            size="10em"
+          />
+        )}
+        {!isLoading && (
+          <>
+            {recipes.map((recipe) => (
+              <Grid
+                key={recipe.idMeal}
+                item
+                xs={12}
+                sm={4}
+                md={3}>
+                <DishCard
+                  key={recipe.idMeal}
+                  data={recipe}
+                />
+              </Grid>
+            ))}
+            {recipes.length === 0 && (
+              <Grid
+                item
+                // xs={12}
+                // sm={4}
+                // md={3}
+              >
+                <Typography
+                  variant="h2"
+                  noWrap>
+                  Oops! We don't have any recipes like that!
+                </Typography>
+              </Grid>
+            )}
+          </>
+        )}
       </Grid>
     </Grid>
   );
