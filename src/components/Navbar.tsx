@@ -10,7 +10,7 @@ const pages = [
   { name: "Browse Recipes", path: "/browse-recipes" },
   { name: "My Fridge", path: "/my-fridge" },
   { name: "Shopping List", path: "/shopping-list" },
-  { name: "Saved Recipes", path: "/saved-recipes" },
+  { name: "Saved Recipes", path: "/saved" },
 ];
 
 function ResponsiveAppBar() {

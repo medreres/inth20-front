@@ -12,6 +12,7 @@ import ShoppingList from "./pages/ShoppingList";
 import { useEffect } from "react";
 import axios from "axios";
 import MyFridge from "./pages/MyFridge";
+import SavedRecipes from "./pages/SavedRecipes";
 
 export default function App() {
   // scheduler to make server stay put
@@ -62,6 +63,12 @@ export default function App() {
         <Route
           path="/shopping-list"
           element={<ShoppingList />}
+        />
+
+        {/* Saved Recipes */}
+        <Route
+          path="/saved"
+          element={<SavedRecipes />}
         />
       </Routes>
 

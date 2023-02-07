@@ -63,22 +63,7 @@ const GoogleAuth = () => {
     setIdToken(null);
   };
 
-  // TODO refresh token
-  useEffect(() => {
-    // console.log(jwtDecode(idToken))
-    // if token is null - exit
-    // console.log(idToken);
-    if (idToken == null) return;
-
-    // if token is present, but not valid - set to null
-    if (getDateUnix(profile!.exp) < new Date()) {
-      setIdToken(null);
-      setProfile(null);
-      return;
-    }
-  }, [idToken, profile, setIdToken, setProfile]);
-
-
+  console.log(idToken)
 
   // TODO styling
   if (idToken)

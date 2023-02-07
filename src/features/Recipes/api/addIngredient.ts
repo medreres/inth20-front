@@ -1,17 +1,10 @@
-import { Ingredient } from "./../interface/index";
+import { IngredientToSave } from "./index";
+
 import axios from "axios";
-export interface IngredientToSave {
-  title: string;
-  category: {
-    id: string;
-    titie: string;
-  };
-  amount: string;
-}
-export default async function addIngerdient(ingredient: IngredientToSave, id_token: string) {
+export default async function addIngredient(ingredient: IngredientToSave, id_token: string) {
   return axios
     .post(
-      "https://int20h.onrender.com/ingredient",
+      "https://int20h.onrender.com/ingredients",
       { ...ingredient },
       {
         headers: {
