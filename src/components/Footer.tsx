@@ -1,11 +1,12 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid, Link, Typography } from "@mui/material";
 import { Box, Container, Stack } from "@mui/system";
 import React from "react";
 
 export default function Footer() {
   return (
     <Grid container
-      p={{xs: "48px 36px", md: "48px 96px" }}
+      px={{xs: "36px", sm: "48px",  md: "96px" }}
+      py={{xs: "48px"}}
       display="flex"
       flex="1"
       justifyContent="space-between"
@@ -21,13 +22,13 @@ export default function Footer() {
           InFridge.
         </Typography>
       </Grid>
-        <Grid item xs={12} sm={4} gap={1}>
-          <Typography variant="body1">My Fridge</Typography>
-          <Typography variant="body1">Shopping List</Typography>
+        <Grid item xs={12} sm={4} spacing={1}>
+          <Link href="/my-fridge"><Typography variant="body1">My Fridge</Typography></Link>
+          <Link href="/shopping-list"><Typography variant="body1">Shopping List</Typography></Link>
         </Grid>
-        <Grid item xs={12} sm={4} gap={1}>
-          <Typography variant="body1">Browse Recipes</Typography>
-          <Typography variant="body1">Saved Recipes</Typography>
+        <Grid item xs={12} sm={4} spacing={1}>
+          <Link href="/browse-recipes"><Typography variant="body1">Browse Recipes</Typography></Link>
+          <Link href="/saved-recipes"><Typography variant="body1">Saved Recipes</Typography></Link>
         </Grid>
       <Typography
         pt={5}

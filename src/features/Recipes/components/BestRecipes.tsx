@@ -43,19 +43,25 @@ const BestRecipes = ({ seeMore }: BestRecipesProps) => {
           </Grid>
         ))}
       </Grid>
-      {seeMore && (
-        <Link
-          onClick={(e) => window.scrollTo({ top: 0 })}
-          to={"/browse-recipes"}
-          style={{ textDecoration: "none", alignSelf: "center", marginBottom: "3em" }}>
-          <Button
-            // alignSelf="center"
-            variant="outlined"
-            color="secondary">
-            See More
-          </Button>
-        </Link>
-      )}
+      <Link
+        onClick={(e) => window.scrollTo({ top: 0 })}
+        to={"/browse-recipes"}
+        style={{ textDecoration: "none", alignSelf: "center", marginBottom: "3em" }}>
+        <Button
+          // alignSelf="center"
+          variant="outlined"
+          color="secondary"
+          sx={{
+            fontSize: "24px",
+            fw: "500",
+            p: "16px 64px",
+            border: "2px solid #171627",
+            borderRadius: "8px"
+          }}
+        >
+          See More
+        </Button>
+      </Link>
     </Stack>
   );
 };

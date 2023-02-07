@@ -108,7 +108,6 @@ const ShoppingListPage = () => {
   }, [shoppingList, myFridge]);
 
   return (
-    
     <Grid container p="48px 96px" direction="column">
       {/* ShoppingList */}
       <Grid item xs={12} md={6} >

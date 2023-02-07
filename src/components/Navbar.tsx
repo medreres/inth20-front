@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, MenuItem, Button, Link } from "@mui/material";
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, MenuItem, Link, Button, Grid } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Route, useLocation, BrowserRouter as Router, Link as RouterLink } from "react-router-dom";
 
@@ -39,41 +39,30 @@ function ResponsiveAppBar() {
       sx={{ px: { md: "96px" } }}>
       <Container maxWidth="xl">
         <Toolbar>
-          <Button
+          <Typography
+            variant="h6"
             color="secondary"
+            noWrap
+            component="a"
+            href="/"
             sx={{
-              textTransform: "none",
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontWeight: 800,
+              fontSize: "32px",
+              textDecoration: "none",
             }}>
-            <Link
-              sx={{
-                textDecoration: "none",
-              }}
-              component={RouterLink}
-              to="/">
-              <Typography
-                variant="h6"
-                color="secondary"
-                noWrap
-                // component="a"
-                sx={{
-                  mr: 2,
-                  display: { xs: "none", md: "flex" },
-                  fontWeight: 800,
-                  fontSize: "32px",
-                  // textDecoration: "none",
-                }}>
-                InFridge.
-              </Typography>
-            </Link>
-          </Button>
-          <Box sx={{ flexGrow: 0.2, display: { xs: "flex", md: "none" }, justifyContent: "flex-start" }}>
+            InFridge.
+          </Typography>
+          <Box sx={{ flexGrow: 0.2, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="secondary">
+              color="secondary"
+            >
               <MenuIcon />
             </IconButton>
             <Menu
@@ -100,37 +89,18 @@ function ResponsiveAppBar() {
                   key={page.name}
                   onClick={handleCloseNavMenu}
                   color="primary"
-                  sx={{
-                    textDecoration: "none",
-                  }}>
-                  {/* <Link
-                    width="100%"
-                    component={RouterLink}
-                    to={page.path}
-                    // to={page.path}
-                    // href={page.path}
-                  > */}
-                  {/* <Button
-                    fullWidth
-                    sx={{
-                      display: "flex",
-                      justifyContent: "flex-start",
-                    }}> */}
-                  <RouterLink
-                    to={page.path}
-                    style={{
-                      width: "100%",
-                      textDecoration: "none",
-                    }}>
-                    <Typography
-                      textAlign="center"
-                      fontWeight="500"
-                      textTransform="none">
-                      {page.name}
-                    </Typography>
-                  </RouterLink>
-                  {/* </Button> */}
-                  {/* </Link> */}
+                  >
+                    <Button
+                      href={page.path}
+                    >
+                      <Typography
+                        textAlign="center"
+                        fontWeight="500"
+                        textTransform="none"
+                      >
+                          {page.name}
+                      </Typography>
+                    </Button>
                 </MenuItem>
               ))}
             </Menu>
@@ -138,9 +108,8 @@ function ResponsiveAppBar() {
           <Typography
             variant="h5"
             noWrap
-            component={RouterLink}
-            to={"/"}
-            // href="/"
+            component="a"
+            href="/"
             color="secondary"
             // color="white"
             sx={{
@@ -151,10 +120,10 @@ function ResponsiveAppBar() {
               textDecoration: "none",
               justifyContent: "center",
             }}>
-            InFridge.
+            InFridge
+            <span style={{color: "#28D681"}}>.</span>
           </Typography>
-          <Box
-            sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "center", alignItems: "center" }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "center" }}>
             {pages.map((page) => (
               <Button
                 key={page.name}
@@ -167,7 +136,7 @@ function ResponsiveAppBar() {
                   display: "flex",
                   justifyContent: "center",
                   textTransform: "none",
-                  margin: "0 32px",
+                  margin: {md: "0 8px", xl: "0 32px"},
                 }}>
                 {/* <Link
                   // LinkComponent={<RouterLink to={page.path} />}
@@ -190,9 +159,10 @@ function ResponsiveAppBar() {
             ))}
           </Box>
           <GoogleAuth />
+          </Grid>
         </Toolbar>
-      </Container>
-    </AppBar>
+      </AppBar>
+    </Grid>
   );
 }
 export default ResponsiveAppBar;
