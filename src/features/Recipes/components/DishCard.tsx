@@ -30,7 +30,7 @@ export default function DishCard({ data }: DishCardProps) {
 
   const { idToken } = useAuthContext();
 
-  fetch all saved recipes and check if it is saved
+  // fetch all saved recipes and check if it is saved
   useEffect(() => {
     if (idToken == null) setIsLiked(false);
 
