@@ -12,6 +12,7 @@ import RecipePage from "./pages/RecipePage";
 import ShoppingList from "./pages/ShoppingList";
 import { useEffect } from "react";
 import axios from "axios";
+import MyFridge from "./pages/MyFridge";
 
 export default function App() {
   // scheduler to make server stay put
@@ -46,25 +47,24 @@ export default function App() {
           element={<SearchRecipes />}
         />
 
-        {/* TODO work with id */}
+        {/* Recipe Page */}
         <Route
           path="/recipe"
           element={<RecipePage />}
         />
 
-        {/* My Fridge ! no such page */}
-        {/* <Route
+        {/* My Fridge*/}
+        <Route
           path="/my-fridge"
           element={<MyFridge />}
         />
 
         {/* Shopping List */}
-          <Route
-            path="/shopping-list"
-            element={<ShoppingList />}
-          />
+        <Route
+          path="/shopping-list"
+          element={<ShoppingList />}
+        />
       </Routes>
-
 
       <Footer />
     </>
