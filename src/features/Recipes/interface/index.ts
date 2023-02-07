@@ -69,3 +69,7 @@ export interface Ingredient {
   amount: string;
 }
 
+export interface Category {
+  id: string;
+  title: string;
+}

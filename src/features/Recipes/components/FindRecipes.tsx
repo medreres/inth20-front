@@ -9,7 +9,6 @@ import DishCard from "./DishCard";
 const Searchbar = styled((props: TextFieldProps) => {
   const navigate = useNavigate();
   const dishRef = useRef<HTMLInputElement>(null);
-  // TODO fix layout
   return (
     <form
       onSubmit={(e) => {
@@ -17,6 +16,8 @@ const Searchbar = styled((props: TextFieldProps) => {
         navigate(`/search?dish=${dishRef.current?.value}`);
       }}>
       <TextField
+        fullWidth
+        id="dish"
         inputRef={dishRef}
         InputProps={{ disableUnderline: true } as Partial<OutlinedInputProps>}
         {...props}
@@ -28,11 +29,22 @@ const Searchbar = styled((props: TextFieldProps) => {
     border: "1px solid #e2e2e1",
     overflow: "hidden",
     borderRadius: 4,
-    color: "#fff",
+    color: "#000",
     backgroundColor: theme.palette.mode === "light" ? "#fcfcfb" : "#2b2b2b",
     transition: theme.transitions.create(["border-color", "background-color", "box-shadow"]),
     "&:hover": {
       backgroundColor: "transparent",
+      // color: "#fff",
+    },
+    "&:hover .MuiFilledInput-root": {
+      // backgroundColor: "transparent",
+      color: "#fff",
+    },
+    "&.Mui-focused #dish": {
+      color: "#fff",
+    },
+    ".MuiFilledInput-root:active ": {
+      color: "#fff",
     },
     "&.Mui-focused": {
       backgroundColor: "transparent",
@@ -60,6 +72,7 @@ export default function FindRecipes() {
       p={15}>
       <Stack direction="column">
         <Typography
+          noWrap
           gutterBottom
           variant="h2"
           color="primary">

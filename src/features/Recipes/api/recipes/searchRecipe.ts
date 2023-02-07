@@ -1,5 +1,5 @@
-import { API_URL } from './index';
-import { Recipe } from './../interface/index';
+import { API_URL } from '../index';
+import { Recipe } from '../../interface/index';
 import axios from "axios";
 
 export default async function searchRecipe(name: string) {

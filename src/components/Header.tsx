@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <Grid
       container
-      justifyContent="space-between"
+      justifyContent="center"
       alignItems="center"
       py="96px">
       <Grid
@@ -52,7 +52,7 @@ const Header = () => {
         <Button
           onClick={() => navigate("/my-fridge")}
           variant="contained"
-          href="/"
+          // href="/"
           sx={{
             fontSize: "24px",
             lineHeight: "1.5",

@@ -2,8 +2,8 @@ import { Box, Button, Stack, Typography, Grid } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import latestRecipe from "../api/latestRecipe";
-import randomRecipe from "../api/randomRecipe";
+import latestRecipe from "../api/recipes/latestRecipe";
+import randomRecipe from "../api/recipes/randomRecipe";
 import { Recipe } from "../interface";
 import DishCard from "./DishCard";
 
@@ -33,7 +33,7 @@ const LatestRecipes = () => {
           </Grid>
         ))}
       </Grid>
-      <Link
+      {/* <Link
         onClick={(e) => window.scrollTo({ top: 0 })}
         to={"/browse-recipes"}
         style={{ textDecoration: "none", alignSelf: "center", marginBottom: "3em" }}>
@@ -43,7 +43,7 @@ const LatestRecipes = () => {
           color="secondary">
           See More
         </Button>
-      </Link>
+      </Link> */}
     </Stack>
   );
 };
