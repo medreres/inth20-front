@@ -136,13 +136,14 @@ const RecipePage = () => {
           // href="/browse-recipes"
           color="inherit"
           // underline="none"
-          style={{ cursor: "pointer", fontWeight: "700", textTransform: "capitalize", padding: "0" }}>
+          onClick={() => window.history.back()}
+          style={{ cursor: "pointer", fontWeight: "700", textTransform: "capitalize", padding: ".5em" }}>
           <ArrowBackIcon
             sx={{
               mr: { xs: "16px", md: "32px" },
             }}
           />
-          Browse Recipes
+          Back
         </Button>
       </Grid>
       <Grid
@@ -251,7 +252,7 @@ const RecipePage = () => {
                   const labelId = `checkbox-list-label-${title}`;
                   return (
                     <FormControlLabel
-                      key={title}
+                      key={title + amount}
                       control={
                         <ListItem disablePadding>
                           <ListItemButton

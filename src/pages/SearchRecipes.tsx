@@ -73,7 +73,7 @@ export default function SearchRecipes() {
           <CircularProgress
             style={{
               marginTop: "5em",
-              color: '#26D681'
+              color: "#26D681",
             }}
             size="10em"
           />
@@ -82,6 +82,7 @@ export default function SearchRecipes() {
           <>
             {recipes.map((recipe) => (
               <Grid
+                key={recipe.idMeal}
                 item
                 xs={12}
                 sm={4}
