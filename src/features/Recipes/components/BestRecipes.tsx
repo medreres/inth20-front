@@ -25,13 +25,20 @@ const BestRecipes = ({ seeMore }: BestRecipesProps) => {
       <Grid
         container
         spacing={{ xs: 4, md: 6 }}
-        padding="64px 0">
+        padding="64px 0"
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between"
+        }}  
+      >
         {randomRecipes.map((recipe) => (
-          <Grid
+          <Grid 
             key={recipe.idMeal}
             item
             xs={12}
-            sm={4}>
+            sm={4}
+            >
             <DishCard data={recipe} />
           </Grid>
         ))}

@@ -15,7 +15,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useAuthContext } from "../../Auth/context/auth-context";
 import removeRecipe from "../api/recipes/removeRecipe";
-import savedRecipes from "../api/recipes/savedRecipes";
 import saveRecipe from "../api/recipes/saveRecipe";
 import { useRecipeContext } from "../context/recipe-context";
 import { Recipe, RecipeToSave } from "../interface";
@@ -23,15 +22,18 @@ import { assessComplexity, formatIngredients } from "../utils";
 import CloseIcon from "@mui/icons-material/Close";
 // import {  } from "@react-oauth/google";
 import jwtDecode from "jwt-decode";
+import { savedRecipes as getSavedRecipes } from "../api";
 
 interface DishCardProps {
   data: Recipe;
 }
 
 export default function DishCard({ data }: DishCardProps) {
-  const { savedRecipes } = useRecipeContext();
+  const { savedRecipes, setSavedRecipes } = useRecipeContext();
   const { setIdToken, setProfile } = useAuthContext();
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(() => {
+    return savedRecipes.some((recipe) => recipe.id === data.idMeal);
+  });
 
   const formattedIngredients = formatIngredients(data);
 
@@ -43,22 +45,20 @@ export default function DishCard({ data }: DishCardProps) {
   };
 
   // check if liked
-  useEffect(() => {
-    if (savedRecipes.length === 0) setIsLiked(false);
+  // useEffect(() => {
+  //   if (savedRecipes.length === 0) setIsLiked(false);
 
-    setIsLiked(savedRecipes.some((recipe) => recipe.title === data.strMeal));
-  }, [data.strMeal, savedRecipes]);
+  //   setIsLiked(savedRecipes.some((recipe) => recipe.title === data.strMeal));
+  // }, [data.strMeal, savedRecipes]);
 
   const { idToken } = useAuthContext();
-
-  
 
   // fetch all saved recipes and check if it is saved
   // useEffect(() => {
   //   if (idToken == null) setIsLiked(false);
 
   //   // TODO handle not logged case
-  //   savedRecipes(idToken as string).then((recipes) => {
+  //   getSavedRecipes(idToken as string).then((recipes) => {
   //     const isSaved = recipes.some((recipe) => recipe.title === data.strMeal);
   //     setIsLiked(isSaved);
   //   });
@@ -91,6 +91,8 @@ export default function DishCard({ data }: DishCardProps) {
       };
 
       saveRecipe(recipe, idToken as string);
+
+      setSavedRecipes((recipes) => [...recipes, recipe]);
     }
   };
 
@@ -120,8 +122,14 @@ export default function DishCard({ data }: DishCardProps) {
         to={`/recipe?id=${data.idMeal}`}
         // to={`/`}
         style={{ textDecoration: "none" }}
-        onClick={(e) => window.scrollTo({ top: 0 })}>
-        <Card>
+        onClick={() => window.scrollTo({ top: 0 })}>
+        <Card
+          sx={{
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}>
           <CardActionArea>
             <CardMedia
               loading="lazy"
@@ -139,7 +147,13 @@ export default function DishCard({ data }: DishCardProps) {
             <CardContent>
               <Stack
                 direction="column"
-                gap={2}>
+                gap={2}
+                sx={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}>
                 <Box
                   display="flex"
                   justifyContent="space-between"

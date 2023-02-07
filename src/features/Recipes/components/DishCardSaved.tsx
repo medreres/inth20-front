@@ -62,7 +62,13 @@ export default function DishCardSaved({ data }: DishCardProps) {
       to={`/recipe?id=${data.id}`}
       style={{ textDecoration: "none" }}
       onClick={(e) => window.scrollTo({ top: 0 })}>
-      <Card>
+      <Card
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}>
         <CardActionArea>
           <CardMedia
             loading="lazy"
@@ -80,7 +86,13 @@ export default function DishCardSaved({ data }: DishCardProps) {
           <CardContent>
             <Stack
               direction="column"
-              gap={2}>
+              gap={2}
+              sx={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}>
               <Box
                 display="flex"
                 justifyContent="space-between"

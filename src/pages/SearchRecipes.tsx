@@ -48,7 +48,7 @@ export default function SearchRecipes() {
     // if recipes.length === 0
     <Grid
       container
-      justifyContent='center'
+      justifyContent="center"
       p={{ xs: "36px 36px", md: "48px 96px" }}>
       <Grid
         item
@@ -62,18 +62,20 @@ export default function SearchRecipes() {
       </Grid>
       <Grid
         container
-        xs={12}
-        gap={{ xs: 4, sm: 6, md: 8 }}
-        my={{ xs: "48px", md: "64px" }}
-        display="flex"
-        flex-direction="row"
-        justifyContent={{ xs: "start" }}
-        flexWrap="wrap">
+        spacing={4}
+        // gap={{xs: 4, sm: 4, md: 8}}
+        my={{ xs: "36px", xl: "64px" }}
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "flex-start",
+        }}>
         {recipes.map((recipe) => (
           <Grid
             item
-            xs={8}
-            sm={3}>
+            xs={12}
+            sm={4}
+            md={3}>
             <DishCard
               key={recipe.idMeal}
               data={recipe}
