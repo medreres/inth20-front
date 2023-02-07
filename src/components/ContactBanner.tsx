@@ -8,21 +8,24 @@ export default function ContactBanner() {
       display="flex"
       justifyContent={{xs: "center", md: "space-between"}}
       alignItems="center"
-      px='6em'
+      px={{xs: "24px", md: "96px"}}
       py={{ xs: 10, md: 15}}
       style={{
         backgroundColor: "#28D681", // secondary light
       }}>
       <Grid item xs={12} md={6} pb={{xs: "48px", md: "0"}}>
       <Typography
-        variant="h2"
-        color="primary">
+          variant="h2" 
+          fontSize={{xs: "24px"}}
+          color="primary"
+        >
         Any questions? Contact us
       </Typography>
       </Grid>
       <Grid item xs={12} md={6}>
       <Typography
         variant="h2"
+        fontSize={{xs: "24px"}}
         color="primary">
         infridge@gmail.com
       </Typography>
