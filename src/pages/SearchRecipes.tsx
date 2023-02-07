@@ -55,16 +55,18 @@ export default function SearchRecipes() {
           fullWidth
         />
       </Grid>
-      <Grid item 
-        xs={12}
-        gap={{xs: 4, sm: 6, md: 8}}
-        my={{xs: "48px", md: "64px"}}
-        display="flex"
-        flex-direction="row"
-        justifyContent={{xs: "start"}}
-        flexWrap="wrap">
+      <Grid container 
+        spacing={4}
+        // gap={{xs: 4, sm: 4, md: 8}}
+        my={{xs: "36px", xl: "64px"}}
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "flex-start"
+        }}   
+      >
         {recipes.map((recipe) => (
-          <Grid item xs={8} sm={3}>
+          <Grid item xs={12} sm={4} md={3}>
             <DishCard
               key={recipe.idMeal}
               data={recipe}

@@ -78,7 +78,7 @@ const ShoppingList = () => {
           Shopping List
         </Typography>
         <Grid item md={6} mb="16px">
-        <TextField label="Enter ingredient" variant="outlined" value={ingredient} onChange={e => setIngredient(e.target.value)} fullWidth color="secondary" InputProps={{
+        <TextField label="Enter ingredient" value={ingredient} onChange={e => setIngredient(e.target.value)} fullWidth variant="outlined" color="secondary" InputProps={{
             endAdornment: (
               <InputAdornment position="end">
                 <SearchIcon />

@@ -1,8 +1,8 @@
 import { FavoriteBorder, FavoriteRounded } from "@mui/icons-material";
-import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material";
+import { Card, CardActionArea, CardContent, CardMedia, Typography, Link } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+// import { Link, useSearchParams } from "react-router-dom";
 import { useAuthContext } from "../../Auth/context/auth-context";
 import removeRecipe from "../api/removeRecipe";
 import savedRecipes from "../api/savedRecipes";
@@ -30,16 +30,16 @@ export default function DishCard({ data }: DishCardProps) {
 
   const { idToken } = useAuthContext();
 
-  // fetch all saved recipes and check if it is saved
-  // useEffect(() => {
-  //   if (idToken == null) setIsLiked(false);
+  fetch all saved recipes and check if it is saved
+  useEffect(() => {
+    if (idToken == null) setIsLiked(false);
 
-  //   // TODO handle not logged case
-  //   savedRecipes(idToken as string).then((recipes) => {
-  //     const isSaved = recipes.some((recipe) => recipe.title === data.strMeal);
-  //     setIsLiked(isSaved);
-  //   });
-  // }, [data.strMeal, idToken]);
+    // TODO handle not logged case
+    savedRecipes(idToken as string).then((recipes) => {
+      const isSaved = recipes.some((recipe) => recipe.title === data.strMeal);
+      setIsLiked(isSaved);
+    });
+  }, [data.strMeal, idToken]);
 
   const toggleLiked = () => setIsLiked((prevState) => !prevState);
   const clickHandler = (e: any) => {
@@ -77,10 +77,17 @@ export default function DishCard({ data }: DishCardProps) {
   return (
     <Link
       // TODO meaningful dishcards
-      to={`/recipe?id=${data.idMeal}`}
+      href={`/recipe?id=${data.idMeal}`}
       style={{ textDecoration: "none" }}
       onClick={(e) => window.scrollTo({ top: 0 })}>
-      <Card>
+      <Card            
+        sx={{
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
+        >
         <CardActionArea>
           <CardMedia
             loading="lazy"
@@ -98,7 +105,14 @@ export default function DishCard({ data }: DishCardProps) {
           <CardContent>
             <Stack
               direction="column"
-              gap={2}>
+              gap={2}
+              sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+              >
               <Box
                 display="flex"
                 justifyContent="space-between"
@@ -124,8 +138,8 @@ export default function DishCard({ data }: DishCardProps) {
               <Box
                 display="flex"
                 justifyContent="space-between"
-                pt={1}>
-                {/* <Typography variant="body1">30 min</Typography> */}
+                pt={1}
+              >
                 <Typography variant="body1">{formattedIngredients.length} ingredients</Typography>
                 <Typography variant="body1">{assessComplexity(formattedIngredients)}</Typography>
               </Box>

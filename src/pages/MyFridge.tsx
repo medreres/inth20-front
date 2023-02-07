@@ -73,7 +73,7 @@ const MyFridge = () => {
   }, [myFridge]);
 
   return (
-    <Grid container p={{xs:"36px 36px", md:"48px 96px"}} direction="column">
+    <Grid container p={{xs:"36px 36px", sm: "48px 48px", md:"48px 96px"}} direction="column">
       <Grid item xs={12}>
       <Typography variant="h1" mb="48px">
         My Fridge 

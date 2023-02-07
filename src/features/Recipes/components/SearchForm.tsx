@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import {
   Box,
   FormControl,
+  Grid,
   InputLabel,
   MenuItem,
   Select,
@@ -17,31 +18,37 @@ import searchRecipe from "../api/searchRecipe";
 
 export default function SearchForm({ dishName, handleDishNameChange, handleDifficultyChange }: any) {
   return (
-    <Box>
-      <Typography
-        gutterBottom={true}
-        variant="body1"
-        fontWeight="bold">
-        Search results for
-      </Typography>
-      <Box
+    <Grid container>
+      <Grid item xs={12} pb="16px">
+        <Typography
+          gutterBottom={true}
+          variant="body1"
+          fontWeight="bold">
+          Search results for
+        </Typography>
+        </Grid>
+      <Grid item xs={12} sm={6} md={5}
         display="flex"
-        maxWidth="30em">
+        mb={{xs: "24px", sm: "0"}}
+      >
         <TextField
           onChange={handleDishNameChange}
           value={dishName}
+          fullWidth
           sx={{
-            width: "90em",
             marginRight: "1em",
           }}
           label="Dish Name"
           color="secondary"
           variant="outlined"
         />
+      </Grid>
+      <Grid item xs={6} sm={3} md={2}>
         <FormControl fullWidth>
           <InputLabel
             color="secondary"
-            id="difficulty">
+            id="difficulty"
+          >
             Difficulty
           </InputLabel>
           <Select
@@ -57,7 +64,7 @@ export default function SearchForm({ dishName, handleDishNameChange, handleDiffi
             <MenuItem value="hard">Hard</MenuItem>
           </Select>
         </FormControl>
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 }
