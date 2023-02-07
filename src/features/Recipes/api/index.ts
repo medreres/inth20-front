@@ -4,6 +4,8 @@ export { default as searchRecipe } from "./recipes/searchRecipe";
 export { default as saveRecipe } from "./recipes/saveRecipe";
 export { default as removeRecipe } from "./recipes/removeRecipe";
 export { default as savedRecipes } from "./recipes/savedRecipes";
+export { default as searchById } from "./recipes/searchById";
+export { default as searchRecipeByIngredients } from "./recipes/searchRecipeByIngredients";
 
 export { default as randomRecipe } from "./recipes/randomRecipe";
 export { default as latestRecipe } from "./recipes/latestRecipe";

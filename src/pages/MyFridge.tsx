@@ -27,6 +27,7 @@ import { useAuthContext } from "../features/Auth/context/auth-context";
 import SignIn from "../components/SignIn";
 import IngredientForm from "../features/Recipes/components/IngredientForm";
 import categoriesListed from "../features/Recipes/data/categories.json";
+import { useNavigate } from "react-router-dom";
 
 interface MyFridgeItem {
   ingredient: string;
@@ -38,6 +39,7 @@ const MyFridge = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
+  const navigate = useNavigate();
 
   const { ingredients, categories, setIngredients, isLoading } = useRecipeContext();
   const { idToken } = useAuthContext();
@@ -74,6 +76,13 @@ const MyFridge = () => {
     setIngredients((ingredients) => ingredients.filter((ingredient) => ingredient.id !== id));
   };
 
+  const findFridgeBased = () => {
+    const ingredientsFormatted = ingredients
+      .map((ingredient) => ingredient.title.toLowerCase().split(" ").join("_"))
+      .join(",");
+    navigate("/fridge-based?ingredients=" + ingredientsFormatted);
+  };
+
   if (!idToken) return <SignIn />;
 
   return (
@@ -84,10 +93,11 @@ const MyFridge = () => {
       <Grid
         item
         xs={12}>
+        <Typography mb="10px" variant="h1">My Fridge</Typography>
         <Typography
-          variant="h1"
-          mb="48px">
-          My Fridge
+          mb="48px"
+          variant="body1">
+          write ingredients only in singular
         </Typography>
         <IngredientForm
           title={title}
@@ -150,7 +160,11 @@ const MyFridge = () => {
                     onChange={(e) => setFilterBy(e.target.value)}>
                     <MenuItem value="all">All</MenuItem>
                     {categories.map((category) => (
-                      <MenuItem value={category}>{category}</MenuItem>
+                      <MenuItem
+                        key={category}
+                        value={category}>
+                        {category}
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
@@ -163,54 +177,56 @@ const MyFridge = () => {
                           (ingredient) => ingredient.category.title === category
                         );
                         return (
-                          <Box
-                            key={category}
-                            pb={{ xs: "24px", md: "48px" }}>
-                            <List>
-                              <Typography
-                                variant="h2"
-                                mb="16px">
-                                {category}
-                                <span style={{ color: "#28D681", paddingLeft: "8px" }}>
-                                  ({filteredByCategory.length})
-                                </span>
-                              </Typography>
-                              {filteredByCategory.map((ingredient, i) => (
-                                <ListItem key={ingredient.title}>
-                                  <Grid
-                                    item
-                                    xs={12}
-                                    sm={6}
-                                    display="flex"
-                                    flexDirection="row"
-                                    justifyContent="space-between"
-                                    alignItems="center"
-                                    pl={{ xs: "0", sm: "32px" }}>
-                                    <Typography
-                                      sx={{
-                                        fontSize: "24px",
-                                        fontWeight: "500",
-                                      }}>
-                                      {ingredient.title}
-                                    </Typography>
-                                    <Typography
-                                      sx={{
-                                        fontSize: "20px",
-                                        color: "#9E9EB0",
-                                      }}>
-                                      {ingredient.amount}
-                                    </Typography>
-                                    <Button
-                                      // variant="text"
-                                      onClick={() => removeIngredient(ingredient.id as string)}
-                                      sx={{ color: "black" }}>
-                                      <ClearIcon sx={{ fontSize: "20px" }} />
-                                    </Button>
-                                  </Grid>
-                                </ListItem>
-                              ))}
-                            </List>
-                          </Box>
+                          <>
+                            <Box
+                              key={category}
+                              pb={{ xs: "24px", md: "48px" }}>
+                              <List>
+                                <Typography
+                                  variant="h2"
+                                  mb="16px">
+                                  {category}
+                                  <span style={{ color: "#28D681", paddingLeft: "8px" }}>
+                                    ({filteredByCategory.length})
+                                  </span>
+                                </Typography>
+                                {filteredByCategory.map((ingredient, i) => (
+                                  <ListItem key={ingredient.id}>
+                                    <Grid
+                                      item
+                                      xs={12}
+                                      sm={6}
+                                      display="flex"
+                                      flexDirection="row"
+                                      justifyContent="space-between"
+                                      alignItems="center"
+                                      pl={{ xs: "0", sm: "32px" }}>
+                                      <Typography
+                                        sx={{
+                                          fontSize: "24px",
+                                          fontWeight: "500",
+                                        }}>
+                                        {ingredient.title}
+                                      </Typography>
+                                      <Typography
+                                        sx={{
+                                          fontSize: "20px",
+                                          color: "#9E9EB0",
+                                        }}>
+                                        {ingredient.amount}
+                                      </Typography>
+                                      <Button
+                                        // variant="text"
+                                        onClick={() => removeIngredient(ingredient.id as string)}
+                                        sx={{ color: "black" }}>
+                                        <ClearIcon sx={{ fontSize: "20px" }} />
+                                      </Button>
+                                    </Grid>
+                                  </ListItem>
+                                ))}
+                              </List>
+                            </Box>
+                          </>
                         );
                       })}
                     </>
@@ -227,7 +243,7 @@ const MyFridge = () => {
                             <span style={{ color: "#28D681", paddingLeft: "8px" }}>({ingredientsFiltered.length})</span>
                           </Typography>
                           {ingredientsFiltered.map((ingredient, i) => (
-                            <ListItem key={ingredient.title}>
+                            <ListItem key={ingredient.id}>
                               <Grid
                                 item
                                 xs={12}
@@ -264,6 +280,27 @@ const MyFridge = () => {
                       </Box>
                     </>
                   )}
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}>
+                    <Button
+                      onClick={findFridgeBased}
+                      // href="/fridge-based"
+                      fullWidth
+                      style={{
+                        backgroundColor: "#28D681",
+                        color: "#fff",
+                        padding: "20px auto",
+                        textTransform: "capitalize",
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        borderRadius: "8px",
+                      }}>
+                      Find Fridge-Based Recipes
+                    </Button>
+                  </Grid>
                 </Grid>
               </>
             )}
