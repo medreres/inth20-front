@@ -1,4 +1,4 @@
-import { FavoriteRounded, FavoriteBorder } from "@mui/icons-material";
+import { FavoriteRounded, FavoriteBorder, ShoppingCart } from "@mui/icons-material";
 import {
   Grid,
   Box,
@@ -33,19 +33,24 @@ export default function DishInfo({ setIsLoading, isLoading }: DishInfoProps) {
   const [searchParams] = useSearchParams();
   const formattedIngredients = formatIngredients(recipe);
   const { idToken } = useAuthContext();
-  const [isLiked, setIsLiked] = useState(false);
+  const { savedRecipes, ingredients, setIngredients } = useRecipeContext();
+  const [isLiked, setIsLiked] = useState<boolean>(false);
   const toggleLiked = () => setIsLiked((prevState) => !prevState);
-  const { savedRecipes } = useRecipeContext();
   const [showPopup, setShowPopup] = useState(false);
   const togglePopup = () => setShowPopup((prevState) => !prevState);
+  const [isProcessing, setIsProcessing] = useState(true);
+
+  const addAllIngredients = () => {};
 
   // get recipe data
   useEffect(() => {
     axios.get(`https://themealdb.com/api/json/v1/1/lookup.php?i=${searchParams.get("id")}`).then(({ data }) => {
       setRecipe(data.meals[0]);
       setIsLoading(false);
+      setIsLiked(savedRecipes.some((recipeListed) => data.meals[0].strMeal === recipeListed.title));
+      setIsProcessing(false);
     });
-  }, [searchParams, setIsLoading]);
+  }, [savedRecipes, searchParams, setIsLoading]);
 
   const clickHandler = (e: any) => {
     if (!recipe) return;
@@ -56,11 +61,12 @@ export default function DishInfo({ setIsLoading, isLoading }: DishInfoProps) {
 
     // toggle state
     toggleLiked();
+    setIsProcessing(true);
 
     // send request to database
     if (isLiked) {
       removeRecipe(recipe.idMeal as string, idToken as string).then((response) => {
-        console.log("removed");
+        setIsProcessing(false);
       });
     } else {
       const ingredients = formatIngredients(recipe);
@@ -75,17 +81,17 @@ export default function DishInfo({ setIsLoading, isLoading }: DishInfoProps) {
         youtube_url: recipe.strYoutube,
       };
 
-      saveRecipe(recipeToSave, idToken as string);
+      saveRecipe(recipeToSave, idToken as string).then(() => setIsProcessing(false));
     }
   };
 
   // check if liked
-  useEffect(() => {
-    if (recipe == null) return;
-    if (savedRecipes.length === 0) setIsLiked(false);
+  // useEffect(() => {
+  //   if (recipe == null) return;
 
-    setIsLiked(savedRecipes.some((recipeListed) => recipe.strMeal === recipeListed.title));
-  }, [recipe, savedRecipes]);
+  //   // setIsLiked();
+  //   setIsProcessing(false);
+  // }, [recipe, savedRecipes]);
   return (
     <>
       {isLoading && (
@@ -108,6 +114,7 @@ export default function DishInfo({ setIsLoading, isLoading }: DishInfoProps) {
             mt="48px"
             columnSpacing="64px">
             <Grid
+              alignSelf="flex-start"
               item
               xs={12}
               md={6}
@@ -140,22 +147,36 @@ export default function DishInfo({ setIsLoading, isLoading }: DishInfoProps) {
                   fontWeight="700">
                   {recipe?.strMeal}
                 </Typography>
-                <div onClick={idToken ? clickHandler : togglePopup}>
-                  {isLiked ? (
-                    <FavoriteRounded
-                      sx={{
+                <Button
+                  disabled={isProcessing}
+                  color="secondary"
+                  onClick={idToken ? clickHandler : togglePopup}>
+                  {isProcessing && (
+                    <CircularProgress
+                      style={{
                         color: "#28D681",
-                        fontSize: "32px",
-                      }}
-                    />
-                  ) : (
-                    <FavoriteBorder
-                      sx={{
-                        fontSize: "32px",
                       }}
                     />
                   )}
-                </div>
+                  {!isProcessing && (
+                    <>
+                      {isLiked ? (
+                        <FavoriteRounded
+                          sx={{
+                            color: "#28D681",
+                            fontSize: "32px",
+                          }}
+                        />
+                      ) : (
+                        <FavoriteBorder
+                          sx={{
+                            fontSize: "32px",
+                          }}
+                        />
+                      )}
+                    </>
+                  )}
+                </Button>
               </Box>
               <Box
                 display="flex"
@@ -183,7 +204,10 @@ export default function DishInfo({ setIsLoading, isLoading }: DishInfoProps) {
                     fontWeight: "700",
                     fontSize: "24px",
                   }}>
-                  <Button>
+                  {/* <Button
+                    variant="outlined"
+                    color="secondary"
+                    onClick={addAllIngredients}>
                     <AddShoppingCartIcon
                       sx={{
                         color: "black",
@@ -191,9 +215,9 @@ export default function DishInfo({ setIsLoading, isLoading }: DishInfoProps) {
                       }}
                     />
                     <Typography>Add All to Shopping List</Typography>
-                  </Button>
+                  </Button> */}
                 </Box>
-                <List
+                <Grid
                   sx={{
                     width: "100%",
                     maxWidth: 360,
@@ -202,40 +226,46 @@ export default function DishInfo({ setIsLoading, isLoading }: DishInfoProps) {
                   }}>
                   {formatIngredients(recipe ?? null)
                     // TODO fix
-                    .slice(0, 5)
+                    // .slice(0, 5)
                     .map(({ amount, title }, index) => {
                       const labelId = `checkbox-list-label-${title}`;
                       return (
-                        <FormControlLabel
-                          key={title + amount}
-                          control={
-                            <ListItem disablePadding>
-                              <ListItemButton
-                                role={undefined}
-                                // onClick={handleToggle(value)}
-                                dense>
-                                <ListItemIcon>
-                                  <Checkbox
-                                    edge="start"
-                                    // checked={added.indexOf(value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    color="success"
-                                    inputProps={{ "aria-labelledby": title }}
+                        <Grid>
+                          <FormControlLabel
+                            key={title + amount}
+                            control={
+                              <ListItem disablePadding>
+                                <ListItemButton
+                                  role={undefined}
+                                  // onClick={handleToggle(value)}
+                                  dense>
+                                  <ListItemIcon>
+                                    <Checkbox
+                                      edge="start"
+                                      checked={ingredients.some((ingredient) => ingredient.title === title)}
+                                      tabIndex={-1}
+                                      disableRipple
+                                      color="success"
+                                      inputProps={{ "aria-labelledby": title }}
+                                    />
+                                  </ListItemIcon>
+                                  <ListItemText
+                                    id={labelId}
+                                    primary={
+                                      // <span>
+                                      `${title}  ${amount}`
+                                      // </span>
+                                    }
                                   />
-                                </ListItemIcon>
-                                <ListItemText
-                                  id={labelId}
-                                  primary={`${title}  ${amount}`}
-                                />
-                              </ListItemButton>
-                            </ListItem>
-                          }
-                          label=""
-                        />
+                                </ListItemButton>
+                              </ListItem>
+                            }
+                            label=""
+                          />
+                        </Grid>
                       );
                     })}
-                </List>
+                </Grid>
               </Box>
             </Grid>
           </Grid>

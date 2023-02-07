@@ -47,7 +47,7 @@ export default function IngredientForm({
     e.preventDefault();
     let err = false;
 
-    if (!ingredientTouched) {
+    if (!ingredientTouched || title.length < 2) {
       setIngredientError(true);
       err = true;
     }
@@ -56,7 +56,7 @@ export default function IngredientForm({
       err = true;
     }
 
-    if (!amountTouched) {
+    if (!amountTouched || amount.length < 1) {
       setAmountError(true);
       err = true;
     }
