@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   Checkbox,
+  FormControlLabel,
   Grid,
   IconButton,
   Link,
@@ -65,6 +66,7 @@ const RecipePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const formattedIngredients = formatIngredients(recipe);
 
+  // get recipe data
   useEffect(() => {
     axios.get(`https://themealdb.com/api/json/v1/1/lookup.php?i=${searchParams.get("id")}`).then(({ data }) => {
       setRecipe(data.meals[0]);
@@ -84,7 +86,7 @@ const RecipePage = () => {
     // send request to database
     if (isLiked) {
       removeRecipe(recipe.idMeal as string, idToken as string).then((response) => {
-        console.log('removed')
+        console.log("removed");
       });
     } else {
       const ingredients = formatIngredients(recipe);
@@ -135,183 +137,194 @@ const RecipePage = () => {
   };
 
   return (
-    <div>
+    // <div>
+    <Grid
+      container
+      padding={{ xs: "10px 24px", md: "14px 96px" }}>
+      <Grid
+        item
+        xs={12}
+        sx={{
+          color: "black",
+          fontWeight: "700",
+          fontSize: "24px",
+          lineHeight: "33px",
+          display: "flex",
+          alignItems: "center",
+          mt: "24px",
+        }}>
+        {/* TODO fix back button */}
+        <Button
+          // href="/browse-recipes"
+          color="inherit"
+          // underline="none"
+          style={{ cursor: "pointer", fontWeight: "700", textTransform: "capitalize", padding: "0" }}>
+          <ArrowBackIcon
+            sx={{
+              mr: { xs: "16px", md: "32px" },
+            }}
+          />
+          Browse Recipes
+        </Button>
+      </Grid>
       <Grid
         container
-        padding={{ xs: "10px 24px", md: "14px 96px" }}>
+        justifyContent="space-between"
+        alignItems="center"
+        mt="48px"
+        columnSpacing="64px">
         <Grid
           item
           xs={12}
-          sx={{
-            color: "black",
-            fontWeight: "700",
-            fontSize: "24px" ,
-            lineHeight: "33px",
-            display: "flex",
-            alignItems: "center",
-            mt: "24px"
-          }}>
-          <Button
-            href="/browse-recipes"
-            color="inherit"
-            // underline="none"
-            style={{ cursor: 'pointer', fontWeight: "700", textTransform: "capitalize", padding: "0" }}
-            >
-            <ArrowBackIcon
-              sx={{
-                mr: {xs: "16px", md: "32px"},
-              }}
-            />
-            Browse Recipes
-          </Button>
+          md={6}
+          mb={{ xs: "48px", md: "0" }}>
+          <Image
+            src={
+              recipe?.strMealThumb ??
+              "https://www.yanaya.co.zw/wp-content/uploads/2020/08/79-798754_hoteles-y-centros-vacacionales-dish-placeholder-hd-png.jpg"
+            }
+            alt="meal"
+            style={{
+              borderRadius: "16px",
+              // padding: "0 10px",
+              // objectFit: "contain",
+              maxHeight: "60vh",
+            }}
+          />
         </Grid>
         <Grid
-          container
-          justifyContent="space-between"
-          alignItems="center"
-          mt="48px"
-          columnSpacing="64px">
-          <Grid
-            item
-            xs={12}
-            md={6}
-            mb={{ xs: "48px", md: "0" }}>
-            <Image
-              src={
-                recipe?.strMealThumb ??
-                "https://www.yanaya.co.zw/wp-content/uploads/2020/08/79-798754_hoteles-y-centros-vacacionales-dish-placeholder-hd-png.jpg"
-              }
-              alt="meal image"
-              style={{
-                borderRadius: "16px",
-                padding: "0 10px",
-                objectFit: "contain",
-                maxHeight: "60vh"
-              }}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            md={6}>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
+          item
+          xs={12}
+          md={6}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            pb="24px">
+            <Typography
+              variant="h1"
+              fontWeight="700">
+              {recipe?.strMeal}
+            </Typography>
+            <div onClick={clickHandler}>
+              {isLiked ? (
+                <FavoriteRounded
+                  sx={{
+                    color: "#28D681",
+                    fontSize: "32px",
+                  }}
+                />
+              ) : (
+                <FavoriteBorder
+                  sx={{
+                    fontSize: "32px",
+                  }}
+                />
+              )}
+            </div>
+          </Box>
+          <Box
+            display="flex"
+            justifyContent={{ xs: "space-between", md: "flex-start" }}
+            gap={{ md: "64px" }}
+            pb="24px">
+            {/* <Typography variant="body1">30 min</Typography> */}
+            <Typography variant="caption">{formattedIngredients.length} ingredients</Typography>
+            <Typography variant="caption">{assessComplexity(formattedIngredients)}</Typography>
+          </Box>
+          <Box
+            display="flex"
+            flexDirection="column">
+            <Typography
+              variant="h4"
               pb="24px">
-              <Typography variant="h1" fontWeight="700" >{recipe?.strMeal}</Typography>
-              <div onClick={clickHandler}>
-                {isLiked ? (
-                  <FavoriteRounded
-                    sx={{
-                      color: "#28D681",
-                      fontSize: "32px",
-                    }}
-                  />
-                ) : (
-                  <FavoriteBorder
-                    sx={{
-                      fontSize: "32px",
-                    }}
-                  />
-                )}
-              </div>
-            </Box>
+              Ingredients
+            </Typography>
             <Box
-              display="flex"
-              justifyContent={{ xs: "space-between", md: "flex-start" }}
-              gap={{ md: "64px" }}
-              pb="24px">
-              {/* <Typography variant="body1">30 min</Typography> */}
-              <Typography variant="caption">{formattedIngredients.length} ingredients</Typography>
-              <Typography variant="caption">{assessComplexity(formattedIngredients)}</Typography>
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                pb: "24px",
+                fontWeight: "700",
+                fontSize: "24px",
+              }}>
+              <Button>
+                <AddShoppingCartIcon
+                  sx={{
+                    color: "black",
+                    mr: "20px",
+                  }}
+                />
+                <Typography>Add All to Shopping List</Typography>
+              </Button>
             </Box>
-            <Box
-              display="flex"
-              flexDirection="column">
-              <Typography
-                variant="h4"
-                pb="24px">
-                Ingredients
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  pb: "24px",
-                  fontWeight: "700",
-                  fontSize: "24px",
-                }}>
-                <Button>
-                  <AddShoppingCartIcon
-                    sx={{
-                      color: "black",
-                      mr: "20px",
-                    }}
-                  />
-                  <Typography>Add All to Shopping List</Typography>
-                </Button>
-              </Box>
-              <List
-                sx={{
-                  width: "100%",
-                  maxWidth: 360,
-                  bgcolor: "background.paper",
-                  py: "0"
-                }}>
-                {formatIngredients(recipe ?? null).map(({ amount, title }, index) => {
+            <List
+              sx={{
+                width: "100%",
+                maxWidth: 360,
+                bgcolor: "background.paper",
+                py: "0",
+              }}>
+              {formatIngredients(recipe ?? null)
+                // TODO fix
+                .slice(0, 5)
+                .map(({ amount, title }, index) => {
                   const labelId = `checkbox-list-label-${title}`;
                   return (
-                    <ListItem
+                    <FormControlLabel
                       key={title}
-                      disablePadding>
-                      <ListItemButton
-                        role={undefined}
-                        // onClick={handleToggle(value)}
-                        dense>
-                        <ListItemIcon>
-                          <Checkbox
-                            edge="start"
-                            // checked={added.indexOf(value) !== -1}
-                            tabIndex={-1}
-                            disableRipple
-                            color="success"
-                            inputProps={{ "aria-labelledby": title }}
-                          />
-                        </ListItemIcon>
-                        <ListItemText
-                          id={labelId}
-                          primary={`${title}  ${amount}`}
-                        />
-                      </ListItemButton>
-                    </ListItem>
+                      control={
+                        <ListItem disablePadding>
+                          <ListItemButton
+                            role={undefined}
+                            // onClick={handleToggle(value)}
+                            dense>
+                            <ListItemIcon>
+                              <Checkbox
+                                edge="start"
+                                // checked={added.indexOf(value) !== -1}
+                                tabIndex={-1}
+                                disableRipple
+                                color="success"
+                                inputProps={{ "aria-labelledby": title }}
+                              />
+                            </ListItemIcon>
+                            <ListItemText
+                              id={labelId}
+                              primary={`${title}  ${amount}`}
+                            />
+                          </ListItemButton>
+                        </ListItem>
+                      }
+                      label=""
+                    />
                   );
                 })}
-              </List>
-            </Box>
-          </Grid>
+            </List>
+          </Box>
         </Grid>
-        <Box maxWidth={{ xs: "100%", md: "60%" }}>
-          <Typography
-            variant="h4"
-            my="24px">
-            Directions
-          </Typography>
-          <Typography pb={{ xs: "48px", md: "96px" }}>{recipe?.strInstructions ?? "loading"}</Typography>
-          <Typography
-            sx={{
-              fontWeight: "700",
-              fontSize: "32px",
-              lineHeight: "44px",
-              color: "#28D681",
-              mb: "96px",
-            }}>
-            Bon appetit!
-          </Typography>
-        </Box>
       </Grid>
-    </div>
+      <Box maxWidth={{ xs: "100%", md: "60%" }}>
+        <Typography
+          variant="h4"
+          my="24px">
+          Directions
+        </Typography>
+        <Typography pb={{ xs: "48px", md: "96px" }}>{recipe?.strInstructions ?? "loading"}</Typography>
+        <Typography
+          sx={{
+            fontWeight: "700",
+            fontSize: "32px",
+            lineHeight: "44px",
+            color: "#28D681",
+            mb: "96px",
+          }}>
+          Bon appetit!
+        </Typography>
+      </Box>
+    </Grid>
+    // </div>
   );
 };
 

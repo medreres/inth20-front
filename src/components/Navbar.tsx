@@ -39,28 +39,33 @@ function ResponsiveAppBar() {
       sx={{ px: { md: "96px" } }}>
       <Container maxWidth="xl">
         <Toolbar>
-          <Link
+          <Button
+            color="secondary"
             sx={{
-              textDecoration: "none",
-            }}
-            component={RouterLink}
-            to="/">
-            <Typography
-              variant="h6"
-              color="secondary"
-              noWrap
-              component="a"
-              // href="/"
+              textTransform: "none",
+            }}>
+            <Link
               sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-                fontWeight: 800,
-                fontSize: "32px",
-                // textDecoration: "none",
-              }}>
-              InFridge.
-            </Typography>
-          </Link>
+                textDecoration: "none",
+              }}
+              component={RouterLink}
+              to="/">
+              <Typography
+                variant="h6"
+                color="secondary"
+                noWrap
+                // component="a"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontWeight: 800,
+                  fontSize: "32px",
+                  // textDecoration: "none",
+                }}>
+                InFridge.
+              </Typography>
+            </Link>
+          </Button>
           <Box sx={{ flexGrow: 0.2, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -94,20 +99,38 @@ function ResponsiveAppBar() {
                 <MenuItem
                   key={page.name}
                   onClick={handleCloseNavMenu}
-                  color="primary">
-                  <Link
+                  color="primary"
+                  sx={{
+                    textDecoration: "none",
+                  }}>
+                  {/* <Link
+                    width="100%"
                     component={RouterLink}
                     to={page.path}
                     // to={page.path}
                     // href={page.path}
-                  >
+                  > */}
+                  {/* <Button
+                    fullWidth
+                    sx={{
+                      display: "flex",
+                      justifyContent: "flex-start",
+                    }}> */}
+                  <RouterLink
+                    to={page.path}
+                    style={{
+                      width: "100%",
+                      textDecoration: "none",
+                    }}>
                     <Typography
                       textAlign="center"
                       fontWeight="500"
                       textTransform="none">
                       {page.name}
                     </Typography>
-                  </Link>
+                  </RouterLink>
+                  {/* </Button> */}
+                  {/* </Link> */}
                 </MenuItem>
               ))}
             </Menu>
@@ -115,7 +138,8 @@ function ResponsiveAppBar() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
+            component={RouterLink}
+            to={"/"}
             // href="/"
             color="secondary"
             // color="white"
@@ -131,14 +155,10 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "center" }}>
             {pages.map((page) => (
-              <Link
-                // LinkComponent={<RouterLink to={page.path} />}
+              <Button
+                color="secondary"
                 component={RouterLink}
                 to={page.path}
-                key={page.name}
-                onClick={handleCloseNavMenu}
-                color="secondary"
-                // to={page.path}
                 sx={{
                   my: 2,
                   textDecoration: "none",
@@ -146,8 +166,24 @@ function ResponsiveAppBar() {
                   textTransform: "none",
                   margin: "0 32px",
                 }}>
+                {/* <Link
+                  // LinkComponent={<RouterLink to={page.path} />}
+                  component={RouterLink}
+                  to={page.path}
+                  key={page.name}
+                  onClick={handleCloseNavMenu}
+                  color="secondary"
+                  // to={page.path}
+                  sx={{
+                    my: 2,
+                    textDecoration: "none",
+                    display: "block",
+                    textTransform: "none",
+                    margin: "0 32px",
+                  }}> */}
                 {page.name}
-              </Link>
+                {/* </Link> */}
+              </Button>
             ))}
           </Box>
           <GoogleAuth />

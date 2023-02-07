@@ -10,7 +10,8 @@ export default function SavedRecipes() {
   return (
     <Grid
       container
-      p={{ xs: "36px 36px", md: "48px 96px" }}>
+      p={{ xs: "36px 36px", md: "48px 96px" }}
+      >
       <Grid
         item
         xs={12}
@@ -18,7 +19,8 @@ export default function SavedRecipes() {
         my={{ xs: "48px", md: "64px" }}
         display="flex"
         flex-direction="row"
-        justifyContent={{ xs: "space-between" }}
+        // minWidth='50vw'
+        justifyContent={{ xs: "stretch" }}
         flexWrap="wrap">
         {savedRecipes.map((recipe) => (
           <Grid
