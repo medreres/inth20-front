@@ -156,6 +156,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "center" }}>
             {pages.map((page) => (
               <Button
+                key={page.name}
                 color="secondary"
                 component={RouterLink}
                 to={page.path}
