@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import MyFridge from "./pages/MyFridge";
 import SavedRecipes from "./pages/SavedRecipes";
+import FridgeBased from "./pages/FridgeBased";
 
 export default function App() {
   // scheduler to make server stay put
@@ -69,6 +70,12 @@ export default function App() {
         <Route
           path="/saved"
           element={<SavedRecipes />}
+        />
+
+        {/* Fridge Based */}
+        <Route
+          path="/fridge-based"
+          element={<FridgeBased />}
         />
       </Routes>
 

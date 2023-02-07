@@ -150,6 +150,7 @@ export default function IngredientForm({
         mb="16px">
         <FormControl>
           <TextField
+            autoComplete="off"
             error={amountError}
             helperText={amountError && "Set amount"}
             label="Enter amount"
