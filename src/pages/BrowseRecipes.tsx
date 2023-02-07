@@ -14,75 +14,12 @@ export default function Recipes() {
       <Grid item mb={{xs: "48px",  md: "96px"}}>
         <FindRecipes />
       </Grid>
-
-      {/* <Stack
-        direction="column"
-        my={5}>
-        <Typography variant="h1">Best Recipes of The Day</Typography>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          // gap={3}
-          my={5}
-          flexWrap="wrap"
-          // m={3}
-        >
-          {arr.map((i) => (
-            <DishCard
-              // TODO fix temp placeholder
-              key={i}
-              data={{} as any}
-            />
-          ))}
-        </Box>
-        <Link
-          to={"/browse-recipes"}
-          style={{ textDecoration: "none", alignSelf: "center", marginBottom: "3em" }}>
-          <Button
-            // alignSelf="center"
-            variant="outlined"
-            color="secondary">
-            See More
-          </Button>
-        </Link>
-      </Stack> */}
       <Grid item>
         <BestRecipes />
       </Grid>
       <Grid item>
         <LatestRecipes />
       </Grid>
-      {/* <Stack
-        direction="column"
-        my={5}>
-        <Typography variant="h1">Latest Recipes</Typography>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          // gap={3}
-          my={5}
-          flexWrap="wrap"
-          // m={3}
-        >
-          {arr.map((i) => (
-            <DishCard
-              // TODO fix
-              data={{} as any}
-              key={i}
-            />
-          ))}
-        </Box>
-        <Link
-          to={"/browse-recipes"}
-          style={{ textDecoration: "none", alignSelf: "center", marginBottom: "3em" }}>
-          <Button
-            // alignSelf="center"
-            variant="outlined"
-            color="secondary">
-            See More
-          </Button>
-        </Link>
-      </Stack> */}
     </Grid>
   );
 }

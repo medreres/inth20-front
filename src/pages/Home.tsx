@@ -7,11 +7,11 @@ import { Box } from "@mui/material";
 export default function Home() {
   return (
     <div>
-    <Box mx={{xs: "2em", md: "6em"}}>
-      <Header />
-      <BestRecipes />
-    </Box>
-    <ContactBanner />
+      <Box px={{xs: "36px", sm: "48px",  md: "96px" }}>
+        <Header />
+        <BestRecipes />
+      </Box>
+        <ContactBanner />
     </div>
   );
 }

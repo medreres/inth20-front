@@ -47,7 +47,15 @@ const LatestRecipes = () => {
         <Button
           // alignSelf="center"
           variant="outlined"
-          color="secondary">
+          color="secondary"
+          sx={{
+            fontSize: "24px",
+            fw: "500",
+            p: "16px 64px",
+            border: "2px solid #171627",
+            borderRadius: "8px"
+          }}
+          >
           See More
         </Button>
       </Link>

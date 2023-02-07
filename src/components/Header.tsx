@@ -8,9 +8,11 @@ const Header = () => {
   return (
     <Grid
       container
+      spacing={6}
       justifyContent="space-between"
       alignItems="center"
-      py="96px">
+      py={{xs:"64px", xl: "96px"}}
+    >
       <Grid
         item
         sm={12}
@@ -23,12 +25,12 @@ const Header = () => {
         sx={{
           pb: { xs: "64px", md: "none" },
           alignItems: { xs: "center", md: "flex-start" },
-          textAlign: { xs: "center", md: "left" }
+          textAlign: { xs: "center", xl: "left" }
         }}
         >
         <Typography
           variant="h2"
-          color="secondary"
+          color="#171627"
           sx={{
             fontWeight: "700",
             fontSize: "48px",
@@ -38,30 +40,33 @@ const Header = () => {
           Welcome to InFridge!
         </Typography>
         <Typography
-          color="secondary"
+          color="#44444E"
           sx={{
             fontSize: "24px",
             lineHeight: "32px",
             fontWeight: "500",
             mb: "32px",
           }}>
-          Lorem ipsum dolor sit amet consectetur. Sit sapien justo ac adipiscing aliquet. Eget sit facilisi sit lorem
-          consequat. Sagittis gravida sed mattis feugiat vitae. Morbi in non faucibus ac bibendum vitae turpis sed.
-          Consequat libero penatibus egestas et vitae.
+          It is an ultimate tool for managing your grocery list, discovering new recipes, and meal planning! With InFridge, you can keep track of what food you have in your fridge, group your ingredients by type, and easily find recipes based on what you have on hand. Get started now!
         </Typography>
         <Button
           onClick={() => navigate("/my-fridge")}
           variant="contained"
-          href="/"
           sx={{
             fontSize: "24px",
             lineHeight: "1.5",
             padding: "16px 64px",
             gap: "10px",
-            border: "2px solid",
+            color: 'white',
             borderRadius: "8px",
             textTransform: "none",
             textAlign: "center",
+            backgroundColor: "#28D681",
+            border: "2px solid #28D681",
+            ':hover': {
+              bgcolor: '#28D681', 
+              color: 'white',
+            },
           }}>
           Create My Fridge
         </Button>
@@ -72,8 +77,8 @@ const Header = () => {
         md={6}
         >
         <Image
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWE2cA4gMLSElnMWVnB25lMSOzGt8TeIwgiA&usqp=CAU"
-          alt="dish"
+          src={require('../assets/header.png')}
+          alt="Meal"
           width="100%"
           style={{
             borderRadius: "10px",

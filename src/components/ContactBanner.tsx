@@ -8,7 +8,7 @@ export default function ContactBanner() {
       display="flex"
       justifyContent={{xs: "center", md: "space-between"}}
       alignItems="center"
-      px={{xs: "24px", md: "96px"}}
+      px={{xs: "36px", sm: "48px",  md: "96px" }}
       py={{ xs: 10, md: 15}}
       style={{
         backgroundColor: "#28D681", // secondary light
